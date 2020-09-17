@@ -1,4 +1,5 @@
 import os
+import re
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
@@ -109,12 +110,65 @@ def main():
                                 #         if 'readonly' not in self.state():
                                 #             self.focus_set()
 
+                                with open('DATA/Scanning/data.txt', 'r') as fh:
+                                    all_lines = fh.readlines()
+                                    for each in all_lines:
+                                        string=str(each)
+                                        
+                                print(string)
+
+                                date_x=''
+
+                                # date_x=re.findall('^17[0-9]{6}',string)
+                                # try:
+                                #     date_x=date_x[0]
+                                # except:
+                                #     date_x=''
+                                # date_x='20'+'-'+date_x[2:4]+'-'+date_x[4:6]+'-'+date_x[6:8]
+                                gstin=re.findall('^01[0-9]{14}',string)
+                                try:
+                                    gstin=gstin[0][2:]
+                                except:
+                                    gstin=''
+                                lot=''
+                                serial=''
+
+                                print(date_x,gstin)
+
+                                strings=string.split("")
+
+                                for string in strings:
+
+                                    print(string)
+
+                                    x1=string.find('17')
+                                    if x1!=-1 and date_x=='':
+                                        date_x=string[x1+2:x1+8]
+                                        date_x='20'+date_x[0:2]+'-'+date_x[2:4]+'-'+date_x[:]
+
+                                    # x2 = string.find('01')
+                                    # if x2!=-1:
+                                    #     gstin = string[x2 + 2:x2 + 16]
+
+                                    x3 = string.find('21')
+                                    if x3!=-1 and serial=='':
+                                        serial = string[x3 + 2:]
+
+                                    x4 = string.find('10')
+                                    if x4 != -1 and lot=='':
+                                        lot = string[x4 + 2:]
+
+                                    print(date_x,gstin,lot,serial)
+
+                                print(date_x, gstin, lot, serial)
 
                                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)",font=("Helvetica", 10), bg='white')
                                 self.lb1.place(x=60, y=50)
 
+
                                 self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
                                 self.txtfld1.place(x=270, y=50,width=260)
+                                #self.txtfld1.setvar(date_x)
 
 
 
@@ -124,12 +178,15 @@ def main():
                                 self.txtfld2 = ttk.Entry(window,
                                                          font=("Helvetica", 10))
                                 self.txtfld2.place(x=270, y=100,width=260)
+                                self.txtfld2.insert(0, lot)
+
 
                                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='white')
                                 self.lb3.place(x=60, y=150)
 
                                 self.txtfld3 = ttk.Entry(window,text="Enter UID", font=("Helvetica", 10))
                                 self.txtfld3.place(x=270, y=150,width=260)
+                                self.txtfld3.insert(0, gstin)
 
                                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='white')
                                 self.lb4.place(x=60, y=200)
@@ -139,12 +196,14 @@ def main():
                                 self.txtfld4.place(x=270, y=200,width=260)
 
 
+
                                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='white')
                                 self.lb5.place(x=60, y=250)
 
                                 self.txtfld5 = ttk.Entry(window,
                                                          font=("Helvetica", 10))
                                 self.txtfld5.place(x=270, y=250,width=260)
+                                self.txtfld5.insert(0, serial)
 
 
 

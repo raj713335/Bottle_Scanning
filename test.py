@@ -1,55 +1,30 @@
-try:
-    import tkinter as tk
-    from tkinter import ttk
-except ImportError:
-    import Tkinter as tk
-    import ttk
-
-from tkcalendar import Calendar, DateEntry
-
-def example1():
-    def print_sel():
-        print(cal.selection_get())
-
-    top = tk.Toplevel(root)
-
-    cal = Calendar(top, font="Arial 14", selectmode='day', locale='en_US',
-                   cursor="hand1", year=2018, month=2, day=5)
-
-    cal.pack(fill="both", expand=True)
-    ttk.Button(top, text="ok", command=print_sel).pack()
+import re
+phoneNumRegex = re.compile(r'10[0-9]{14}')
+mo = phoneNumRegex.search('010035199187790521100000213110DT1902039A17210131')
+print('Phone number found: ' + mo.group())
 
 
-def example2():
+"""
 
-    top = tk.Toplevel(root)
+String has 4 thing all have identifier
 
-    cal = Calendar(top, selectmode='none')
-    date = cal.datetime.today() + cal.timedelta(days=2)
-    cal.calevent_create(date, 'Hello World', 'message')
-    cal.calevent_create(date, 'Reminder 2', 'reminder')
-    cal.calevent_create(date + cal.timedelta(days=-2), 'Reminder 1', 'reminder')
-    cal.calevent_create(date + cal.timedelta(days=3), 'Message', 'message')
-
-    cal.tag_config('reminder', background='red', foreground='yellow')
-
-    cal.pack(fill="both", expand=True)
-    ttk.Label(top, text="Hover over the events.").pack()
+Sample String:
+010035199187790521100000213110DT1902039A17210131
 
 
-def example3():
-    top = tk.Toplevel(root)
+Extracted data:
+GTIN: 00351991877905
+SERIAL: 1000002131
+LOT: DT1902039A
+EXP: 210131
 
-    ttk.Label(top, text='Choose date').pack(padx=10, pady=10)
+Bifurcation:
+01 means GTIN IT WILL ALWAYS 14 DIGIT
 
-    cal = DateEntry(top, width=12, background='darkblue',
-                    foreground='white', borderwidth=2, year=2010)
-    cal.pack(padx=10, pady=10)
+21 means serial number end with fnc(specific hax key)
 
+10 mean LOT end with fnc
 
-root = tk.Tk()
-ttk.Button(root, text='Calendar', command=example1).pack(padx=10, pady=10)
-ttk.Button(root, text='Calendar with events', command=example2).pack(padx=10, pady=10)
-ttk.Button(root, text='DateEntry', command=example3).pack(padx=10, pady=10)
+17 means exp which in all ways YYMMDD FORMAT
 
-root.mainloop()
+"""
