@@ -1,7 +1,10 @@
 import re
-phoneNumRegex = re.compile(r'10[0-9]{14}')
-mo = phoneNumRegex.search('010035199187790521100000213110DT1902039A17210131')
-print('Phone number found: ' + mo.group())
+# phoneNumRegex = re.findall(r'21[0-9]*',string='010035199187790521100000213110DT1902039A17210131')
+phoneNumRegex = re.findall(r'10[0-9A-Z]*',string='010035199187790521100000213110DT1902039A17210131')
+# phoneNumRegex = re.findall(r'17[0-9]*',string='010035199187790521100000213110DT1902039A17210131')
+print(phoneNumRegex)
+# mo = phoneNumRegex.search('010035199187790521100000213110DT1902039A17210131')
+# print('Phone number found: ' + mo.group())
 
 
 """
