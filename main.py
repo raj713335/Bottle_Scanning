@@ -254,7 +254,7 @@ def main():
 
                                         print("Hola")
 
-                                        # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+                                        # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
                                         pass
 
 
