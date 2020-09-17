@@ -1,6 +1,8 @@
 import os
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkinter import messagebox
+from tkcalendar import Calendar,DateEntry
 from datetime import date, datetime
 from threading import Thread
 import time
@@ -46,34 +48,179 @@ def main():
 
             def __init__(self, window):
 
+                self.UID = []
+                self.PWD = []
+
+
+                with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                    all_lines = fh.readlines()
+                    for each in all_lines:
+                        x,y=list(map(str,each.split(",")))
+                        print(x,y)
+                        x=str(x).replace("\n","")
+                        y = str(y).replace("\n", "")
+                        self.UID.append(x)
+                        self.PWD.append(y)
+
+
                 # Static user Name and Password
-                self.UID = ["John_Deere_Admin"]
-                self.PWD = ["1234"]
+                # self.UID = ["John_Deere_Admin"]
+                # self.PWD = ["1234"]
 
-                self.lbl = tk.Label(window, text="User", font=("Helvetica", 30, 'bold'), bg='white')
-                self.lbl.place(x=60, y=70)
+                print(self.UID)
+                print(self.PWD)
 
-                self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 30, 'bold'))
-                self.txtfld1.place(x=220, y=70)
+                self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='white')
+                self.lbl.place(x=60, y=90)
 
-                self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 30, 'bold'), bg='white')
-                self.lb2.place(x=60, y=200)
+                self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
+                self.txtfld1.place(x=220, y=90)
 
-                self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*", font=("Helvetica", 30, 'bold'))
-                self.txtfld2.place(x=220, y=200)
+                self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20), bg='white')
+                self.lb2.place(x=60, y=220)
+
+                self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*", font=("Helvetica", 20))
+                self.txtfld2.place(x=220, y=220)
 
                 self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
-                self.btn.place(x=435, y=300, width=230, height=50)
+                self.btn.place(x=60, y=330, width=200, height=50)
 
-                self.btn_quit = ttk.Button(window, text="QUIT", command=self.quit)
-                self.btn_quit.place(x=675, y=-1)
+                self.btn_quit = ttk.Button(window, text="QUIT",width=20, command=self.quit)
+                self.btn_quit.place(x=330, y=330,width=200, height=50)
 
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
                     window_user_login.destroy()
 
+
+                    def user_login_2():
+                        class User_2():
+
+                            def __init__(self, window):
+
+                                # class CustomDateEntry(DateEntry):
+                                #
+                                #     def _select(self, event=None):
+                                #         date = self._calendar.selection_get()
+                                #         if date is not None:
+                                #             self._set_text(date.strftime('%Y-%m-%d'))
+                                #             self.event_generate('<<DateEntrySelected>>')
+                                #         self._top_cal.withdraw()
+                                #         if 'readonly' not in self.state():
+                                #             self.focus_set()
+
+
+                                self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)",font=("Helvetica", 10), bg='white')
+                                self.lb1.place(x=60, y=50)
+
+                                self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
+                                self.txtfld1.place(x=270, y=50,width=260)
+
+
+
+                                self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='white')
+                                self.lb2.place(x=60, y=100)
+
+                                self.txtfld2 = ttk.Entry(window,
+                                                         font=("Helvetica", 10))
+                                self.txtfld2.place(x=270, y=100,width=260)
+
+                                self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='white')
+                                self.lb3.place(x=60, y=150)
+
+                                self.txtfld3 = ttk.Entry(window,text="Enter UID", font=("Helvetica", 10))
+                                self.txtfld3.place(x=270, y=150,width=260)
+
+                                self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='white')
+                                self.lb4.place(x=60, y=200)
+
+                                self.txtfld4 = ttk.Entry(window,
+                                                         font=("Helvetica", 10))
+                                self.txtfld4.place(x=270, y=200,width=260)
+
+
+                                self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='white')
+                                self.lb5.place(x=60, y=250)
+
+                                self.txtfld5 = ttk.Entry(window,
+                                                         font=("Helvetica", 10))
+                                self.txtfld5.place(x=270, y=250,width=260)
+
+
+
+                                self.btn = ttk.Button(window, text="NEXT", width=20, command=self.validate)
+                                self.btn.place(x=60, y=330, width=200, height=50)
+
+                                self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+                                self.btn_quit.place(x=330, y=330, width=200, height=50)
+
+                            def validate(self):
+                                if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
+                                    window_user_login.destroy()
+
+                                    print("Hola")
+
+                                    # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+                                    pass
+
+
+                                else:
+                                    messagebox.showerror("Error", "INVALID CREDENTIALS")
+
+                            def reset(self):
+                                self.txtfld1.delete(0,len(self.txtfld1.get()))
+                                self.txtfld1.insert(0, "")
+
+                                self.txtfld2.delete(0,len(self.txtfld2.get()))
+                                self.txtfld2.insert(0, "")
+
+                                self.txtfld3.delete(0,len(self.txtfld3.get()))
+                                self.txtfld3.insert(0, "")
+
+                                self.txtfld4.delete(0,len(self.txtfld4.get()))
+                                self.txtfld4.insert(0, "")
+
+                                self.txtfld5.delete(0,len(self.txtfld5.get()))
+                                self.txtfld5.insert(0, "")
+
+
+
+                        window_user_login_2 = tk.Tk()
+                        window_user_login_2.config(background='white')
+                        window_user_login_2.attributes('-alpha', 0.9)
+
+                        user_login_window = User_2(window_user_login_2)
+                        window_user_login_2.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                        window_user_login_2.title('Get Bulk Data ' + version)
+                        window_user_login_2.geometry("600x450")
+                        window_user_login_2.mainloop()
+
+                    user_login_2()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    print("Hola")
+
                     # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
-                    pass
+
+
+
+                else:
+                    messagebox.showerror("Error", "INVALID CREDENTIALS")
 
 
 
