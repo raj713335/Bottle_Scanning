@@ -212,8 +212,11 @@ def user_login_2():
         def reset(self):
 
 
-            self.txtfld1.delete(0, len(self.txtfld1.get()))
-            self.txtfld1.insert(0, "")
+            # self.txtfld1.delete(0, len(self.txtfld1.get()))
+            # self.txtfld1.insert(0, "")
+
+            self.txtfld1.set("")
+
 
             self.txtfld2.delete(0, len(self.txtfld2.get()))
             self.txtfld2.insert(0, "")

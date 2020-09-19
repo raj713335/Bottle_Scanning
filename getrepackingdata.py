@@ -4,6 +4,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
 from tkcalendar import Calendar, DateEntry
+from PIL import Image, ImageTk
+import cv2
 from datetime import date, datetime
 from threading import Thread
 import time
@@ -98,63 +100,69 @@ def user_login_3():
                                          state='readonly',
                                          date_pattern='y-mm-dd',
                                          anchor='center')
-                self.txtfld1.place(x=270, y=50, width=260)
+                self.txtfld1.place(x=270, y=130, width=260)
 
-            self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)",
-                                font=("Helvetica", 10), bg='#EFEFEF')
-            self.lb1.place(x=60, y=50)
+            load = cv2.imread('DATA/IMAGES/bottle.png', 1)
+            cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
+            load = Image.fromarray(cv2imagex1)
+            load = load.resize((int(100), int(110)), Image.ANTIALIAS)
+            render = ImageTk.PhotoImage(load)
+            img = tk.Label(image=render)
+            img.image = render
+            img.place(x=80, y=10)
+
+            self.lb0 = tk.Label(window, text="Repacking Details", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
+            self.lb0.place(x=200, y=50)
+
+            self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
+            self.lb1.place(x=60, y=130)
 
             # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
             self.txtfld1 = ttk.Combobox(window,
-                                        font=("Helvetica", 10),
-                                        state='readonly')
-            self.txtfld1.place(x=270, y=50, width=260)
+                                        font=("Helvetica", 10), state='readonly')
+            self.txtfld1.place(x=270, y=130, width=260)
             self.txtfld1.set(date_x)
 
             self.txtfld1.bind("<Button-1>", turn_button)
 
-            self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10),
-                                bg='#EFEFEF')
-            self.lb2.place(x=60, y=100)
+            self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
+            self.lb2.place(x=60, y=180)
 
             self.txtfld2 = ttk.Entry(window,
                                      font=("Helvetica", 10))
-            self.txtfld2.place(x=270, y=100, width=260)
+            self.txtfld2.place(x=270, y=180, width=260)
             self.txtfld2.insert(0, lot)
 
-            self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10),
-                                bg='#EFEFEF')
-            self.lb3.place(x=60, y=150)
+            self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
+            self.lb3.place(x=60, y=230)
 
-            self.txtfld3 = ttk.Entry(window, text="Enter UID",
-                                     font=("Helvetica", 10))
-            self.txtfld3.place(x=270, y=150, width=260)
+            self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
+            self.txtfld3.place(x=270, y=230, width=260)
             self.txtfld3.insert(0, gstin)
 
-            self.lb4 = tk.Label(window, text="Total Bottles",
-                                font=("Helvetica", 10), bg='#EFEFEF')
-            self.lb4.place(x=60, y=200)
+            self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
+            self.lb4.place(x=60, y=280)
 
             self.txtfld4 = ttk.Entry(window,
                                      font=("Helvetica", 10))
-            self.txtfld4.place(x=270, y=200, width=260)
+            self.txtfld4.place(x=270, y=280, width=260)
 
-            self.lb5 = tk.Label(window, text="Batch Size",
-                                font=("Helvetica", 10), bg='#EFEFEF')
-            self.lb5.place(x=60, y=250)
+            self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
+            self.lb5.place(x=60, y=330)
 
             self.txtfld5 = ttk.Entry(window,
                                      font=("Helvetica", 10))
-            self.txtfld5.place(x=270, y=250, width=260)
+            self.txtfld5.place(x=270, y=330, width=260)
             self.txtfld5.insert(0, serial)
 
-            self.btn = ttk.Button(window, text="NEXT", width=20,
-                                  command=self.validate)
-            self.btn.place(x=60, y=330, width=200, height=50)
+            self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.validate)
+            self.btn_back.place(x=60, y=380, width=130, height=40)
 
-            self.btn_quit = ttk.Button(window, text="RESET", width=20,
-                                       command=self.reset)
-            self.btn_quit.place(x=330, y=330, width=200, height=50)
+            self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+            self.btn_quit.place(x=232, y=380, width=130, height=40)
+
+            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
+            self.btn_next.place(x=400, y=380, width=130, height=40)
 
         def validate(self):
 
@@ -208,8 +216,10 @@ def user_login_3():
 
         def reset(self):
 
-            self.txtfld1.delete(0, len(self.txtfld1.get()))
-            self.txtfld1.insert(0, "")
+            # self.txtfld1.delete(0, len(self.txtfld1.get()))
+            # self.txtfld1.insert(0, "")
+
+            self.txtfld1.set("")
 
             self.txtfld2.delete(0, len(self.txtfld2.get()))
             self.txtfld2.insert(0, "")
@@ -234,3 +244,4 @@ def user_login_3():
     window_user_login_3.mainloop()
 
 
+user_login_3()
