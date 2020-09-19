@@ -10,9 +10,13 @@ import time
 import socket
 import subprocess
 import calendar
+from getbulkdata import user_login_2
 
 global version
 version = "1.0.0"
+
+def mainx():
+    main()
 
 
 def main():
@@ -87,6 +91,8 @@ def main():
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
                     window_user_login.destroy()
+
+                    user_login_2()
 
 
 
