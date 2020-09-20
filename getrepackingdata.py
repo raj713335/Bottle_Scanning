@@ -18,7 +18,7 @@ from scanningpage import user_login_4
 global version
 version = "3.0.0"
 
-def user_login_3():
+def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
     class User_3():
 
         def __init__(self, window):
@@ -41,30 +41,30 @@ def user_login_3():
 
             print(string)
 
-            date_x = re.findall('17[0-9]{6}', string)
-            try:
-                date_x = date_x[0]
-            except:
-                date_x = ''
-            date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
-
-            gstin = re.findall('01[0-9]{14}', string)
-            try:
-                gstin = gstin[0][2:]
-            except:
-                gstin = ''
-
-            lot = re.findall(r'10[0-9A-Za-z]*', string)
-            try:
-                lot = lot[0][3:-1]
-            except:
-                lot = ''
-
-            serial = re.findall(r'21[0-9]*', string)
-            try:
-                serial = serial[0][2:-1]
-            except:
-                serial = ''
+            # date_x = re.findall('17[0-9]{6}', string)
+            # try:
+            #     date_x = date_x[0]
+            # except:
+            #     date_x = ''
+            # date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+            #
+            # gstin = re.findall('01[0-9]{14}', string)
+            # try:
+            #     gstin = gstin[0][2:]
+            # except:
+            #     gstin = ''
+            #
+            # lot = re.findall(r'10[0-9A-Za-z]*', string)
+            # try:
+            #     lot = lot[0][3:-1]
+            # except:
+            #     lot = ''
+            #
+            # serial = re.findall(r'21[0-9]*', string)
+            # try:
+            #     serial = serial[0][2:-1]
+            # except:
+            #     serial = ''
 
             # strings=string.split("")
             #
@@ -90,6 +90,48 @@ def user_login_3():
             #         lot = string[x4 + 2:]
             #
             #     print(date_x,gstin,lot,serial)
+
+            if a1 == 0:
+                date_x = re.findall('17[0-9]{6}', string)
+                try:
+                    date_x = date_x[0]
+                except:
+                    date_x = ''
+                date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+            else:
+                date_x = a1
+
+            if b1 == 0:
+                lot = re.findall(r'10[0-9A-Za-z]*', string)
+                try:
+                    lot = lot[0][3:-1]
+                except:
+                    lot = ''
+            else:
+                lot = b1
+
+            if c1 == 0:
+                gstin = re.findall('01[0-9]{14}', string)
+                try:
+                    gstin = gstin[0][2:]
+                except:
+                    gstin = ''
+            else:
+                gstin = c1
+
+            if d1 == 0:
+                total = ""
+            else:
+                total = d1
+
+            if e1 == 0:
+                serial = re.findall(r'21[0-9]*', string)
+                try:
+                    serial = serial[0][2:-1]
+                except:
+                    serial = ''
+            else:
+                serial = e1
 
             print(date_x, gstin, lot, serial)
 
@@ -146,6 +188,7 @@ def user_login_3():
             self.txtfld4 = ttk.Entry(window,
                                      font=("Helvetica", 10))
             self.txtfld4.place(x=270, y=280, width=260)
+            self.txtfld4.insert(0, total)
 
             self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
             self.lb5.place(x=60, y=330)
@@ -244,4 +287,3 @@ def user_login_3():
     window_user_login_3.mainloop()
 
 
-user_login_3()

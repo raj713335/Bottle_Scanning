@@ -23,8 +23,10 @@ global flagx
 
 flagx=False
 
-def user_login_2():
+def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
     class User_2():
+
+
 
 
 
@@ -49,30 +51,52 @@ def user_login_2():
 
             print(string)
 
-            date_x = re.findall('17[0-9]{6}', string)
-            try:
-                date_x = date_x[0]
-            except:
-                date_x = ''
-            date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+            if a1==0:
+                date_x = re.findall('17[0-9]{6}', string)
+                try:
+                    date_x = date_x[0]
+                except:
+                    date_x = ''
+                date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+            else:
+                date_x=a1
 
-            gstin = re.findall('01[0-9]{14}', string)
-            try:
-                gstin = gstin[0][2:]
-            except:
-                gstin = ''
 
-            lot = re.findall(r'10[0-9A-Za-z]*', string)
-            try:
-                lot = lot[0][3:-1]
-            except:
-                lot = ''
 
-            serial = re.findall(r'21[0-9]*', string)
-            try:
-                serial = serial[0][2:-1]
-            except:
-                serial = ''
+            if b1==0:
+                lot = re.findall(r'10[0-9A-Za-z]*', string)
+                try:
+                    lot = lot[0][3:-1]
+                except:
+                    lot = ''
+            else:
+                lot=b1
+
+
+            if c1==0:
+                gstin = re.findall('01[0-9]{14}', string)
+                try:
+                    gstin = gstin[0][2:]
+                except:
+                    gstin = ''
+            else:
+                gstin=c1
+
+
+            if d1==0:
+                total=""
+            else:
+                total=d1
+
+
+            if e1==0:
+                serial = re.findall(r'21[0-9]*', string)
+                try:
+                    serial = serial[0][2:-1]
+                except:
+                    serial = ''
+            else:
+                serial=e1
 
             # strings=string.split("")
             #
@@ -149,9 +173,11 @@ def user_login_2():
             self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
             self.lb4.place(x=60, y=280)
 
+
             self.txtfld4 = ttk.Entry(window,
                                      font=("Helvetica", 10))
             self.txtfld4.place(x=270, y=280, width=260)
+            self.txtfld4.insert(0, total)
 
             self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
             self.lb5.place(x=60, y=330)
@@ -173,41 +199,77 @@ def user_login_2():
 
         def validate(self):
 
-            if (str(self.txtfld1.get()) != "") and (str(self.txtfld2.get()) != "") and (str(self.txtfld3.get()) != "") \
-                    and (str(self.txtfld4.get()) != "") and (str(self.txtfld5.get()) != ""):
+            if ((str(self.txtfld1.get()) != "")):
 
-                if len(str(self.txtfld3.get())) == 14:
-
-                    window_user_login_2.destroy()
-
-                    print("Hola")
-
-                    # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
-
-                    user_login_3()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                else:
-                    messagebox.showwarning("Warning", "Missing Values")
-
+                a=0
 
             else:
-                messagebox.showwarning("Warning", "Missing Values")
+
+                messagebox.showwarning("Warning", "Missing Date Field")
+
+
+
+
+            if ((str(self.txtfld2.get()) != "")):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Missing Bulk Lot Field")
+
+
+            if ((str(self.txtfld3.get()) != "")
+                     and
+                    (len(str(self.txtfld3.get())) == 14)):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "GSTIN Number Wrong")
+
+
+            if ((str(self.txtfld1.get()) != "") and (str(self.txtfld2.get()) != "") and (str(self.txtfld3.get()) != "") \
+                    and (str(self.txtfld4.get()) != "") and (str(self.txtfld5.get()) != "") and
+                    (len(str(self.txtfld3.get())) == 14)):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Missing Date Field")
+
+
+            if ((str(self.txtfld5.get()) != "") ):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Missing Batch Size")
+
+
+
+            try:
+                temp=int((self.txtfld4.get()))
+
+                window_user_login_2.destroy()
+
+                print("Hola")
+
+                # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
+
+                user_login_3()
+
+
+
+
+            except:
+                messagebox.showwarning("Warning", "Missing Total Bottle")
+
+
+
 
         def reset(self):
 
@@ -246,4 +308,3 @@ def user_login_2():
     window_user_login_2.mainloop()
 
 
-user_login_2()
