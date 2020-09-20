@@ -1021,11 +1021,20 @@ def main():
 
             def back(self):
 
+                MsgBox = tk.messagebox.askquestion('Warning',
+                                                   'All Progress will be lost',
+                                                   icon='warning')
 
-                window_user_login_4.destroy()
+                if MsgBox=='yes':
 
-                user_login_3(a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
-                             c2=c2,d2=d2,e2=e2)
+
+                    window_user_login_4.destroy()
+
+                    user_login_3(a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
+                                 c2=c2,d2=d2,e2=e2)
+
+                else:
+                    pass
 
 
 
