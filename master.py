@@ -296,10 +296,10 @@ def main():
 
 
                 self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
-                self.btn_quit.place(x=232, y=380, width=130, height=40)
+                self.btn_quit.place(x=60, y=380, width=160, height=40)
 
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
-                self.btn_next.place(x=400, y=380, width=130, height=40)
+                self.btn_next.place(x=370, y=380, width=160, height=40)
 
             def validate(self):
 
