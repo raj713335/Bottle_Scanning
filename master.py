@@ -168,9 +168,12 @@ def main():
 
 
                 if b1==str(0):
-                    lot = re.findall(r'10[0-9A-Za-z]*', string)
+
+                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
                     try:
-                        lot = lot[0][3:-1]
+                        lot = str(lot[0]).replace('', "")
+                        lot = lot.replace('10', '')
+
                     except:
                         lot = ''
                 else:
@@ -527,9 +530,11 @@ def main():
                     date_x = a2
 
                 if b2 == str(0):
-                    lot = re.findall(r'10[0-9A-Za-z]*', string)
+
+                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
                     try:
-                        lot = lot[0][3:-1]
+                        lot = str(lot[0]).replace('', "")
+                        lot = lot.replace('10', '')
                     except:
                         lot = ''
                 else:
@@ -795,9 +800,10 @@ def main():
                 except:
                     gstin = ''
 
-                lot = re.findall(r'10[0-9A-Za-z]*', string)
+                lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
                 try:
-                    lot = lot[0][3:-1]
+                    lot = str(lot[0]).replace('', "")
+                    lot = lot.replace('10', '')
                 except:
                     lot = ''
 

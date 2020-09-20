@@ -13,15 +13,12 @@ import socket
 import subprocess
 import calendar
 
-from getrepackingdata import user_login_3
 
 
 global version
 version = "2.0.0"
 
-global flagx
 
-flagx=False
 
 def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
     class User_2():
@@ -64,9 +61,12 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
 
 
             if b1==0:
-                lot = re.findall(r'10[0-9A-Za-z]*', string)
+                lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
                 try:
-                    lot = lot[0][3:-1]
+                    lot = str(lot[0]).replace('',"")
+                    lot=lot.replace('10','')
+
+
                 except:
                     lot = ''
             else:
@@ -304,4 +304,6 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
     window_user_login_2.geometry("600x450")
     window_user_login_2.mainloop()
 
+
+user_login_2()
 
