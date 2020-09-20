@@ -352,22 +352,32 @@ def main():
 
 
                 try:
+
+                    print(1)
                     temp=int((self.txtfld4.get()))
 
-                    window_user_login_2.destroy()
 
 
-
-                    # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
-
-                    user_login_3(a1=(str(self.txtfld1.get())),b1=(str(self.txtfld2.get())),c1=(str(self.txtfld3.get())),
-                                 d1=(str(self.txtfld4.get())),e1=(str(self.txtfld5.get())),a2=a2,b2=b2,c2=c2,d2=d2,e2=e2)
+                    print(3)
 
 
 
 
                 except:
                     messagebox.showwarning("Warning", "Wrong/Missing Total Bottle")
+                    return (0)
+
+
+
+                window_user_login_2.destroy()
+
+
+
+                # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
+
+                user_login_3(a1=(str(self.txtfld1.get())), b1=(str(self.txtfld2.get())), c1=(str(self.txtfld3.get())),
+                             d1=(str(self.txtfld4.get())), e1=(str(self.txtfld5.get())), a2=a2, b2=b2, c2=c2, d2=d2,
+                             e2=e2)
 
 
 
@@ -415,7 +425,9 @@ def main():
 
     def user_login_3(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
 
-        print("xxx")
+        print(4)
+
+
         class User_3():
 
             def __init__(self, window):
