@@ -14,6 +14,7 @@ import subprocess
 import calendar
 
 from scanningpage import user_login_4
+from getbulkdata import user_login_2
 
 global version
 version = "3.0.0"
@@ -91,7 +92,7 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             #
             #     print(date_x,gstin,lot,serial)
 
-            if a1 == 0:
+            if a2 == 0:
                 date_x = re.findall('17[0-9]{6}', string)
                 try:
                     date_x = date_x[0]
@@ -101,7 +102,7 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             else:
                 date_x = a1
 
-            if b1 == 0:
+            if b2 == 0:
                 lot = re.findall(r'10[0-9A-Za-z]*', string)
                 try:
                     lot = lot[0][3:-1]
@@ -110,7 +111,7 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             else:
                 lot = b1
 
-            if c1 == 0:
+            if c2 == 0:
                 gstin = re.findall('01[0-9]{14}', string)
                 try:
                     gstin = gstin[0][2:]
@@ -119,12 +120,12 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             else:
                 gstin = c1
 
-            if d1 == 0:
+            if d2 == 0:
                 total = ""
             else:
                 total = d1
 
-            if e1 == 0:
+            if e2 == 0:
                 serial = re.findall(r'21[0-9]*', string)
                 try:
                     serial = serial[0][2:-1]
@@ -198,7 +199,7 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             self.txtfld5.place(x=270, y=330, width=260)
             self.txtfld5.insert(0, serial)
 
-            self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.validate)
+            self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
             self.btn_back.place(x=60, y=380, width=130, height=40)
 
             self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
@@ -207,55 +208,84 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
             self.btn_next.place(x=400, y=380, width=130, height=40)
 
+
+        def back(self):
+
+
+            window_user_login_3.destroy()
+
+            user_login_2(a1=a1,b1=1,c1=c1,d1=d1,e1=e1,a2=(str(self.txtfld1.get())),b2=(str(self.txtfld2.get())),
+                         c2=(str(self.txtfld3.get())),d2=(str(self.txtfld4.get())),e2=(str(self.txtfld5.get())))
+
+
+
         def validate(self):
 
-            if (str(self.txtfld1.get()) != "") and (
-                    str(self.txtfld2.get()) != "") and (
-                    str(self.txtfld3.get()) != "") \
-                    and (str(self.txtfld4.get()) != "") and (
-                    str(self.txtfld5.get()) != ""):
+            if ((str(self.txtfld1.get()) != "")):
 
-                if len(str(self.txtfld3.get())) == 14:
-
-                    window_user_login_3.destroy()
-
-                    print("Hola")
-
-                    # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
-
-
-
-                    user_login_4()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                else:
-                    messagebox.showwarning("Warning", "Missing Values")
-
+                a=0
 
             else:
-                messagebox.showwarning("Warning", "Missing Values")
+
+                messagebox.showwarning("Warning", "Missing Date Field")
+                return (0)
+
+
+
+
+            if ((str(self.txtfld2.get()) != "")):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Missing Bulk Lot Field")
+                return (0)
+
+
+            if ((str(self.txtfld3.get()) != "")
+                     and
+                    (len(str(self.txtfld3.get())) == 14)):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Wrong/Missing GSTIN Number")
+                return (0)
+
+
+
+
+
+            if ((str(self.txtfld5.get()) != "") ):
+
+                a = 0
+
+            else:
+
+                messagebox.showwarning("Warning", "Missing Batch Size Field")
+                return (0)
+
+
+
+            try:
+                temp=int((self.txtfld4.get()))
+
+                window_user_login_3.destroy()
+
+
+
+                # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
+
+                user_login_4()
+
+
+
+
+            except:
+                messagebox.showwarning("Warning", "Wrong/Missing Total Bottle")
+
 
         def reset(self):
 
@@ -278,7 +308,7 @@ def user_login_3(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
 
     window_user_login_3 = tk.Tk()
     window_user_login_3.config(background='#EFEFEF')
-    window_user_login_3.attributes('-alpha', 0.9)
+    window_user_login_3.attributes('-alpha', 0.97)
 
     user_login_window = User_3(window_user_login_3)
     window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')

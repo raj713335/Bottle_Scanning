@@ -187,8 +187,8 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             self.txtfld5.place(x=270, y=330, width=260)
             self.txtfld5.insert(0, serial)
 
-            self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.validate)
-            self.btn_back.place(x=60, y=380, width=130, height=40)
+            # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.validate)
+            # self.btn_back.place(x=60, y=380, width=130, height=40)
 
 
             self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
@@ -206,6 +206,7 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             else:
 
                 messagebox.showwarning("Warning", "Missing Date Field")
+                return (0)
 
 
 
@@ -217,6 +218,7 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
             else:
 
                 messagebox.showwarning("Warning", "Missing Bulk Lot Field")
+                return (0)
 
 
             if ((str(self.txtfld3.get()) != "")
@@ -227,18 +229,11 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
 
             else:
 
-                messagebox.showwarning("Warning", "GSTIN Number Wrong")
+                messagebox.showwarning("Warning", "Wrong/Missing GSTIN Number")
+                return (0)
 
 
-            if ((str(self.txtfld1.get()) != "") and (str(self.txtfld2.get()) != "") and (str(self.txtfld3.get()) != "") \
-                    and (str(self.txtfld4.get()) != "") and (str(self.txtfld5.get()) != "") and
-                    (len(str(self.txtfld3.get())) == 14)):
 
-                a = 0
-
-            else:
-
-                messagebox.showwarning("Warning", "Missing Date Field")
 
 
             if ((str(self.txtfld5.get()) != "") ):
@@ -247,7 +242,8 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
 
             else:
 
-                messagebox.showwarning("Warning", "Missing Batch Size")
+                messagebox.showwarning("Warning", "Missing Batch Size Field")
+                return (0)
 
 
 
@@ -256,17 +252,18 @@ def user_login_2(a1=0,b1=0,c1=0,d1=0,e1=0,a2=0,b2=0,c2=0,d2=0,e2=0):
 
                 window_user_login_2.destroy()
 
-                print("Hola")
+
 
                 # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
 
-                user_login_3()
+                user_login_3(a1=(str(self.txtfld1.get())),b1=(str(self.txtfld2.get())),c1=(str(self.txtfld3.get())),
+                             d1=(str(self.txtfld4.get())),e1=(str(self.txtfld5.get())),a2=a2,b2=b2,c2=c2,d2=d2,e2=e2)
 
 
 
 
             except:
-                messagebox.showwarning("Warning", "Missing Total Bottle")
+                messagebox.showwarning("Warning", "Wrong/Missing Total Bottle")
 
 
 
