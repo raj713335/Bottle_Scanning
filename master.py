@@ -190,10 +190,13 @@ def main():
                     gstin=c1
 
 
-                if d1==str(0):
+                if str(d1)==str(0):
                     total=""
                 else:
                     total=d1
+
+
+                print("vvv"+d1)
 
 
                 if e1==str(0):
@@ -237,7 +240,7 @@ def main():
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(window, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
-                    self.txtfld1.place(x=270, y=130, width=260)
+                    self.txtfld1.place(x=270, y=160, width=260)
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
@@ -252,46 +255,46 @@ def main():
                 self.lb0.place(x=200, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb1.place(x=60, y=130)
+                self.lb1.place(x=60, y=160)
 
                 # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=130, width=260)
+                self.txtfld1.place(x=270, y=160, width=260)
                 self.txtfld1.set(date_x)
 
                 self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb2.place(x=60, y=180)
+                self.lb2.place(x=60, y=210)
 
                 self.txtfld2 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld2.place(x=270, y=180, width=260)
+                self.txtfld2.place(x=270, y=210, width=260)
                 self.txtfld2.insert(0, lot)
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb3.place(x=60, y=230)
+                self.lb3.place(x=60, y=260)
 
                 self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
-                self.txtfld3.place(x=270, y=230, width=260)
+                self.txtfld3.place(x=270, y=260, width=260)
                 self.txtfld3.insert(0, gstin)
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=280)
+                self.lb4.place(x=60, y=310)
 
 
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=280, width=260)
+                self.txtfld4.place(x=270, y=310, width=260)
                 self.txtfld4.insert(0, total)
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb5.place(x=60, y=330)
+                #self.lb5.place(x=60, y=330)
 
                 self.txtfld5 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld5.place(x=270, y=330, width=260)
+                #self.txtfld5.place(x=270, y=330, width=260)
                 self.txtfld5.insert(0, serial)
 
                 # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.validate)
@@ -328,15 +331,23 @@ def main():
                     return (0)
 
 
-                if ((str(self.txtfld3.get()) != "")
-                         and
-                        (len(str(self.txtfld3.get())) == 14)):
+                if ((str(self.txtfld3.get()) != "")):
 
                     c1=(str(self.txtfld3.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Wrong/Missing GSTIN Number")
+                    messagebox.showwarning("Warning", "Missing GSTIN Number Field")
+                    return (0)
+
+
+                if ((len(str(self.txtfld3.get())) == 14)):
+
+                    c1=(str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Wrong GSTIN Number Format")
                     return (0)
 
 
@@ -353,13 +364,23 @@ def main():
                     return (0)
 
 
+                if ((str(self.txtfld4.get()) != "") ):
+
+                    e1=(str(self.txtfld5.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Total Bottles Field")
+                    return (0)
+
+
 
                 try:
 
                     print(1)
                     temp=int((self.txtfld4.get()))
 
-                    d4=str(self.txtfld4.get())
+                    d1=str(self.txtfld4.get())
 
 
 
@@ -369,7 +390,7 @@ def main():
 
 
                 except:
-                    messagebox.showwarning("Warning", "Wrong/Missing Total Bottle")
+                    messagebox.showwarning("Warning", "Total Bottle field must be numeric")
                     return (0)
 
 
@@ -572,7 +593,7 @@ def main():
                                              state='readonly',
                                              date_pattern='y-mm-dd',
                                              anchor='center')
-                    self.txtfld1.place(x=270, y=130, width=260)
+                    self.txtfld1.place(x=270, y=160, width=260)
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
@@ -587,45 +608,45 @@ def main():
                 self.lb0.place(x=200, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb1.place(x=60, y=130)
+                self.lb1.place(x=60, y=160)
 
                 # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=130, width=260)
+                self.txtfld1.place(x=270, y=160, width=260)
                 self.txtfld1.set(date_x)
 
                 self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb2.place(x=60, y=180)
+                self.lb2.place(x=60, y=210)
 
                 self.txtfld2 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld2.place(x=270, y=180, width=260)
+                self.txtfld2.place(x=270, y=210, width=260)
                 self.txtfld2.insert(0, lot)
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb3.place(x=60, y=230)
+                self.lb3.place(x=60, y=260)
 
                 self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
-                self.txtfld3.place(x=270, y=230, width=260)
+                self.txtfld3.place(x=270, y=260, width=260)
                 self.txtfld3.insert(0, gstin)
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=280)
+                self.lb4.place(x=60, y=310)
 
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=280, width=260)
+                self.txtfld4.place(x=270, y=310, width=260)
                 self.txtfld4.insert(0, total)
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb5.place(x=60, y=330)
+                #self.lb5.place(x=60, y=330)
 
                 self.txtfld5 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld5.place(x=270, y=330, width=260)
+                #self.txtfld5.place(x=270, y=330, width=260)
                 self.txtfld5.insert(0, serial)
 
                 self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
@@ -647,6 +668,8 @@ def main():
 
 
                 window_user_login_3.destroy()
+
+
 
                 user_login_2(a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
                              c2=c2,d2=d2,e2=e2)
@@ -677,15 +700,23 @@ def main():
                     return (0)
 
 
-                if ((str(self.txtfld3.get()) != "")
-                         and
-                        (len(str(self.txtfld3.get())) == 14)):
+                if ((str(self.txtfld3.get()) != "")):
 
                     c2=(str(self.txtfld3.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Wrong/Missing GSTIN Number")
+                    messagebox.showwarning("Warning", "Missing GSTIN Number Field")
+                    return (0)
+
+
+                if (    (len(str(self.txtfld3.get())) == 14)):
+
+                    c2=(str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Wrong GSTIN Number")
                     return (0)
 
 
@@ -703,6 +734,16 @@ def main():
 
 
 
+                if ((str(self.txtfld4.get()) != "") ):
+
+                    d2=(str(self.txtfld4.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Total Bottle Field")
+                    return (0)
+
+
                 try:
                     temp=int((self.txtfld4.get()))
                     d2 = (str(self.txtfld4.get()))
@@ -713,8 +754,20 @@ def main():
 
 
                 except:
-                    messagebox.showwarning("Warning", "Wrong/Missing Total Bottle")
+                    messagebox.showwarning("Warning", "Total Bottle field must be numeric")
                     return(0)
+
+
+
+
+                if (d1==d2):
+
+                    a2=(str(self.txtfld1.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Total Bottle value in Bulk Data and Repacking Data are not Same")
+                    return (0)
 
                 window_user_login_3.destroy()
 
@@ -915,7 +968,7 @@ def main():
                                              state='readonly',
                                              date_pattern='y-mm-dd',
                                              anchor='center')
-                    self.txtfld1.place(x=270, y=130, width=260)
+                    self.txtfld1.place(x=270, y=160, width=260)
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
@@ -930,44 +983,44 @@ def main():
                 self.lb0.place(x=230, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb1.place(x=60, y=130)
+                self.lb1.place(x=60, y=160)
 
                 # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=130, width=260)
+                self.txtfld1.place(x=270, y=160, width=260)
                 #self.txtfld1.set(date_x)
 
                 self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb2.place(x=60, y=180)
+                self.lb2.place(x=60, y=210)
 
                 self.txtfld2 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld2.place(x=270, y=180, width=260)
+                self.txtfld2.place(x=270, y=210, width=260)
                 #self.txtfld2.insert(0, lot)
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb3.place(x=60, y=230)
+                self.lb3.place(x=60, y=260)
 
                 self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
-                self.txtfld3.place(x=270, y=230, width=260)
+                self.txtfld3.place(x=270, y=260, width=260)
                 #self.txtfld3.insert(0, gstin)
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=280)
+                self.lb4.place(x=60, y=310)
 
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=280, width=260)
+                self.txtfld4.place(x=270, y=310, width=260)
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb5.place(x=60, y=330)
+                #self.lb5.place(x=60, y=330)
 
                 self.txtfld5 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld5.place(x=270, y=330, width=260)
+                #self.txtfld5.place(x=270, y=330, width=260)
                 #self.txtfld5.insert(0, serial)
 
                 self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
@@ -990,6 +1043,86 @@ def main():
 
 
             def validate(self):
+
+                if ((str(self.txtfld1.get()) != "")):
+
+                    a2=(str(self.txtfld1.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Date Field")
+                    return (0)
+
+
+
+
+                if ((str(self.txtfld2.get()) != "")):
+
+                    b2=(str(self.txtfld2.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Bulk Lot Field")
+                    return (0)
+
+
+                if ((str(self.txtfld3.get()) != "")):
+
+                    c2=(str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing GSTIN Number Field")
+                    return (0)
+
+
+                if (    (len(str(self.txtfld3.get())) == 14)):
+
+                    c2=(str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Wrong GSTIN Number")
+                    return (0)
+
+
+
+
+
+                if ((str(self.txtfld5.get()) != "") ):
+
+                    e2=(str(self.txtfld5.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Batch Size Field")
+                    return (0)
+
+
+
+                if ((str(self.txtfld4.get()) != "") ):
+
+                    d2=(str(self.txtfld4.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Total Bottle Field")
+                    return (0)
+
+
+                try:
+                    temp=int((self.txtfld4.get()))
+                    d2 = (str(self.txtfld4.get()))
+
+
+
+
+
+
+                except:
+                    messagebox.showwarning("Warning", "Total Bottle field must be numeric")
+                    return(0)
+
 
                 window_user_login_4.destroy()
 
