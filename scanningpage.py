@@ -45,9 +45,13 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
 
             print(stringx)
 
+            i=0
+
 
 
             for string in stringx:
+
+                i+=1
 
                 date_x = re.findall('17[0-9]{6}', string)
                 try:
@@ -196,7 +200,7 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
                                          font=("Helvetica", 15),justify='center')
                 self.txtfld00.place(x=450, y=60, width=60)
                 self.txtfld00.insert(0,'100')
-                self.txtfld00.config(state='DISABLED')
+                self.txtfld00.insert(0,i)
 
 
                 self.txtfld01 = ttk.Entry(window,
@@ -212,37 +216,37 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
                 self.lb0.place(x=200, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb1.place(x=60, y=160)
+                self.lb1.place(x=60, y=180)
 
                 # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=160, width=260)
+                self.txtfld1.place(x=270, y=180, width=260)
                 self.txtfld1.set(date_x)
 
                 self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb2.place(x=60, y=210)
+                self.lb2.place(x=60, y=230)
 
                 self.txtfld2 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld2.place(x=270, y=210, width=260)
+                self.txtfld2.place(x=270, y=230, width=260)
                 self.txtfld2.insert(0, lot)
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb3.place(x=60, y=260)
+                self.lb3.place(x=60, y=280)
 
                 self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
-                self.txtfld3.place(x=270, y=260, width=260)
+                self.txtfld3.place(x=270, y=280, width=260)
                 self.txtfld3.insert(0, gstin)
 
-                self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=310)
-
-                self.txtfld4 = ttk.Entry(window,
-                                         font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=310, width=260)
+                # self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
+                # self.lb4.place(x=60, y=310)
+                #
+                # self.txtfld4 = ttk.Entry(window,
+                #                          font=("Helvetica", 10))
+                # self.txtfld4.place(x=270, y=310, width=260)
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
                 # self.lb5.place(x=60, y=330)
@@ -260,6 +264,21 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
 
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=400, y=380, width=130, height=40)
+
+                if i<6:
+                    self.txtfld5.delete(0, len(self.txtfld5.get()))
+                    self.txtfld5.insert(0, "")
+
+                    self.txtfld00.destroy()
+                    self.txtfld01.destroy()
+                    self.txtfld1.destroy()
+
+                    self.txtfld2.destroy()
+                    self.txtfld3.destroy()
+                    self.txtfld5.destroy()
+
+
+
 
                 print("77")
 
@@ -312,27 +331,27 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
                 messagebox.showwarning("Warning", "Missing Batch Size Field")
                 return (0)
 
-            if ((str(self.txtfld4.get()) != "")):
+            # if ((str(self.txtfld4.get()) != "")):
+            #
+            #     d2 = (str(self.txtfld4.get()))
+            #
+            # else:
+            #
+            #     messagebox.showwarning("Warning", "Missing Total Bottle Field")
+            #     return (0)
 
-                d2 = (str(self.txtfld4.get()))
-
-            else:
-
-                messagebox.showwarning("Warning", "Missing Total Bottle Field")
-                return (0)
-
-            try:
-                temp = int((self.txtfld4.get()))
-                d2 = (str(self.txtfld4.get()))
-
-
-
-
-
-
-            except:
-                messagebox.showwarning("Warning", "Total Bottle field must be numeric")
-                return (0)
+            # try:
+            #     temp = int((self.txtfld4.get()))
+            #     d2 = (str(self.txtfld4.get()))
+            #
+            #
+            #
+            #
+            #
+            #
+            # except:
+            #     messagebox.showwarning("Warning", "Total Bottle field must be numeric")
+            #     return (0)
 
             window_user_login_4.destroy()
 
@@ -391,8 +410,7 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
             self.txtfld3.delete(0, len(self.txtfld3.get()))
             self.txtfld3.insert(0, "")
 
-            self.txtfld4.delete(0, len(self.txtfld4.get()))
-            self.txtfld4.insert(0, "")
+
 
             self.txtfld5.delete(0, len(self.txtfld5.get()))
             self.txtfld5.insert(0, "")
@@ -408,5 +426,7 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
         'Scanning Page ' + '4.0.0')
     window_user_login_4.geometry("600x450")
     window_user_login_4.mainloop()
+
+
 
 user_login_4()
