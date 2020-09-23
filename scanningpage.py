@@ -126,8 +126,7 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
             img.image = render
             img.place(x=80, y=10)
 
-            self.lb0 = tk.Label(window, text="Scanning Page", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
-            self.lb0.place(x=200, y=50)
+
 
             def turn_button(x=0):
                 self.txtfld1.destroy()
@@ -143,6 +142,17 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
                                 font=("Helvetica", 10),
                                 bg='#EFEFEF')
             self.lb1.place(x=60, y=150)
+
+            self.lb0 = tk.Label(window, text="Scanning Page", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
+            self.lb0.place(x=200, y=50)
+
+            self.txtfld00 = ttk.Entry(window,  font=("Helvetica", 25),justify='center')
+            self.txtfld00.place(x=450, y=50, width=70)
+            self.txtfld00.insert(0,'10')
+
+            self.txtfld01 = ttk.Entry(window, font=("Helvetica", 25),justify='center')
+            self.txtfld01.place(x=525, y=50, width=70)
+            self.txtfld01.insert(0, '10')
 
             # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
             self.txtfld1 = ttk.Combobox(window,
@@ -176,18 +186,17 @@ def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0
 
 
 
-            self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
-            self.btn_back.place(x=10, y=290, width=130, height=40)
+            # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
+            # self.btn_back.place(x=10, y=290, width=180, height=40)
+            #
+            # self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+            # self.btn_quit.place(x=205, y=290, width=180, height=40)
+            #
+            # self.btn_update = ttk.Button(window, text="UPDATE", width=20, command=self.validate)
+            # self.btn_update.place(x=400, y=290, width=180, height=40)
 
-            self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
-            self.btn_quit.place(x=160, y=290, width=130, height=40)
-
-            self.btn_update = ttk.Button(window, text="UPDATE", width=20, command=self.validate)
-            self.btn_update.place(x=310, y=290, width=130, height=40)
-
-            self.btn_finish = ttk.Button(window, text="FINISH", width=20, command=self.validate)
-            self.btn_finish.place(x=460, y=290, width=130, height=40)
-
+            self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.validate)
+            self.btn_finish.place(x=-1, y=290, width=605, height=55)
 
 
             frame = Frame(window_user_login_4)

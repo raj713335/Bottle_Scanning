@@ -1212,6 +1212,8 @@ def main():
 
         stringx = []
 
+
+
         with open('DATA/Scanning/scanning.txt', 'r') as fh:
             all_lines = fh.readlines()
             for each in all_lines:
@@ -1219,9 +1221,16 @@ def main():
 
         print(stringx)
 
+        user_login_4(a1=a1, b1=b1, c1=c1,
+                     d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                     e2=e2, date_xx=a2, gstin_x=c2, lot_x=b2, serial_x=e2, id='NIL', limit='nil')
+
+
+
+
         i = 0
 
-
+        sl_dub=[]
 
         for string in stringx:
 
@@ -1255,20 +1264,91 @@ def main():
             except:
                 serial = ''
 
-            xm=user_login_4(a1=a1, b1=b1, c1=c1,
-                     d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                     e2=e2,date_xx=date_x,gstin_x=gstin,lot_x=lot,serial_x=serial)
 
-            print("88",xm)
+            if serial not in sl_dub:
 
-            if xm==True:
-                xml_data.append(string)
+                xm=user_login_4(a1=a1, b1=b1, c1=c1,
+                         d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                         e2=e2,date_xx=date_x,gstin_x=gstin,lot_x=lot,serial_x=serial,id=i,limit=3000)
+
+                print("88",xm)
+
+                if xm==True:
+                    string=string.replace('\x1d','')
+                    xml_data.append(string)
+
+                sl_dub.append(serial)
+
+        def xml_creator():
+
+            from datetime import datetime
+            from xml.dom import minidom
+            from xml.dom.minidom import getDOMImplementation
+
+            root = minidom.Document()
+            root.standalone = 'No'
+
+            iso_date = datetime.now().astimezone().isoformat()
+            offset = iso_date[-6:]
+            expire_date = a1
+            bulk_lot_number = b1
+            repackage_lot_number = b2
+            strings = xml_data
+
+            print(xml_data)
+
+            list_data = ''
+
+            for each in strings:
+                list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
+
+            stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
+            <epcis:EPCISBody>
+            <epcis:EventList>
+            <epcis:ObjectEvent>
+            <epcis:eventTime>{iso_date}</epcis:eventTime>
+            <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
+            <epcis:epcList>''' + str(list_data) + f'''
+            </epcis:epcList>
+            <epcis:action>ADD</epcis:action>
+            <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
+            <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
+            <epcis:readPoint>
+            <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
+            </epcis:readPoint>
+            <epcis:bizLocation>
+            <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
+            </epcis:bizLocation>
+            <epcis:extension><!--@Verify By ykhatri-->
+            <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
+            <epcis:field name="Expiration Date" value="{expire_date}"/>
+            <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
+            </epcis:extension>
+            </epcis:ObjectEvent>
+            </epcis:EventList>
+            </epcis:EPCISBody>
+            </epcis:EPCISDocument>
+            '''
+
+            dom = minidom.parseString(stringlx)
+
+            xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
+            timestamp = int(datetime.now().timestamp())
+            save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+
+            with open(save_path_file, "w") as f:
+                f.write(xml_str.decode())
+
+        xml_creator()
+
+        user_login_over_ride()
 
 
 
 
     def user_login_4(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
-                     e2=str(0),date_xx=str(0),gstin_x=str(0),lot_x=str(0),serial_x=str(0)):
+                     e2=str(0),date_xx=str(0),gstin_x=str(0),lot_x=str(0),serial_x=str(0),id=str(0),limit=str(0)):
 
         validatex=True
 
@@ -1298,6 +1378,24 @@ def main():
                         stringx.append(each.replace('\n', ''))
 
                 print(stringx)
+
+                # if limit=='nil':
+                #
+                #     if d2 != len(stringx):
+                #
+                #         MsgBox = tk.messagebox.askquestion('Warning',
+                #                                            'Total Bottle in repacking data ' + str(
+                #                                                d2) + ' do not match with the available data '
+                #                                            + str(len(stringx)) + ' still want to proceed ?',
+                #                                            icon='warning')
+                #
+                #         if MsgBox == 'yes':
+                #             window_user_login_4.destroy()
+                #
+                #         else:
+                #             user_login_3(a1=a1, b1=b1, c1=c1,
+                #                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                #                          e2=e2)
 
                 i = 0
 
@@ -1369,6 +1467,14 @@ def main():
                 self.lb0 = tk.Label(window, text="Scanning Page", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
                 self.lb0.place(x=200, y=50)
 
+                self.txtfld00 = ttk.Entry(window, font=("Helvetica", 25), justify='center')
+                self.txtfld00.place(x=450, y=50, width=70)
+                self.txtfld00.insert(0, id)
+
+                self.txtfld01 = ttk.Entry(window, font=("Helvetica", 25), justify='center')
+                self.txtfld01.place(x=525, y=50, width=70)
+                self.txtfld01.insert(0, d2)
+
                 def turn_button(x=0):
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(window, font=(
@@ -1415,17 +1521,32 @@ def main():
                 # self.txtfld5.place(x=270, y=330, width=260)
                 self.txtfld5.insert(0,serial_x)
 
-                self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
-                self.btn_back.place(x=10, y=290, width=130, height=40)
+                if str(limit)!=str('nil'):
+                    self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
+                    self.btn_back.place(x=10, y=290, width=180, height=40)
 
-                self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
-                self.btn_quit.place(x=160, y=290, width=130, height=40)
+                    self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+                    self.btn_quit.place(x=205, y=290, width=180, height=40)
 
-                self.btn_update = ttk.Button(window, text="UPDATE", width=20, command=self.validate)
-                self.btn_update.place(x=310, y=290, width=130, height=40)
+                    self.btn_update = ttk.Button(window, text="DELETE", width=20, command=self.delete)
+                    self.btn_update.place(x=400, y=290, width=180, height=40)
 
-                self.btn_finish = ttk.Button(window, text="FINISH", width=20, command=self.validate)
-                self.btn_finish.place(x=460, y=290, width=130, height=40)
+                else:
+                    self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
+                    self.btn_finish.place(x=-1, y=290, width=605, height=55)
+
+
+                # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
+                # self.btn_back.place(x=10, y=290, width=130, height=40)
+                #
+                # self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+                # self.btn_quit.place(x=160, y=290, width=130, height=40)
+                #
+                # self.btn_update = ttk.Button(window, text="DELETE", width=20, command=self.delete)
+                # self.btn_update.place(x=310, y=290, width=130, height=40)
+                #
+                # self.btn_finish = ttk.Button(window, text="FINISH", width=20)
+                # self.btn_finish.place(x=460, y=290, width=130, height=40)
 
                 frame = Frame(window_user_login_4)
                 frame.place(x=-1, y=344)
@@ -1494,6 +1615,74 @@ def main():
 
                 tree.tag_configure('oddx', background='#008001')
                 tree.tag_configure('evenx', background='#FFFF00')
+
+
+
+                if ((str(self.txtfld1.get()) != "")):
+
+                    a2 = (str(self.txtfld1.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Date Field")
+                    validatex=False
+
+
+                if ((str(self.txtfld2.get()) != "")):
+
+                    b2 = (str(self.txtfld2.get()))
+
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Bulk Lot Field")
+                    validatex = False
+
+
+                if ((str(self.txtfld3.get()) != "")):
+
+                    c2 = (str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing GSTIN Number Field")
+
+
+                if ((len(str(self.txtfld3.get())) == 14)):
+
+                    c2 = (str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Wrong GSTIN Number")
+                    validatex = False
+
+
+                if ((str(self.txtfld5.get()) != "")):
+
+                    e2 = (str(self.txtfld5.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Missing Batch Size Field")
+                    validatex = False
+
+
+            def delete(self):
+
+                mfx=tk.messagebox.askquestion('Warning',
+                                          'Are you sure you want to delete the item with serial no '+str(self.txtfld5.get()),
+                                          icon='warning')
+
+                if mfx==True:
+
+                    validatex=False
+                else:
+                    pass
+
+            def start(self):
+
+                window_user_login_4.destroy()
 
 
             def validate(self):
@@ -1586,7 +1775,7 @@ def main():
                 self.txtfld5.delete(0, len(self.txtfld5.get()))
                 self.txtfld5.insert(0, "")
 
-            validate()
+
 
 
 
@@ -1600,7 +1789,9 @@ def main():
         window_user_login_4.title(
             'Scanning Page ' + '4.0.0')
         window_user_login_4.geometry("600x450")
-        window_user_login_4.after(3000, lambda: window_user_login_4.destroy())
+
+        if limit!='nil':
+            window_user_login_4.after(int(limit), lambda: window_user_login_4.destroy())
         window_user_login_4.mainloop()
 
         return (validatex)
