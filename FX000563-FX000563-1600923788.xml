@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="2020-09-24T03:22:36.056234+05:30" schemaVersion="1">  
+<?xml version="1.0" encoding="UTF-8"?><epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="2020-09-24T10:33:08.642793+05:30" schemaVersion="1">  
               <epcis:EPCISBody>    
                 <epcis:EventList>      
                   <epcis:ObjectEvent>        
-                    <epcis:eventTime>2020-09-24T03:22:36.056234+05:30</epcis:eventTime>        
+                    <epcis:eventTime>2020-09-24T10:33:08.642793+05:30</epcis:eventTime>        
                     <epcis:eventTimeZoneOffset>+05:30</epcis:eventTimeZoneOffset>        
-                    <epcis:epcList>          <epcis:epc>010035199187790521100000213110DT1902039A17210131</epcis:epc>          <epcis:epc>0100360505009503218965081722113010PV5665</epcis:epc>          <epcis:epc>010035199187790521100000213110DT1902039A17210131</epcis:epc>          <epcis:epc>01003692381490502110000203461721103110AM191242B</epcis:epc>          <epcis:epc>010030781598801221914093071883001721083110FX000563</epcis:epc>          <epcis:epc>010035199187790521100000213110DT1902039A17210131</epcis:epc>          
+                    <epcis:epcList>          <epcis:epc>010035199187790521100000213110DT1902039A17210131</epcis:epc>          <epcis:epc>0100360505009503218965081722113010PV5665</epcis:epc>          <epcis:epc>01003692381490502110000203461721103110AM191242B</epcis:epc>          <epcis:epc>010030781598801221914093071883001721083110FX000563</epcis:epc>          
                     </epcis:epcList>        
                     <epcis:action>ADD</epcis:action>        
                     <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>        
