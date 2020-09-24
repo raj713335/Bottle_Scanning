@@ -90,9 +90,11 @@ def main():
 
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
+
+                    user_name=str(self.txtfld1.get())
                     window_user_login.destroy()
 
-                    user_login_2()
+                    user_login_2(user_name=user_name)
 
 
 
@@ -127,7 +129,7 @@ def main():
     # version = "2.0.0"
 
 
-    def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
+    def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),user_name=str(0)):
         class User_2():
 
 
@@ -401,7 +403,7 @@ def main():
 
                 # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
 
-                user_login_3(a1=a1, b1=b1, c1=c1,
+                user_login_3(user_name=user_name,a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                              e2=e2)
 
@@ -463,7 +465,7 @@ def main():
 
 
 
-    def user_login_3(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
+    def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
 
         print(4)
 
@@ -671,7 +673,7 @@ def main():
 
 
 
-                user_login_2(a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
+                user_login_2(user_name=user_name,a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
                              c2=c2,d2=d2,e2=e2)
 
 
@@ -773,7 +775,7 @@ def main():
 
                 # IF VALIDATION IS SUCCESFULL THEN IT OPENS USER EDIT WINDOW
 
-                quiter(a1=a1, b1=b1, c1=c1,
+                quiter(user_name=user_name,a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                              e2=e2)
 
@@ -1206,7 +1208,7 @@ def main():
     #
     #
 
-    def quiter(a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
+    def quiter(user_name=str(0),a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
                      e2=str(0)):
         xml_data=[]
 
@@ -1320,7 +1322,7 @@ def main():
             <epcis:bizLocation>
             <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
             </epcis:bizLocation>
-            <epcis:extension><!--@Verify By ykhatri-->
+            <epcis:extension><!--@Verify By '''+user_name+f'''-->
             <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
             <epcis:field name="Expiration Date" value="{expire_date}"/>
             <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
@@ -1475,14 +1477,14 @@ def main():
                 self.txtfld01.place(x=525, y=50, width=70)
                 self.txtfld01.insert(0, d2)
 
-                def turn_button(x=0):
-                    self.txtfld1.destroy()
-                    self.txtfld1 = DateEntry(window, font=(
-                        "Helvetica", 10),
-                                             state='readonly',
-                                             date_pattern='y-mm-dd',
-                                             anchor='center')
-                    self.txtfld1.place(x=270, y=150, width=260)
+                # def turn_button(x=0):
+                #     self.txtfld1.destroy()
+                #     self.txtfld1 = DateEntry(window, font=(
+                #         "Helvetica", 10),
+                #                              state='readonly',
+                #                              date_pattern='y-mm-dd',
+                #                              anchor='center')
+                #     self.txtfld1.place(x=270, y=150, width=260)
 
                 self.lb1 = tk.Label(window,
                                     text="EXP(YYYY-MM-DD)",
@@ -1495,23 +1497,27 @@ def main():
                                             font=("Helvetica", 10), state='readonly')
                 self.txtfld1.place(x=270, y=150, width=260)
                 self.txtfld1.set(date_xx)
+                self.txtfld1.config(state='disabled')
 
-                self.txtfld1.bind("<Button-1>", turn_button)
+                # self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb2.place(x=60, y=190)
 
-                self.txtfld2 = ttk.Entry(window,
-                                         font=("Helvetica", 10))
+                self.txtfld2 = ttk.Combobox(window,
+                                         font=("Helvetica", 10),state='readonly')
                 self.txtfld2.place(x=270, y=190, width=260)
-                self.txtfld2.insert(0,lot_x)
+                self.txtfld2.set(lot_x)
+                self.txtfld2.config(state='disabled')
+
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb3.place(x=60, y=230)
 
-                self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
+                self.txtfld3 = ttk.Combobox(window, text="Enter UID", font=("Helvetica", 10),state='readonly')
                 self.txtfld3.place(x=270, y=230, width=260)
-                self.txtfld3.insert(0,gstin_x)
+                self.txtfld3.set(gstin_x)
+                self.txtfld3.config(state='disabled')
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
                 # self.lb5.place(x=60, y=330)
@@ -1521,7 +1527,7 @@ def main():
                 # self.txtfld5.place(x=270, y=330, width=260)
                 self.txtfld5.insert(0,serial_x)
 
-                if str(limit)!=str('nil'):
+                if str(limit)==str('end'):
                     self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                     self.btn_back.place(x=10, y=290, width=180, height=40)
 
@@ -1531,9 +1537,9 @@ def main():
                     self.btn_update = ttk.Button(window, text="DELETE", width=20, command=self.delete)
                     self.btn_update.place(x=400, y=290, width=180, height=40)
 
-                else:
+                if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
-                    self.btn_finish.place(x=-1, y=290, width=605, height=55)
+                    self.btn_finish.place(x=-1, y=290, width=605, height=160)
 
 
                 # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
@@ -1548,73 +1554,75 @@ def main():
                 # self.btn_finish = ttk.Button(window, text="FINISH", width=20)
                 # self.btn_finish.place(x=460, y=290, width=130, height=40)
 
-                frame = Frame(window_user_login_4)
-                frame.place(x=-1, y=344)
+                if limit=='end':
 
-                # print(data)
+                    frame = Frame(window_user_login_4)
+                    frame.place(x=-1, y=344)
 
-                tree = ttk.Treeview(frame,
-                                    columns=(1, 2, 3, 4, 5),
-                                    height=4, show="headings")
-                tree.pack(side='left')
-                tree.bind('<ButtonRelease-1>', selectItem)
+                    # print(data)
 
-                val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
+                    tree = ttk.Treeview(frame,
+                                        columns=(1, 2, 3, 4, 5),
+                                        height=4, show="headings")
+                    tree.pack(side='left')
+                    tree.bind('<ButtonRelease-1>', selectItem)
 
-                for i in range(1, len(val) + 1):
-                    tree.heading(i, text=val[i - 1])
+                    val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
 
-                # tree.heading(2, text="Column 2")
-                # tree.heading(3, text="Column 3")
+                    for i in range(1, len(val) + 1):
+                        tree.heading(i, text=val[i - 1])
 
-                for i in range(1, len(val) + 1):
-                    tree.column(i, width=116, anchor='center')
+                    # tree.heading(2, text="Column 2")
+                    # tree.heading(3, text="Column 3")
 
-                # tree.column(2, width=100)
-                # tree.column(3, width=100)
+                    for i in range(1, len(val) + 1):
+                        tree.column(i, width=116, anchor='center')
 
-                scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
-                scroll.pack(side='right', fill='y')
+                    # tree.column(2, width=100)
+                    # tree.column(3, width=100)
 
-                """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
-                scrollx.pack(side='bottom', fill='x')"""
+                    scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+                    scroll.pack(side='right', fill='y')
 
-                tree.configure(yscrollcommand=scroll.set)
+                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
+                    scrollx.pack(side='bottom', fill='x')"""
 
-                iter = 0
-                for valx in datax:
-                    print(valx)
+                    tree.configure(yscrollcommand=scroll.set)
 
-                    iter += 1
+                    iter = 0
+                    for valx in datax:
+                        print(valx)
 
-                    flag = False
+                        iter += 1
 
-                    if ((str(valx[0]) == "")):
-                        flag = True
+                        flag = False
 
-                    if ((str(str(valx[1])) == "")):
-                        flag = True
+                        if ((str(valx[0]) == "")):
+                            flag = True
 
-                    if ((str(valx[2]) == "")):
-                        flag = True
+                        if ((str(str(valx[1])) == "")):
+                            flag = True
 
-                    if ((len(str(valx[2])) != 14)):
-                        flag = True
+                        if ((str(valx[2]) == "")):
+                            flag = True
 
-                    if ((str(valx[3]) == "")):
-                        flag = True
+                        if ((len(str(valx[2])) != 14)):
+                            flag = True
 
-                    if flag == False:
-                        tree.insert('', 'end',
-                                    values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                                    tags=('oddx',))
-                    else:
-                        tree.insert('', 'end',
-                                    values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                                    tags=('evenx',))
+                        if ((str(valx[3]) == "")):
+                            flag = True
 
-                tree.tag_configure('oddx', background='#008001')
-                tree.tag_configure('evenx', background='#FFFF00')
+                        if flag == False:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('oddx',))
+                        else:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('evenx',))
+
+                    tree.tag_configure('oddx', background='#008001')
+                    tree.tag_configure('evenx', background='#FFFF00')
 
 
 
@@ -1788,6 +1796,7 @@ def main():
             default='DATA/IMAGES/icons/favicon.ico')
         window_user_login_4.title(
             'Scanning Page ' + '4.0.0')
+
         window_user_login_4.geometry("600x450")
 
         if limit!='nil':
