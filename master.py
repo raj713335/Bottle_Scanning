@@ -1,17 +1,10 @@
-import os
 import re
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox,Frame
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import  DateEntry
 from PIL import Image, ImageTk
 import cv2
-from datetime import date, datetime
-from threading import Thread
-import time
-import socket
-import subprocess
-import calendar
 
 
 global version
