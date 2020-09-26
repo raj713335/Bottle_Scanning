@@ -901,68 +901,68 @@ def main():
         d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
         e2=e2, date_xx=str(0), gstin_x=str(0), lot_x=str(0), serial_x=str(0), id=len(stringx), limit='end')
 
-        def xml_creator():
-
-            from datetime import datetime
-            from xml.dom import minidom
-            from xml.dom.minidom import getDOMImplementation
-
-            root = minidom.Document()
-            root.standalone = 'No'
-
-            iso_date = datetime.now().astimezone().isoformat()
-            offset = iso_date[-6:]
-            expire_date = a1
-            bulk_lot_number = b1
-            repackage_lot_number = b2
-            strings = xml_data
-
-            print(xml_data)
-
-            list_data = ''
-
-            for each in strings:
-                list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
-
-            stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-            <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
-            <epcis:EPCISBody>
-            <epcis:EventList>
-            <epcis:ObjectEvent>
-            <epcis:eventTime>{iso_date}</epcis:eventTime>
-            <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
-            <epcis:epcList>''' + str(list_data) + f'''
-            </epcis:epcList>
-            <epcis:action>ADD</epcis:action>
-            <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
-            <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
-            <epcis:readPoint>
-            <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
-            </epcis:readPoint>
-            <epcis:bizLocation>
-            <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
-            </epcis:bizLocation>
-            <epcis:extension><!--@Verify By '''+user_name+f'''-->
-            <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
-            <epcis:field name="Expiration Date" value="{expire_date}"/>
-            <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
-            </epcis:extension>
-            </epcis:ObjectEvent>
-            </epcis:EventList>
-            </epcis:EPCISBody>
-            </epcis:EPCISDocument>
-            '''
-
-            dom = minidom.parseString(stringlx)
-
-            xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
-            timestamp = int(datetime.now().timestamp())
-            save_path_file = f"{b1}-{b2}-{timestamp}.xml"
-
-            with open(save_path_file, "w") as f:
-                f.write(xml_str.decode())
-
-        xml_creator()
+        # def xml_creator():
+        #
+        #     from datetime import datetime
+        #     from xml.dom import minidom
+        #     from xml.dom.minidom import getDOMImplementation
+        #
+        #     root = minidom.Document()
+        #     root.standalone = 'No'
+        #
+        #     iso_date = datetime.now().astimezone().isoformat()
+        #     offset = iso_date[-6:]
+        #     expire_date = a1
+        #     bulk_lot_number = b1
+        #     repackage_lot_number = b2
+        #     strings = xml_data
+        #
+        #     print(xml_data)
+        #
+        #     list_data = ''
+        #
+        #     for each in strings:
+        #         list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
+        #
+        #     stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        #     <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
+        #     <epcis:EPCISBody>
+        #     <epcis:EventList>
+        #     <epcis:ObjectEvent>
+        #     <epcis:eventTime>{iso_date}</epcis:eventTime>
+        #     <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
+        #     <epcis:epcList>''' + str(list_data) + f'''
+        #     </epcis:epcList>
+        #     <epcis:action>ADD</epcis:action>
+        #     <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
+        #     <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
+        #     <epcis:readPoint>
+        #     <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
+        #     </epcis:readPoint>
+        #     <epcis:bizLocation>
+        #     <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
+        #     </epcis:bizLocation>
+        #     <epcis:extension><!--@Verify By '''+user_name+f'''-->
+        #     <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
+        #     <epcis:field name="Expiration Date" value="{expire_date}"/>
+        #     <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
+        #     </epcis:extension>
+        #     </epcis:ObjectEvent>
+        #     </epcis:EventList>
+        #     </epcis:EPCISBody>
+        #     </epcis:EPCISDocument>
+        #     '''
+        #
+        #     dom = minidom.parseString(stringlx)
+        #
+        #     xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
+        #     timestamp = int(datetime.now().timestamp())
+        #     save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+        #
+        #     with open(save_path_file, "w") as f:
+        #         f.write(xml_str.decode())
+        #
+        # xml_creator()
 
         user_login_over_ride()
 
@@ -992,23 +992,7 @@ def main():
 
                 print(stringx)
 
-                # if limit=='nil':
-                #
-                #     if d2 != len(stringx):
-                #
-                #         MsgBox = tk.messagebox.askquestion('Warning',
-                #                                            'Total Bottle in repacking data ' + str(
-                #                                                d2) + ' do not match with the available data '
-                #                                            + str(len(stringx)) + ' still want to proceed ?',
-                #                                            icon='warning')
-                #
-                #         if MsgBox == 'yes':
-                #             window_user_login_4.destroy()
-                #
-                #         else:
-                #             user_login_3(a1=a1, b1=b1, c1=c1,
-                #                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                #                          e2=e2)
+
 
                 if limit=='end':
 
@@ -1230,10 +1214,178 @@ def main():
 
 
                     def finish():
-                        print("chutiya")
 
-                        xx=tree.get_children()
-                        print(xx)
+                        glm = tk.messagebox.askquestion('Warning',
+                                                        'Are you sure you save the data to xml file ?',
+                                                        icon='warning')
+                        if glm == 'yes':
+
+                            if (self.txtfld01.get())!=len(tree.get_children()):
+                                glmb = tk.messagebox.askquestion('Warning',
+                                                                'Total Bottle Scanned '+str(len(tree.get_children()))
+                                                                 + ' do not match with the Total Bottle in Bulk Data '+str(d1)
+                                                                 +'. Do you want to update the Total Bottle in Bulk Data to '
+                                                                 +str(len(tree.get_children()))+ ' ?',
+                                                                icon='warning')
+                                if glmb=='yes':
+                                    pass
+                                else:
+                                    window_user_login_4.destroy()
+                                    user_login_over_ride()
+
+                            def user_login_over_ride():
+                                class User_Login():
+
+                                    def __init__(self, window):
+
+                                        self.UID = []
+                                        self.PWD = []
+
+                                        with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                            all_lines = fh.readlines()
+                                            for each in all_lines:
+                                                x, y = list(map(str, each.split(",")))
+                                                print(x, y)
+                                                x = str(x).replace("\n", "")
+                                                y = str(y).replace("\n", "")
+                                                self.UID.append(x)
+                                                self.PWD.append(y)
+
+                                        # Static user Name and Password
+                                        # self.UID = ["John_Deere_Admin"]
+                                        # self.PWD = ["1234"]
+
+                                        print(self.UID)
+                                        print(self.PWD)
+
+                                        self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
+                                        self.lbl.place(x=60, y=90)
+
+                                        self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
+                                        self.txtfld1.place(x=220, y=90)
+
+                                        self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
+                                                            bg='#EFEFEF')
+                                        self.lb2.place(x=60, y=220)
+
+                                        self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
+                                                                 font=("Helvetica", 20))
+                                        self.txtfld2.place(x=220, y=220)
+
+                                        self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
+                                        self.btn.place(x=60, y=330, width=200, height=50)
+
+                                        self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
+                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+
+                                    def validate(self):
+                                        if (str(self.txtfld1.get()) in self.UID) and (
+                                                str(self.txtfld2.get()) in self.PWD):
+
+                                            user_id=str(self.txtfld1.get())
+
+                                            window_user_login.destroy()
+
+                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
+                                            data_xml=[]
+                                            xx = tree.get_children()
+                                            print(xx)
+                                            for each in xx:
+                                                vc=tree.item(each)['values']
+                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
+                                                data_xml.append(strx)
+
+                                            def xml_creator():
+
+                                                from datetime import datetime
+                                                from xml.dom import minidom
+                                                from xml.dom.minidom import getDOMImplementation
+
+                                                root = minidom.Document()
+                                                root.standalone = 'No'
+
+                                                iso_date = datetime.now().astimezone().isoformat()
+                                                offset = iso_date[-6:]
+                                                expire_date = a1
+                                                bulk_lot_number = b1
+                                                repackage_lot_number = b2
+                                                strings = data_xml
+
+                                                print(strings)
+
+
+
+                                                list_data = ''
+
+                                                for each in strings:
+                                                    list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
+
+                                                stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                                                <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
+                                                <epcis:EPCISBody>
+                                                <epcis:EventList>
+                                                <epcis:ObjectEvent>
+                                                <epcis:eventTime>{iso_date}</epcis:eventTime>
+                                                <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
+                                                <epcis:epcList>''' + str(list_data) + f'''
+                                                </epcis:epcList>
+                                                <epcis:action>ADD</epcis:action>
+                                                <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
+                                                <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
+                                                <epcis:readPoint>
+                                                <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
+                                                </epcis:readPoint>
+                                                <epcis:bizLocation>
+                                                <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
+                                                </epcis:bizLocation>
+                                                <epcis:extension><!--@Verify By ''' + str(user_id)  + f'''-->
+                                                <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
+                                                <epcis:field name="Expiration Date" value="{expire_date}"/>
+                                                <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
+                                                </epcis:extension>
+                                                </epcis:ObjectEvent>
+                                                </epcis:EventList>
+                                                </epcis:EPCISBody>
+                                                </epcis:EPCISDocument>
+                                                '''
+
+                                                dom = minidom.parseString(stringlx)
+
+                                                xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
+                                                timestamp = int(datetime.now().timestamp())
+                                                save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+
+                                                with open(save_path_file, "w") as f:
+                                                    f.write(xml_str.decode())
+
+                                            xml_creator()
+                                            window_user_login_4.destroy()
+                                            user_login_over_ride()
+
+
+
+                                        else:
+
+                                            messagebox.showerror("Error", "INVALID CREDENTIALS")
+
+                                    def quit(self):
+                                        window_user_login.destroy()
+
+                                window_user_login = tk.Tk()
+                                window_user_login.config(background='#EFEFEF')
+                                window_user_login.attributes('-alpha', 0.97)
+
+                                user_login_window = User_Login(window_user_login)
+                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ' + version)
+                                window_user_login.geometry("600x450")
+                                window_user_login.mainloop()
+
+                            user_login_over_ride()
+
+
+
 
 
 
