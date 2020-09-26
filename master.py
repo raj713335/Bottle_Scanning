@@ -1229,11 +1229,21 @@ def main():
                             pass
 
 
+                    def finish():
+                        print("chutiya")
+
+                        xx=tree.get_children()
+                        print(xx)
+
+
 
 
 
                     self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=delete)
                     self.btn_quit.place(x=205, y=290, width=180, height=40)
+
+                    self.btn_save = ttk.Button(window, text="FINISH", width=20, command=finish)
+                    self.btn_save.place(x=400, y=290, width=180, height=40)
 
 
 
@@ -1321,8 +1331,7 @@ def main():
 
 
 
-                    self.btn_save = ttk.Button(window, text="FINISH", width=20, command=self.finish)
-                    self.btn_save.place(x=400, y=290, width=180, height=40)
+
 
                 if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
