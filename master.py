@@ -1175,8 +1175,12 @@ def main():
                                         if (str(self.txtfld1.get()) in self.UID) and (
                                                 str(self.txtfld2.get()) in self.PWD):
 
-                                            selected_item = tree.selection()[0]  ## get selected item
-                                            tree.delete(selected_item)
+                                            print(tree.selection())
+
+                                            for selected_item in tree.selection():
+
+                                                #selected_item = tree.selection()[i]  ## get selected item
+                                                tree.delete(selected_item)
 
                                             window_user_login.destroy()
 
