@@ -57,7 +57,7 @@ def main():
                     all_lines = fh.readlines()
                     for each in all_lines:
                         x, y = list(map(str, each.split(",")))
-                        print(x, y)
+                        #print(x, y)
                         x = str(x).replace("\n", "")
                         y = str(y).replace("\n", "")
                         self.UID.append(x)
@@ -67,8 +67,8 @@ def main():
                 # self.UID = ["John_Deere_Admin"]
                 # self.PWD = ["1234"]
 
-                print(self.UID)
-                print(self.PWD)
+                #print(self.UID)
+                #print(self.PWD)
 
                 self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                 self.lbl.place(x=60, y=90)
@@ -155,7 +155,7 @@ def main():
                     for each in all_lines:
                         string = str(each)
 
-                print(string)
+                #print(string)
 
                 if a1==str(0):
                     date_x = re.findall('17[0-9]{6}', string)
@@ -198,7 +198,7 @@ def main():
                     total=d1
 
 
-                print("vvv"+d1)
+                #print("vvv"+d1)
 
 
                 if e1==str(0):
@@ -235,7 +235,7 @@ def main():
                 #
                 #     print(date_x,gstin,lot,serial)
 
-                print(date_x, gstin, lot, serial)
+                #print(date_x, gstin, lot, serial)
 
                 def turn_button(x=0):
 
@@ -379,14 +379,14 @@ def main():
 
                 try:
 
-                    print(1)
+                    #print(1)
                     temp=int((self.txtfld4.get()))
 
                     d1=str(self.txtfld4.get())
 
 
 
-                    print(3)
+                    #print(3)
 
 
 
@@ -467,7 +467,7 @@ def main():
 
     def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
 
-        print(4)
+        #print(4)
 
 
         class User_3():
@@ -490,7 +490,7 @@ def main():
                     for each in all_lines:
                         string = str(each)
 
-                print(string)
+                #print(string)
 
                 # date_x = re.findall('17[0-9]{6}', string)
                 # try:
@@ -586,7 +586,7 @@ def main():
                 else:
                     serial = e2
 
-                print(date_x, gstin, lot, serial)
+                #print(date_x, gstin, lot, serial)
 
                 def turn_button(x=0):
 
@@ -829,7 +829,7 @@ def main():
             for each in all_lines:
                 stringx.append(each.replace('\n', ''))
 
-        print(stringx)
+        #print(stringx)
 
         user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
                      d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
@@ -964,7 +964,7 @@ def main():
         #
         # xml_creator()
 
-        user_login_over_ride()
+        #user_login_over_ride()
 
 
 
@@ -990,7 +990,7 @@ def main():
                     for each in all_lines:
                         stringx.append(each.replace('\n', ''))
 
-                print(stringx)
+                #print(stringx)
 
 
 
@@ -1052,7 +1052,7 @@ def main():
 
                         # print(quantifiers)
 
-                        print(quantifiers)
+                        #print(quantifiers)
 
                     frame = Frame(window_user_login_4)
                     frame.place(x=-1, y=344)
@@ -1089,7 +1089,7 @@ def main():
 
                     iter = 0
                     for valx in datax:
-                        print(valx)
+                        #print(valx)
 
                         iter += 1
 
@@ -1145,7 +1145,7 @@ def main():
                                             all_lines = fh.readlines()
                                             for each in all_lines:
                                                 x, y = list(map(str, each.split(",")))
-                                                print(x, y)
+                                                #print(x, y)
                                                 x = str(x).replace("\n", "")
                                                 y = str(y).replace("\n", "")
                                                 self.UID.append(x)
@@ -1155,8 +1155,8 @@ def main():
                                         # self.UID = ["John_Deere_Admin"]
                                         # self.PWD = ["1234"]
 
-                                        print(self.UID)
-                                        print(self.PWD)
+                                        #print(self.UID)
+                                        #print(self.PWD)
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                                         self.lbl.place(x=60, y=90)
@@ -1230,8 +1230,7 @@ def main():
                                 if glmb=='yes':
                                     pass
                                 else:
-                                    window_user_login_4.destroy()
-                                    user_login_over_ride()
+                                    return (0)
 
                             def user_login_over_ride():
                                 class User_Login():
@@ -1245,7 +1244,7 @@ def main():
                                             all_lines = fh.readlines()
                                             for each in all_lines:
                                                 x, y = list(map(str, each.split(",")))
-                                                print(x, y)
+                                                #print(x, y)
                                                 x = str(x).replace("\n", "")
                                                 y = str(y).replace("\n", "")
                                                 self.UID.append(x)
@@ -1255,8 +1254,8 @@ def main():
                                         # self.UID = ["John_Deere_Admin"]
                                         # self.PWD = ["1234"]
 
-                                        print(self.UID)
-                                        print(self.PWD)
+                                        #print(self.UID)
+                                        #print(self.PWD)
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                                         self.lbl.place(x=60, y=90)
@@ -1290,7 +1289,7 @@ def main():
 
                                             data_xml=[]
                                             xx = tree.get_children()
-                                            print(xx)
+                                            #print(xx)
                                             for each in xx:
                                                 vc=tree.item(each)['values']
                                                 strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
@@ -1312,7 +1311,7 @@ def main():
                                                 repackage_lot_number = b2
                                                 strings = data_xml
 
-                                                print(strings)
+                                                #print(strings)
 
 
 
@@ -1488,96 +1487,6 @@ def main():
                 if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
                     self.btn_finish.place(x=-1, y=290, width=605, height=160)
-
-
-                # self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
-                # self.btn_back.place(x=10, y=290, width=130, height=40)
-                #
-                # self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
-                # self.btn_quit.place(x=160, y=290, width=130, height=40)
-                #
-                # self.btn_update = ttk.Button(window, text="DELETE", width=20, command=self.delete)
-                # self.btn_update.place(x=310, y=290, width=130, height=40)
-                #
-                # self.btn_finish = ttk.Button(window, text="FINISH", width=20)
-                # self.btn_finish.place(x=460, y=290, width=130, height=40)
-
-                # if limit=='end':
-                #
-                #     frame = Frame(window_user_login_4)
-                #     frame.place(x=-1, y=344)
-                #
-                #     # print(data)
-                #
-                #     tree = ttk.Treeview(frame,
-                #                         columns=(1, 2, 3, 4, 5),
-                #                         height=4, show="headings")
-                #     tree.pack(side='left')
-                #     tree.bind('<ButtonRelease-1>', selectItem)
-                #
-                #     val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
-                #
-                #     for i in range(1, len(val) + 1):
-                #         tree.heading(i, text=val[i - 1])
-                #
-                #     # tree.heading(2, text="Column 2")
-                #     # tree.heading(3, text="Column 3")
-                #
-                #     for i in range(1, len(val) + 1):
-                #         tree.column(i, width=116, anchor='center')
-                #
-                #     # tree.column(2, width=100)
-                #     # tree.column(3, width=100)
-                #
-                #     scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
-                #     scroll.pack(side='right', fill='y')
-                #
-                #     """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
-                #     scrollx.pack(side='bottom', fill='x')"""
-                #
-                #     tree.configure(yscrollcommand=scroll.set)
-                #
-                #     iter = 0
-                #     for valx in datax:
-                #         print(valx)
-                #
-                #         iter += 1
-                #
-                #         flag = False
-                #
-                #         if ((str(valx[0]) == "")):
-                #             flag = True
-                #
-                #         if ((str(str(valx[1])) == "")):
-                #             flag = True
-                #
-                #         if ((str(valx[2]) == "")):
-                #             flag = True
-                #
-                #         if ((len(str(valx[2])) != 14)):
-                #             flag = True
-                #
-                #         if ((str(valx[3]) == "")):
-                #             flag = True
-                #
-                #         if flag == False:
-                #             tree.insert('', 'end',
-                #                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                #                         tags=('oddx',))
-                #         else:
-                #             tree.insert('', 'end',
-                #                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                #                         tags=('evenx',))
-                #
-                #     tree.tag_configure('oddx', background='#008001')
-                #     tree.tag_configure('evenx', background='#FFFF00')
-
-
-
-
-
-
-
 
 
 
