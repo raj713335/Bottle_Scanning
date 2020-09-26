@@ -1056,19 +1056,187 @@ def main():
                         # print(tree.item(curItem)['values'])
                         quantifiers = (tree.item(curItem)['values'])
 
-                        self.txtfld1.set("")
-                        self.txtfld2.delete(0, 'end')
-                        self.txtfld3.delete(0, 'end')
-                        self.txtfld5.delete(0, 'end')
+                        # self.txtfld1.set("")
+                        # self.txtfld2.delete(0, 'end')
+                        # self.txtfld3.delete(0, 'end')
+                        # self.txtfld5.delete(0, 'end')
 
                         self.txtfld1.set(str(quantifiers[1]))
-                        self.txtfld2.insert(0, str(quantifiers[2]))
-                        self.txtfld3.insert(0, str('0000' + str(quantifiers[3]))[-14:])
-                        self.txtfld5.insert(0, str(quantifiers[4]))
+                        self.txtfld2.set(str(quantifiers[2]))
+                        self.txtfld3.set(str('0000' + str(quantifiers[3]))[-14:])
+                        self.txtfld5.set(str(quantifiers[4]))
 
                         # print(quantifiers)
 
                         print(quantifiers)
+
+                    frame = Frame(window_user_login_4)
+                    frame.place(x=-1, y=344)
+
+                    # print(data)
+
+                    tree = ttk.Treeview(frame,
+                                        columns=(1, 2, 3, 4, 5),
+                                        height=4, show="headings")
+                    tree.pack(side='left')
+                    tree.bind('<ButtonRelease-1>', selectItem)
+
+                    val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
+
+                    for i in range(1, len(val) + 1):
+                        tree.heading(i, text=val[i - 1])
+
+                    # tree.heading(2, text="Column 2")
+                    # tree.heading(3, text="Column 3")
+
+                    for i in range(1, len(val) + 1):
+                        tree.column(i, width=116, anchor='center')
+
+                    # tree.column(2, width=100)
+                    # tree.column(3, width=100)
+
+                    scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+                    scroll.pack(side='right', fill='y')
+
+                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
+                    scrollx.pack(side='bottom', fill='x')"""
+
+                    tree.configure(yscrollcommand=scroll.set)
+
+                    iter = 0
+                    for valx in datax:
+                        print(valx)
+
+                        iter += 1
+
+                        flag = False
+
+                        if ((str(valx[0]) == "")):
+                            flag = True
+
+                        if ((str(str(valx[1])) == "")):
+                            flag = True
+
+                        if ((str(valx[2]) == "")):
+                            flag = True
+
+                        if ((len(str(valx[2])) != 14)):
+                            flag = True
+
+                        if ((str(valx[3]) == "")):
+                            flag = True
+
+                        if flag == False:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('oddx',))
+                        else:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('evenx',))
+
+                    tree.tag_configure('oddx', background='#008001')
+                    tree.tag_configure('evenx', background='#FFFF00')
+
+                    def activate():
+
+
+                        def user_login_over_ride():
+                            class User_Login():
+
+                                def __init__(self, window):
+
+                                    self.UID = []
+                                    self.PWD = []
+
+                                    with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                        all_lines = fh.readlines()
+                                        for each in all_lines:
+                                            x, y = list(map(str, each.split(",")))
+                                            print(x, y)
+                                            x = str(x).replace("\n", "")
+                                            y = str(y).replace("\n", "")
+                                            self.UID.append(x)
+                                            self.PWD.append(y)
+
+                                    # Static user Name and Password
+                                    # self.UID = ["John_Deere_Admin"]
+                                    # self.PWD = ["1234"]
+
+                                    print(self.UID)
+                                    print(self.PWD)
+
+                                    self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
+                                    self.lbl.place(x=60, y=90)
+
+                                    self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
+                                    self.txtfld1.place(x=220, y=90)
+
+                                    self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20), bg='#EFEFEF')
+                                    self.lb2.place(x=60, y=220)
+
+                                    self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
+                                                             font=("Helvetica", 20))
+                                    self.txtfld2.place(x=220, y=220)
+
+                                    self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
+                                    self.btn.place(x=60, y=330, width=200, height=50)
+
+                                    self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
+                                    self.btn_quit.place(x=330, y=330, width=200, height=50)
+
+                                def validate(self):
+                                    if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
+
+                                        selected_item = tree.selection()[0]  ## get selected item
+                                        tree.delete(selected_item)
+
+
+
+
+                                        window_user_login.destroy()
+
+                                        # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
+
+
+                                    else:
+
+                                        messagebox.showerror("Error", "INVALID CREDENTIALS")
+
+                                def quit(self):
+                                    window_user_login.destroy()
+
+                            window_user_login = tk.Tk()
+                            window_user_login.config(background='#EFEFEF')
+                            window_user_login.attributes('-alpha', 0.97)
+
+                            user_login_window = User_Login(window_user_login)
+                            window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                            window_user_login.title('Admin Login ' + version)
+                            window_user_login.geometry("600x450")
+                            window_user_login.mainloop()
+
+                        user_login_over_ride()
+
+
+                    def delete():
+                        glm=tk.messagebox.askquestion('Warning',
+                                                  'Are you sure you want to Delete the item',
+                                                  icon='warning')
+                        if glm==True:
+                            activate()
+                        else:
+                            pass
+
+
+
+
+
+                    self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=delete)
+                    self.btn_quit.place(x=205, y=290, width=180, height=40)
+
+
 
 
 
@@ -1152,11 +1320,10 @@ def main():
                     self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                     self.btn_back.place(x=10, y=290, width=180, height=40)
 
-                    self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=self.reset)
-                    self.btn_quit.place(x=205, y=290, width=180, height=40)
 
-                    self.btn_update = ttk.Button(window, text="FINISH", width=20, command=self.delete)
-                    self.btn_update.place(x=400, y=290, width=180, height=40)
+
+                    self.btn_save = ttk.Button(window, text="FINISH", width=20, command=self.finish)
+                    self.btn_save.place(x=400, y=290, width=180, height=40)
 
                 if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
@@ -1175,75 +1342,75 @@ def main():
                 # self.btn_finish = ttk.Button(window, text="FINISH", width=20)
                 # self.btn_finish.place(x=460, y=290, width=130, height=40)
 
-                if limit=='end':
-
-                    frame = Frame(window_user_login_4)
-                    frame.place(x=-1, y=344)
-
-                    # print(data)
-
-                    tree = ttk.Treeview(frame,
-                                        columns=(1, 2, 3, 4, 5),
-                                        height=4, show="headings")
-                    tree.pack(side='left')
-                    tree.bind('<ButtonRelease-1>', selectItem)
-
-                    val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
-
-                    for i in range(1, len(val) + 1):
-                        tree.heading(i, text=val[i - 1])
-
-                    # tree.heading(2, text="Column 2")
-                    # tree.heading(3, text="Column 3")
-
-                    for i in range(1, len(val) + 1):
-                        tree.column(i, width=116, anchor='center')
-
-                    # tree.column(2, width=100)
-                    # tree.column(3, width=100)
-
-                    scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
-                    scroll.pack(side='right', fill='y')
-
-                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
-                    scrollx.pack(side='bottom', fill='x')"""
-
-                    tree.configure(yscrollcommand=scroll.set)
-
-                    iter = 0
-                    for valx in datax:
-                        print(valx)
-
-                        iter += 1
-
-                        flag = False
-
-                        if ((str(valx[0]) == "")):
-                            flag = True
-
-                        if ((str(str(valx[1])) == "")):
-                            flag = True
-
-                        if ((str(valx[2]) == "")):
-                            flag = True
-
-                        if ((len(str(valx[2])) != 14)):
-                            flag = True
-
-                        if ((str(valx[3]) == "")):
-                            flag = True
-
-                        if flag == False:
-                            tree.insert('', 'end',
-                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                                        tags=('oddx',))
-                        else:
-                            tree.insert('', 'end',
-                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
-                                        tags=('evenx',))
-
-                    tree.tag_configure('oddx', background='#008001')
-                    tree.tag_configure('evenx', background='#FFFF00')
+                # if limit=='end':
+                #
+                #     frame = Frame(window_user_login_4)
+                #     frame.place(x=-1, y=344)
+                #
+                #     # print(data)
+                #
+                #     tree = ttk.Treeview(frame,
+                #                         columns=(1, 2, 3, 4, 5),
+                #                         height=4, show="headings")
+                #     tree.pack(side='left')
+                #     tree.bind('<ButtonRelease-1>', selectItem)
+                #
+                #     val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
+                #
+                #     for i in range(1, len(val) + 1):
+                #         tree.heading(i, text=val[i - 1])
+                #
+                #     # tree.heading(2, text="Column 2")
+                #     # tree.heading(3, text="Column 3")
+                #
+                #     for i in range(1, len(val) + 1):
+                #         tree.column(i, width=116, anchor='center')
+                #
+                #     # tree.column(2, width=100)
+                #     # tree.column(3, width=100)
+                #
+                #     scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+                #     scroll.pack(side='right', fill='y')
+                #
+                #     """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
+                #     scrollx.pack(side='bottom', fill='x')"""
+                #
+                #     tree.configure(yscrollcommand=scroll.set)
+                #
+                #     iter = 0
+                #     for valx in datax:
+                #         print(valx)
+                #
+                #         iter += 1
+                #
+                #         flag = False
+                #
+                #         if ((str(valx[0]) == "")):
+                #             flag = True
+                #
+                #         if ((str(str(valx[1])) == "")):
+                #             flag = True
+                #
+                #         if ((str(valx[2]) == "")):
+                #             flag = True
+                #
+                #         if ((len(str(valx[2])) != 14)):
+                #             flag = True
+                #
+                #         if ((str(valx[3]) == "")):
+                #             flag = True
+                #
+                #         if flag == False:
+                #             tree.insert('', 'end',
+                #                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                #                         tags=('oddx',))
+                #         else:
+                #             tree.insert('', 'end',
+                #                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                #                         tags=('evenx',))
+                #
+                #     tree.tag_configure('oddx', background='#008001')
+                #     tree.tag_configure('evenx', background='#FFFF00')
 
 
 
@@ -1319,17 +1486,23 @@ def main():
 
 
 
-            def delete(self):
-
-                mfx=tk.messagebox.askquestion('Warning',
-                                          'Are you sure you want to delete the item with serial no '+str(self.txtfld5.get()),
-                                          icon='warning')
-
-                if mfx==True:
-
-                    validatex=False
-                else:
-                    pass
+            # def delete(self):
+            #     pass
+            #
+            #
+            #     # mfx=tk.messagebox.askquestion('Warning',
+            #     #                           'Are you sure you want to delete the item with serial no '+str(self.txtfld5.get()),
+            #     #                           icon='warning')
+            #     #
+            #     # if mfx==True:
+            #     #
+            #     #     validatex=False
+            #     # else:
+            #     #     pass
+            #
+            #     # def delete():
+            #     #     selected_item = tree.selection()[0]  ## get selected item
+            #     #     tree.delete(selected_item)
 
             def start(self):
 
@@ -1356,21 +1529,8 @@ def main():
                 else:
                     pass
 
-            def reset(self):
-
-                # self.txtfld1.delete(0, len(self.txtfld1.get()))
-                # self.txtfld1.insert(0, "")
-
-                self.txtfld1.set("")
-
-                self.txtfld2.delete(0, len(self.txtfld2.get()))
-                self.txtfld2.insert(0, "")
-
-                self.txtfld3.delete(0, len(self.txtfld3.get()))
-                self.txtfld3.insert(0, "")
-
-                self.txtfld5.delete(0, len(self.txtfld5.get()))
-                self.txtfld5.insert(0, "")
+            def finish(self):
+                pass
 
 
 
