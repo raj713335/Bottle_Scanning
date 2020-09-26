@@ -881,7 +881,7 @@ def main():
                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                          e2=e2,date_xx=date_x,gstin_x=gstin,lot_x=lot,serial_x=serial,id=i,limit=3000)
 
-                print("88",xm)
+                #print("88",xm)
 
                 if xm==True:
                     string=string.replace('\x1d','')
