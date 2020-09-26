@@ -1228,6 +1228,7 @@ def main():
                                                                  +str(len(tree.get_children()))+ ' ?',
                                                                 icon='warning')
                                 if glmb=='yes':
+                                    self.btn_back.destroy()
                                     pass
                                 else:
                                     return (0)
