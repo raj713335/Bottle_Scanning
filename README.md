@@ -1,7 +1,7 @@
 # Bottle Scanning
 A crossplatform desktop application to read and scan data and validate the data according to the given requirements before saving it to an xml file.
 
-# YT_DOWNLOADER
+# Bottle Scanning
 
 
 ![](favicon.ico)
