@@ -636,12 +636,12 @@ def main():
                 self.txtfld3.insert(0, gstin)
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=310)
+                #self.lb4.place(x=60, y=310)
 
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=310, width=260)
-                self.txtfld4.insert(0, total)
+                #self.txtfld4.place(x=270, y=310, width=260)
+                self.txtfld4.insert(0, d1)
 
                 self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
                 #self.lb5.place(x=60, y=330)
@@ -890,13 +890,16 @@ def main():
                 sl_dub.append(serial)
 
             else:
-                root=tk.Tk()
 
-                messagebox.showwarning("Warning", "Contains Dublicate Serial Number , returning back to Admin Page")
-                root.mainloop()
-                root.destroy()
+
+                messagebox.showerror("Error", "Contains Dublicate Serial Number , returning back to Admin Page")
+
 
                 user_login_over_ride()
+
+        user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
+        d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+        e2=e2, date_xx=str(0), gstin_x=str(0), lot_x=str(0), serial_x=str(0), id=len(stringx), limit='end')
 
         def xml_creator():
 
@@ -1007,63 +1010,73 @@ def main():
                 #                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                 #                          e2=e2)
 
-                i = 0
+                if limit=='end':
 
-                datax = []
+                    i = 0
 
-                for string in stringx:
+                    datax = []
 
-                    i += 1
+                    for string in stringx:
 
-                    date_x = re.findall('17[0-9]{6}', string)
-                    try:
-                        date_x = date_x[0]
-                    except:
-                        date_x = ''
-                    date_x = '20' + date_x[2:4] + '-' + date_x[
-                                                        4:6] + '-' + date_x[
-                                                                     6:8]
+                        i += 1
 
-                    gstin = re.findall('01[0-9]{14}', string)
-                    try:
-                        gstin = gstin[0][2:]
-                    except:
-                        gstin = ''
+                        date_x = re.findall('17[0-9]{6}', string)
+                        try:
+                            date_x = date_x[0]
+                        except:
+                            date_x = ''
+                        date_x = '20' + date_x[2:4] + '-' + date_x[
+                                                            4:6] + '-' + date_x[
+                                                                         6:8]
 
-                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
-                    try:
-                        lot = str(lot[0]).replace('', "")
-                        lot = lot.replace('10', '')
-                    except:
-                        lot = ''
+                        gstin = re.findall('01[0-9]{14}', string)
+                        try:
+                            gstin = gstin[0][2:]
+                        except:
+                            gstin = ''
 
-                    serial = re.findall(r'21[0-9]*', string)
-                    try:
-                        serial = serial[0][2:-1]
-                    except:
-                        serial = ''
+                        lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+                        try:
+                            lot = str(lot[0]).replace('', "")
+                            lot = lot.replace('10', '')
+                        except:
+                            lot = ''
 
-                    datax.append([date_x, lot, gstin, serial])
+                        serial = re.findall(r'21[0-9]*', string)
+                        try:
+                            serial = serial[0][2:-1]
+                        except:
+                            serial = ''
 
-                def selectItem(a):
-                    curItem = tree.focus()
+                        datax.append([date_x, lot, gstin, serial])
 
-                    # print(tree.item(curItem)['values'])
-                    quantifiers = (tree.item(curItem)['values'])
+                    def selectItem(a):
+                        curItem = tree.focus()
 
-                    self.txtfld1.set("")
-                    self.txtfld2.delete(0, 'end')
-                    self.txtfld3.delete(0, 'end')
-                    self.txtfld5.delete(0, 'end')
+                        # print(tree.item(curItem)['values'])
+                        quantifiers = (tree.item(curItem)['values'])
 
-                    self.txtfld1.set(str(quantifiers[1]))
-                    self.txtfld2.insert(0, str(quantifiers[2]))
-                    self.txtfld3.insert(0, str('0000' + str(quantifiers[3]))[-14:])
-                    self.txtfld5.insert(0, str(quantifiers[4]))
+                        self.txtfld1.set("")
+                        self.txtfld2.delete(0, 'end')
+                        self.txtfld3.delete(0, 'end')
+                        self.txtfld5.delete(0, 'end')
 
-                    # print(quantifiers)
+                        self.txtfld1.set(str(quantifiers[1]))
+                        self.txtfld2.insert(0, str(quantifiers[2]))
+                        self.txtfld3.insert(0, str('0000' + str(quantifiers[3]))[-14:])
+                        self.txtfld5.insert(0, str(quantifiers[4]))
 
-                    print(quantifiers)
+                        # print(quantifiers)
+
+                        print(quantifiers)
+
+
+
+
+
+
+
+
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
@@ -1139,10 +1152,10 @@ def main():
                     self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                     self.btn_back.place(x=10, y=290, width=180, height=40)
 
-                    self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+                    self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=self.reset)
                     self.btn_quit.place(x=205, y=290, width=180, height=40)
 
-                    self.btn_update = ttk.Button(window, text="DELETE", width=20, command=self.delete)
+                    self.btn_update = ttk.Button(window, text="FINISH", width=20, command=self.delete)
                     self.btn_update.place(x=400, y=290, width=180, height=40)
 
                 if str(limit) == str('nil'):
@@ -1233,17 +1246,7 @@ def main():
                     tree.tag_configure('evenx', background='#FFFF00')
 
 
-                if ((str(self.txtfld1.get()) == str(a1))):
 
-                    a3 = (str(self.txtfld1.get()))
-
-                else:
-
-                    messagebox.showwarning("Warning", "Date Data in serial number "+ str(self.txtfld5.get())+
-                                           " do not match with Buld Data Date , returning back to Admin page.")
-                    validatex=False
-                    window_user_login_4.destroy()
-                    user_login_over_ride()
 
 
 
@@ -1260,6 +1263,20 @@ def main():
                     self.txtfld5.set(serial_x)
 
 
+
+
+
+                if ((str(self.txtfld1.get()) == str(a1))):
+
+                    a3 = (str(self.txtfld1.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Date Data in serial number "+ str(self.txtfld5.get())+
+                                           " do not match with Buld Data Date , returning back to Admin page.")
+                    validatex=False
+                    window_user_login_4.destroy()
+                    user_login_over_ride()
 
 
 
