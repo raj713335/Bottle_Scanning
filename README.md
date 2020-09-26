@@ -38,7 +38,7 @@ $ pyinstaller -i "favicon.ico" --onefile -w --hiddenimport=EasyTkinter --hiddeni
 
 Or
 ```sh
-$ python -m EasyTkinter tkcalendar opencv-python Pillow master.py web --noconsole --onefile --icon='favicon.ico'
+$ python -m EasyTkinter tkcalendar opencv-python Pillow master.py DATA --noconsole --onefile --icon='favicon.ico'
 ```
 
 ## Packaging the app after running pyinstaller
