@@ -5,10 +5,10 @@ from tkinter import messagebox,Frame
 from tkcalendar import  DateEntry
 from PIL import Image, ImageTk
 import cv2
-
 import sys
-sys.stderr = open('log.txt', 'w')
 
+
+sys.stderr = open('log.txt', 'w')
 
 
 def main():
