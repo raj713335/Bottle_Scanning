@@ -922,6 +922,11 @@ def main():
 
                 #print(stringx)
 
+                self.stringc=stringx
+                self.windows=window
+
+
+
 
 
                 if limit=='end':
@@ -1063,7 +1068,7 @@ def main():
                                                   icon='warning')
                         if glm=='yes':
 
-                            def user_login_over_ride():
+                            def user_login_over_ride0():
                                 class User_Login():
 
                                     def __init__(self, window):
@@ -1143,7 +1148,7 @@ def main():
                                 window_user_login.geometry("600x450")
                                 window_user_login.mainloop()
 
-                            user_login_over_ride()
+                            user_login_over_ride0()
                         else:
                             pass
 
@@ -1168,7 +1173,7 @@ def main():
                                 else:
                                     return (0)
 
-                            def user_login_over_ride():
+                            def user_login_over_ride1():
                                 class User_Login():
 
                                     def __init__(self, window):
@@ -1319,7 +1324,7 @@ def main():
                                 window_user_login.geometry("600x450")
                                 window_user_login.mainloop()
 
-                            user_login_over_ride()
+                            user_login_over_ride1()
 
 
 
@@ -1420,9 +1425,18 @@ def main():
                 # self.txtfld5.place(x=270, y=330, width=260)
                 self.txtfld5.set(serial_x)
 
+
+
+
                 if str(limit)==str('end'):
                     self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                     self.btn_back.place(x=10, y=290, width=180, height=40)
+
+                    self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
+                    self.btn_quit.place(x=205, y=290, width=180, height=40)
+
+
+
 
 
 
@@ -1511,6 +1525,432 @@ def main():
             def start(self):
 
                 window_user_login_4.destroy()
+
+            def display(self):
+                self.lb0.destroy()
+                self.lb1.destroy()
+                self.txtfld1.destroy()
+                self.lb2.destroy()
+                self.txtfld2.destroy()
+                self.lb3.destroy()
+                self.txtfld3.destroy()
+                self.txtfld00.destroy()
+                self.btn_quit.destroy()
+                self.btn_back.place(x=10, y=400, width=180, height=40)
+                self.btn_save.destroy()
+
+
+                if limit=='end':
+
+                    i = 0
+
+                    datax = []
+
+                    for string in self.stringc:
+
+                        i += 1
+
+                        date_x = re.findall('17[0-9]{6}', string)
+                        try:
+                            date_x = date_x[0]
+                        except:
+                            date_x = ''
+                        date_x = '20' + date_x[2:4] + '-' + date_x[
+                                                            4:6] + '-' + date_x[
+                                                                         6:8]
+
+                        gstin = re.findall('01[0-9]{14}', string)
+                        try:
+                            gstin = gstin[0][2:]
+                        except:
+                            gstin = ''
+
+                        lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+                        try:
+                            lot = str(lot[0]).replace('', "")
+                            lot = lot.replace('10', '')
+                        except:
+                            lot = ''
+
+                        serial = re.findall(r'21[0-9]*', string)
+                        try:
+                            serial = serial[0][2:-1]
+                        except:
+                            serial = ''
+
+                        datax.append([date_x, lot, gstin, serial])
+
+                    def selectItem(a):
+                        curItem = tree.focus()
+
+                        # print(tree.item(curItem)['values'])
+                        quantifiers = (tree.item(curItem)['values'])
+
+                        # self.txtfld1.set("")
+                        # self.txtfld2.delete(0, 'end')
+                        # self.txtfld3.delete(0, 'end')
+                        # self.txtfld5.delete(0, 'end')
+
+                        # self.txtfld1.set(str(quantifiers[1]))
+                        # self.txtfld2.set(str(quantifiers[2]))
+                        # self.txtfld3.set(str('0000' + str(quantifiers[3]))[-14:])
+                        # self.txtfld5.set(str(quantifiers[4]))
+
+                        # print(quantifiers)
+
+                        #print(quantifiers)
+
+                    frame = Frame(window_user_login_4)
+                    frame.place(x=-1, y=0)
+
+                    # print(data)
+
+                    tree = ttk.Treeview(frame,
+                                        columns=(1, 2, 3, 4, 5),
+                                        height=18, show="headings")
+                    tree.pack(side='left')
+                    tree.bind('<ButtonRelease-1>', selectItem)
+
+                    val = ["Sl No", "Exp Date", "Bulk Lot", "GTIN", "Serial", ]
+
+                    for i in range(1, len(val) + 1):
+                        tree.heading(i, text=val[i - 1])
+
+                    # tree.heading(2, text="Column 2")
+                    # tree.heading(3, text="Column 3")
+
+                    for i in range(1, len(val) + 1):
+                        tree.column(i, width=116, anchor='center')
+
+                    # tree.column(2, width=100)
+                    # tree.column(3, width=100)
+
+                    scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+                    scroll.pack(side='right', fill='y')
+
+                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
+                    scrollx.pack(side='bottom', fill='x')"""
+
+                    tree.configure(yscrollcommand=scroll.set)
+
+                    iter = 0
+                    for valx in datax:
+                        #print(valx)
+
+                        iter += 1
+
+                        flag = False
+
+                        if ((str(valx[0]) == "")):
+                            flag = True
+
+                        if ((str(str(valx[1])) == "")):
+                            flag = True
+
+                        if ((str(valx[2]) == "")):
+                            flag = True
+
+                        if ((len(str(valx[2])) != 14)):
+                            flag = True
+
+                        if ((str(valx[3]) == "")):
+                            flag = True
+
+                        if flag == False:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('oddx',))
+                        else:
+                            tree.insert('', 'end',
+                                        values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
+                                        tags=('evenx',))
+
+                    tree.tag_configure('oddx', background='#008001')
+                    tree.tag_configure('evenx', background='#FFFF00')
+
+
+
+
+
+
+                    def delete():
+                        glm=tk.messagebox.askquestion('Warning',
+                                                  'Are you sure you want to Delete the item',
+                                                  icon='warning')
+                        if glm=='yes':
+
+                            def user_login_over_ride0():
+                                class User_Login():
+
+                                    def __init__(self, window):
+
+                                        self.UID = []
+                                        self.PWD = []
+
+                                        with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                            all_lines = fh.readlines()
+                                            for each in all_lines:
+                                                x, y = list(map(str, each.split(",")))
+                                                #print(x, y)
+                                                x = str(x).replace("\n", "")
+                                                y = str(y).replace("\n", "")
+                                                self.UID.append(x)
+                                                self.PWD.append(y)
+
+                                        # Static user Name and Password
+                                        # self.UID = ["John_Deere_Admin"]
+                                        # self.PWD = ["1234"]
+
+                                        #print(self.UID)
+                                        #print(self.PWD)
+
+                                        self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
+                                        self.lbl.place(x=60, y=90)
+
+                                        self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
+                                        self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0,user_name)
+
+                                        self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
+                                                            bg='#EFEFEF')
+                                        self.lb2.place(x=60, y=220)
+
+                                        self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
+                                                                 font=("Helvetica", 20))
+                                        self.txtfld2.place(x=220, y=220)
+
+                                        self.btn = ttk.Button(window, text="DELETE", width=20, command=self.validate)
+                                        self.btn.place(x=60, y=330, width=200, height=50)
+
+                                        self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
+                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+
+                                    def validate(self):
+                                        if (str(self.txtfld1.get()) in self.UID) and (
+                                                str(self.txtfld2.get()) in self.PWD):
+
+                                            print(tree.selection())
+
+                                            for selected_item in tree.selection():
+
+                                                #selected_item = tree.selection()[i]  ## get selected item
+                                                tree.delete(selected_item)
+
+                                            window_user_login.destroy()
+
+                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
+
+
+                                        else:
+
+                                            messagebox.showerror("Error", "INVALID CREDENTIALS")
+
+                                    def quit(self):
+                                        window_user_login.destroy()
+
+                                window_user_login = tk.Tk()
+                                window_user_login.config(background='#EFEFEF')
+                                window_user_login.attributes('-alpha', 0.97)
+
+                                user_login_window = User_Login(window_user_login)
+                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ' + version)
+                                window_user_login.geometry("600x450")
+                                window_user_login.mainloop()
+
+                            user_login_over_ride0()
+                        else:
+                            pass
+
+
+                    def finish():
+
+                        glm = tk.messagebox.askquestion('Warning',
+                                                        'Are you sure you save the data to xml file ?',
+                                                        icon='warning')
+                        if glm == 'yes':
+
+                            if (self.txtfld01.get())!=len(tree.get_children()):
+                                glmb = tk.messagebox.askquestion('Warning',
+                                                                'Total Bottle Scanned '+str(len(tree.get_children()))
+                                                                 + ' do not match with the Total Bottle in Bulk Data '+str(d1)
+                                                                 +'. Do you want to update the Total Bottle in Bulk Data to '
+                                                                 +str(len(tree.get_children()))+ ' ?',
+                                                                icon='warning')
+                                if glmb=='yes':
+                                    self.btn_back.destroy()
+                                    pass
+                                else:
+                                    return (0)
+
+                            def user_login_over_ride1():
+                                class User_Login():
+
+                                    def __init__(self, window):
+
+                                        self.UID = []
+                                        self.PWD = []
+
+                                        with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                            all_lines = fh.readlines()
+                                            for each in all_lines:
+                                                x, y = list(map(str, each.split(",")))
+                                                #print(x, y)
+                                                x = str(x).replace("\n", "")
+                                                y = str(y).replace("\n", "")
+                                                self.UID.append(x)
+                                                self.PWD.append(y)
+
+                                        # Static user Name and Password
+                                        # self.UID = ["John_Deere_Admin"]
+                                        # self.PWD = ["1234"]
+
+                                        #print(self.UID)
+                                        #print(self.PWD)
+
+                                        self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
+                                        self.lbl.place(x=60, y=90)
+
+                                        self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
+                                        self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0,user_name)
+
+                                        self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
+                                                            bg='#EFEFEF')
+                                        self.lb2.place(x=60, y=220)
+
+                                        self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
+                                                                 font=("Helvetica", 20))
+                                        self.txtfld2.place(x=220, y=220)
+
+
+                                        self.btn = ttk.Button(window, text="SAVE", width=20, command=self.validate)
+                                        self.btn.place(x=60, y=330, width=200, height=50)
+
+                                        self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
+                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+
+                                    def validate(self):
+                                        if (str(self.txtfld1.get()) in self.UID) and (
+                                                str(self.txtfld2.get()) in self.PWD):
+
+                                            user_id=str(self.txtfld1.get())
+
+                                            window_user_login.destroy()
+
+                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
+                                            data_xml=[]
+                                            xx = tree.get_children()
+                                            #print(xx)
+                                            for each in xx:
+                                                vc=tree.item(each)['values']
+                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
+                                                data_xml.append(strx)
+
+                                            def xml_creator():
+
+                                                from datetime import datetime
+                                                from xml.dom import minidom
+                                                from xml.dom.minidom import getDOMImplementation
+
+                                                root = minidom.Document()
+                                                root.standalone = 'No'
+
+                                                iso_date = datetime.now().astimezone().isoformat()
+                                                offset = iso_date[-6:]
+                                                expire_date = a1
+                                                bulk_lot_number = b1
+                                                repackage_lot_number = b2
+                                                strings = data_xml
+
+                                                #print(strings)
+
+
+
+                                                list_data = ''
+
+                                                for each in strings:
+                                                    list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
+
+                                                stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                                                <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
+                                                <epcis:EPCISBody>
+                                                <epcis:EventList>
+                                                <epcis:ObjectEvent>
+                                                <epcis:eventTime>{iso_date}</epcis:eventTime>
+                                                <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
+                                                <epcis:epcList>''' + str(list_data) + f'''
+                                                </epcis:epcList>
+                                                <epcis:action>ADD</epcis:action>
+                                                <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
+                                                <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
+                                                <epcis:readPoint>
+                                                <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
+                                                </epcis:readPoint>
+                                                <epcis:bizLocation>
+                                                <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
+                                                </epcis:bizLocation>
+                                                <epcis:extension><!--@Verify By ''' + str(user_id)  + f'''-->
+                                                <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
+                                                <epcis:field name="Expiration Date" value="{expire_date}"/>
+                                                <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
+                                                </epcis:extension>
+                                                </epcis:ObjectEvent>
+                                                </epcis:EventList>
+                                                </epcis:EPCISBody>
+                                                </epcis:EPCISDocument>
+                                                '''
+
+                                                dom = minidom.parseString(stringlx)
+
+                                                xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
+                                                timestamp = int(datetime.now().timestamp())
+                                                save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+
+                                                with open(save_path_file, "w") as f:
+                                                    f.write(xml_str.decode())
+
+                                            xml_creator()
+                                            window_user_login_4.destroy()
+                                            user_login_over_ride()
+
+
+
+                                        else:
+
+                                            messagebox.showerror("Error", "INVALID CREDENTIALS")
+
+                                    def quit(self):
+                                        window_user_login.destroy()
+
+                                window_user_login = tk.Tk()
+                                window_user_login.config(background='#EFEFEF')
+                                window_user_login.attributes('-alpha', 0.97)
+
+                                user_login_window = User_Login(window_user_login)
+                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ' + version)
+                                window_user_login.geometry("600x450")
+                                window_user_login.mainloop()
+
+                            user_login_over_ride1()
+
+
+
+
+
+
+
+
+                    self.btn_quit = ttk.Button(self.windows, text="DELETE", width=20, command=delete)
+                    self.btn_quit.place(x=205, y=400, width=180, height=40)
+
+                    self.btn_save = ttk.Button(self.windows, text="FINISH", width=20, command=finish)
+                    self.btn_save.place(x=400, y=400, width=180, height=40)
+
+
 
 
 
