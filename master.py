@@ -985,7 +985,7 @@ def main():
                         #print(quantifiers)
 
                     frame = Frame(window_user_login_4)
-                    frame.place(x=-1, y=344)
+                    #frame.place(x=-1, y=344)
 
                     # print(data)
 
@@ -1093,6 +1093,7 @@ def main():
 
                                         self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
                                         self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0,user_name)
 
                                         self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
                                                             bg='#EFEFEF')
@@ -1102,7 +1103,7 @@ def main():
                                                                  font=("Helvetica", 20))
                                         self.txtfld2.place(x=220, y=220)
 
-                                        self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
+                                        self.btn = ttk.Button(window, text="DELETE", width=20, command=self.validate)
                                         self.btn.place(x=60, y=330, width=200, height=50)
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
@@ -1197,6 +1198,7 @@ def main():
 
                                         self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
                                         self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0,user_name)
 
                                         self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
                                                             bg='#EFEFEF')
@@ -1206,7 +1208,8 @@ def main():
                                                                  font=("Helvetica", 20))
                                         self.txtfld2.place(x=220, y=220)
 
-                                        self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
+
+                                        self.btn = ttk.Button(window, text="SAVE", width=20, command=self.validate)
                                         self.btn.place(x=60, y=330, width=200, height=50)
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
