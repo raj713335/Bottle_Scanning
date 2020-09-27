@@ -1,0 +1,7 @@
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Users\Zeus\AppData\Local\Programs\Python\Python38\lib\tkinter\__init__.py", line 1883, in __call__
+    return self.func(*args)
+  File "C:/Users/Zeus/PycharmProjects/Bottle_Scannig/master.py", line 60, in validate
+    user_name=str(self.txtfld3.get())
+AttributeError: 'User_Login' object has no attribute 'txtfld3'

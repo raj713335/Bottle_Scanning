@@ -6,7 +6,8 @@ from tkcalendar import  DateEntry
 from PIL import Image, ImageTk
 import cv2
 
-
+import sys
+sys.stderr = open('log.txt', 'w')
 
 
 
@@ -43,6 +44,7 @@ def main():
 
                 self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*", font=("Helvetica", 20))
                 self.txtfld2.place(x=220, y=220)
+
 
                 self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
                 self.btn.place(x=60, y=330, width=200, height=50)
@@ -1478,7 +1480,7 @@ def main():
                                         if (str(self.txtfld1.get()) in self.UID) and (
                                                 str(self.txtfld2.get()) in self.PWD):
 
-                                            print(tree.selection())
+
 
                                             for selected_item in tree.selection():
 
