@@ -758,7 +758,8 @@ def main():
             else:
 
 
-                messagebox.showerror("Error", "Contains Dublicate Serial Number , returning back to Admin Page")
+                messagebox.showerror("Error", "Serial Number "+serial+" is dublicated. Please remove the dublicated bottle and restart the scanning.")
+
 
 
                 user_login_over_ride()
