@@ -894,70 +894,7 @@ def main():
         d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
         e2=e2, date_xx=str(0), gstin_x=str(0), lot_x=str(0), serial_x=str(0), id=len(stringx), limit='end')
 
-        # def xml_creator():
-        #
-        #     from datetime import datetime
-        #     from xml.dom import minidom
-        #     from xml.dom.minidom import getDOMImplementation
-        #
-        #     root = minidom.Document()
-        #     root.standalone = 'No'
-        #
-        #     iso_date = datetime.now().astimezone().isoformat()
-        #     offset = iso_date[-6:]
-        #     expire_date = a1
-        #     bulk_lot_number = b1
-        #     repackage_lot_number = b2
-        #     strings = xml_data
-        #
-        #     print(xml_data)
-        #
-        #     list_data = ''
-        #
-        #     for each in strings:
-        #         list_data += str('<epcis:epc>') + each + str('</epcis:epc>')
-        #
-        #     stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        #     <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
-        #     <epcis:EPCISBody>
-        #     <epcis:EventList>
-        #     <epcis:ObjectEvent>
-        #     <epcis:eventTime>{iso_date}</epcis:eventTime>
-        #     <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
-        #     <epcis:epcList>''' + str(list_data) + f'''
-        #     </epcis:epcList>
-        #     <epcis:action>ADD</epcis:action>
-        #     <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
-        #     <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
-        #     <epcis:readPoint>
-        #     <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
-        #     </epcis:readPoint>
-        #     <epcis:bizLocation>
-        #     <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
-        #     </epcis:bizLocation>
-        #     <epcis:extension><!--@Verify By '''+user_name+f'''-->
-        #     <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
-        #     <epcis:field name="Expiration Date" value="{expire_date}"/>
-        #     <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
-        #     </epcis:extension>
-        #     </epcis:ObjectEvent>
-        #     </epcis:EventList>
-        #     </epcis:EPCISBody>
-        #     </epcis:EPCISDocument>
-        #     '''
-        #
-        #     dom = minidom.parseString(stringlx)
-        #
-        #     xml_str = dom.toprettyxml(indent="  ", newl='', encoding='UTF-8')
-        #     timestamp = int(datetime.now().timestamp())
-        #     save_path_file = f"{b1}-{b2}-{timestamp}.xml"
-        #
-        #     with open(save_path_file, "w") as f:
-        #         f.write(xml_str.decode())
-        #
-        # xml_creator()
 
-        #user_login_over_ride()
 
 
 
@@ -1416,13 +1353,19 @@ def main():
                 self.lb0 = tk.Label(window, text="Scanning Page", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
                 self.lb0.place(x=200, y=50)
 
-                self.txtfld00 = ttk.Entry(window, font=("Helvetica", 25), justify='center')
+                self.txtfld00 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')
                 self.txtfld00.place(x=450, y=50, width=70)
-                self.txtfld00.insert(0, id)
+                if id=='NIL':
+                    self.txtfld00.set('0')
+                    self.txtfld00.config(state='disabled')
+                else:
+                    self.txtfld00.set(id)
+                    self.txtfld00.config(state='disabled')
 
-                self.txtfld01 = ttk.Entry(window, font=("Helvetica", 25), justify='center')
+                self.txtfld01 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')
                 self.txtfld01.place(x=525, y=50, width=70)
-                self.txtfld01.insert(0, d2)
+                self.txtfld01.set(d2)
+                self.txtfld01.config(state='disabled')
 
                 # def turn_button(x=0):
                 #     self.txtfld1.destroy()
@@ -1500,19 +1443,25 @@ def main():
 
 
 
+
+
+
                 if ((str(self.txtfld1.get()) == str(a1))):
 
                     a3 = (str(self.txtfld1.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Date Data in serial number "+ str(self.txtfld5.get())+
-                                           " do not match with Buld Data Date , returning back to Admin page.")
-                    validatex=False
+
+
+
+                    messagebox.showerror("Error", "Date " + str(self.txtfld1.get())+
+                                                   " in serial number "+ str(self.txtfld5.get())+
+                                           " do not match with Bulk Date" + str(a1)+
+                                                   " , returning back to Admin page.")
+
                     window_user_login_4.destroy()
                     user_login_over_ride()
-
-
 
 
                 if ((str(self.txtfld2.get()) == str(b1))):
@@ -1522,11 +1471,11 @@ def main():
 
                 else:
 
+                    messagebox.showerror("Error", "Bulk Lot " + str(self.txtfld2.get()) +
+                                         " in serial number " + str(self.txtfld5.get()) +
+                                         " do not match with Bulk Lot " + str(b1) +
+                                         " , returning back to Admin page.")
 
-
-                    messagebox.showwarning("Warning", "Bulk Lot Data in serial number " + str(self.txtfld5.get()) +
-                                           " do not match with Buld Data Lot , returning back to Admin page.")
-                    validatex = False
                     window_user_login_4.destroy()
                     user_login_over_ride()
 
@@ -1537,9 +1486,11 @@ def main():
 
                 else:
 
-                    messagebox.showwarning("Warning", "GTIN Data in serial number " + str(self.txtfld5.get()) +
-                                           " do not match with Buld Data GTIN number , returning back to Admin page.")
-                    validatex = False
+                    messagebox.showerror("Error", "GTIN " + str(self.txtfld3.get()) +
+                                         " in serial number " + str(self.txtfld5.get()) +
+                                         " do not match with Bulk Data GTIN " + str(c1) +
+                                         " , returning back to Admin page.")
+
                     window_user_login_4.destroy()
                     user_login_over_ride()
 
@@ -1553,23 +1504,6 @@ def main():
 
 
 
-            # def delete(self):
-            #     pass
-            #
-            #
-            #     # mfx=tk.messagebox.askquestion('Warning',
-            #     #                           'Are you sure you want to delete the item with serial no '+str(self.txtfld5.get()),
-            #     #                           icon='warning')
-            #     #
-            #     # if mfx==True:
-            #     #
-            #     #     validatex=False
-            #     # else:
-            #     #     pass
-            #
-            #     # def delete():
-            #     #     selected_item = tree.selection()[0]  ## get selected item
-            #     #     tree.delete(selected_item)
 
             def start(self):
 
