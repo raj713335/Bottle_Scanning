@@ -660,8 +660,8 @@ def main():
         window_user_login_3.attributes('-alpha', 0.97)
 
         user_login_window = User_3(window_user_login_3)
-        window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
-        #window_user_login_3.title('Get Repacking Data ' + '3.0.0')
+        #window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+        window_user_login_3.title('Get Repacking Data ' + '3.0.0')
         window_user_login_3.geometry("600x450")
         window_user_login_3.mainloop()
 
