@@ -218,6 +218,7 @@ def main():
 
             def validate(self):
 
+
                 if ((str(self.txtfld1.get()) != "")):
 
                     a1=(str(self.txtfld1.get()))
@@ -281,6 +282,50 @@ def main():
 
                     messagebox.showwarning("Warning", "Missing Total Bottles Field")
                     return (0)
+
+
+                if ((str(self.txtfld2.get()).isalnum())):
+
+                    b1=(str(self.txtfld2.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Bulk Lot must be aplhanumeric and should not contain any special characters")
+                    return (0)
+
+
+                if ((str(self.txtfld3.get()).isalnum())):
+
+                    c1=(str(self.txtfld3.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "GTIN must be aplhanumeric and should not contain any special characters")
+                    return (0)
+
+
+
+                if ((str(self.txtfld5.get()).isalnum())):
+
+                    e1=(str(self.txtfld5.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Serial Number must be aplhanumeric and should not contain any special characters")
+                    return (0)
+
+
+                if ((str(self.txtfld4.get()) != "0")):
+
+                    d1=(str(self.txtfld4.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Total Bottle value cannot be 0")
+                    return (0)
+
+
+
 
 
 
@@ -382,6 +427,8 @@ def main():
             def __init__(self, window):
 
                 self.windows=window
+
+
 
                 with open('DATA/Scanning/data.txt', 'r') as fh:
                     all_lines = fh.readlines()
@@ -525,7 +572,7 @@ def main():
 
                 if ((str(self.txtfld1.get()) != "")):
 
-                    a2=(str(self.txtfld1.get()))
+                    a1=(str(self.txtfld1.get()))
 
                 else:
 
@@ -537,7 +584,7 @@ def main():
 
                 if ((str(self.txtfld2.get()) != "")):
 
-                    b2=(str(self.txtfld2.get()))
+                    b1=(str(self.txtfld2.get()))
 
                 else:
 
@@ -547,7 +594,7 @@ def main():
 
                 if ((str(self.txtfld3.get()) != "")):
 
-                    c2=(str(self.txtfld3.get()))
+                    c1=(str(self.txtfld3.get()))
 
                 else:
 
@@ -555,40 +602,37 @@ def main():
                     return (0)
 
 
-                if (    (len(str(self.txtfld3.get())) == 14)):
+                if ((len(str(self.txtfld3.get())) == 14)):
 
-                    c2=(str(self.txtfld3.get()))
+                    c1=(str(self.txtfld3.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Wrong GSTIN Number")
+                    messagebox.showwarning("Warning", "Wrong GSTIN Number Format")
                     return (0)
 
 
 
 
-                if ((str(self.txtfld4.get()) != "") ):
+                if ((str(self.txtfld2.get()).isalnum())):
 
-                    d2=(str(self.txtfld4.get()))
+                    b1=(str(self.txtfld2.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Missing Total Bottle Field")
+                    messagebox.showwarning("Warning", "Bulk Lot must be aplhanumeric and should not contain any special characters")
                     return (0)
 
 
-                try:
-                    temp=int((self.txtfld4.get()))
-                    d2 = (str(self.txtfld4.get()))
+                if ((str(self.txtfld3.get()).isalnum())):
 
+                    c1=(str(self.txtfld3.get()))
 
+                else:
 
+                    messagebox.showwarning("Warning", "GTIN must be aplhanumeric and should not contain any special characters")
+                    return (0)
 
-
-
-                except:
-                    messagebox.showwarning("Warning", "Total Bottle field must be numeric")
-                    return(0)
 
 
 
@@ -632,12 +676,6 @@ def main():
 
                 self.txtfld3.delete(0, len(self.txtfld3.get()))
                 self.txtfld3.insert(0, "")
-
-
-
-                self.txtfld5.delete(0, len(self.txtfld5.get()))
-                self.txtfld5.insert(0, "")
-
 
 
 
