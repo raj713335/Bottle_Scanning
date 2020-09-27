@@ -68,8 +68,8 @@ def main():
                 window_user_login.destroy()
 
         window_user_login = tk.Tk()
-        window_user_login.config(background='#EFEFEF')
-        window_user_login.attributes('-alpha', 0.97)
+        # window_user_login.config(background='#EFEFEF')
+        # window_user_login.attributes('-alpha', 0.97)
 
         user_login_window = User_Login(window_user_login)
         #window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
@@ -390,18 +390,14 @@ def main():
 
 
         window_user_login_2 = tk.Tk()
-        window_user_login_2.config(background='#EFEFEF')
-        window_user_login_2.attributes('-alpha', 0.97)
+        # window_user_login_2.config(background='#EFEFEF')
+        # window_user_login_2.attributes('-alpha', 0.97)
 
         user_login_window = User_2(window_user_login_2)
         # window_user_login_2.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
         window_user_login_2.title('Get Bulk Data ' + '2')
         window_user_login_2.geometry("600x450")
         window_user_login_2.mainloop()
-
-
-
-
 
 
 
@@ -636,16 +632,6 @@ def main():
 
 
 
-
-                if (d1==d2):
-
-                    a2=(str(self.txtfld1.get()))
-
-                else:
-
-                    messagebox.showwarning("Warning", "Total Bottle value in Bulk Data and Repacking Data are not Same")
-                    return (0)
-
                 window_user_login_3.destroy()
 
 
@@ -681,8 +667,8 @@ def main():
 
 
         window_user_login_3 = tk.Tk()
-        window_user_login_3.config(background='#EFEFEF')
-        window_user_login_3.attributes('-alpha', 0.97)
+        # window_user_login_3.config(background='#EFEFEF')
+        # window_user_login_3.attributes('-alpha', 0.97)
 
         user_login_window = User_3(window_user_login_3)
         #window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
@@ -706,7 +692,7 @@ def main():
             for each in all_lines:
                 stringx.append(each.replace('\n', ''))
 
-        #print(stringx)
+
 
         user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
                      d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
