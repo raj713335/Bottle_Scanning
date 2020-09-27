@@ -747,7 +747,7 @@ def main():
                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                          e2=e2,date_xx=date_x,gstin_x=gstin,lot_x=lot,serial_x=serial,id=i,limit=3000)
 
-                #print("88",xm)
+
 
                 if xm==True:
                     string=string.replace('\x1d','')
@@ -763,6 +763,8 @@ def main():
 
 
                 user_login_over_ride()
+
+
 
         user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
         d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
@@ -979,6 +981,7 @@ def main():
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
                                         self.btn_quit.place(x=330, y=330, width=200, height=50)
+
 
                                     def validate(self):
                                         if (str(self.txtfld1.get()) in self.UID) and (
