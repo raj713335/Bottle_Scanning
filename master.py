@@ -692,11 +692,14 @@ def main():
             for each in all_lines:
                 stringx.append(each.replace('\n', ''))
 
+        value=False
 
-
-        user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
+        value=user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
                      d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                      e2=e2, date_xx=a2, gstin_x=c2, lot_x=b2, serial_x=e2, id='NIL', limit='nil')
+
+        if value==False:
+            user_login_over_ride()
 
 
 
@@ -772,11 +775,9 @@ def main():
     def user_login_4(user_name=str(0),a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
                      e2=str(0),date_xx=str(0),gstin_x=str(0),lot_x=str(0),serial_x=str(0),id=str(0),limit=str(0)):
 
-        validatex=True
+
 
         class User_4():
-
-
 
 
             def __init__(self, window):
@@ -790,12 +791,9 @@ def main():
                     for each in all_lines:
                         stringx.append(each.replace('\n', ''))
 
-                #print(stringx)
 
                 self.stringc=stringx
                 self.windows=window
-
-
 
 
 
@@ -842,27 +840,20 @@ def main():
                     def selectItem(a):
                         curItem = tree.focus()
 
-                        # print(tree.item(curItem)['values'])
+
                         quantifiers = (tree.item(curItem)['values'])
 
-                        # self.txtfld1.set("")
-                        # self.txtfld2.delete(0, 'end')
-                        # self.txtfld3.delete(0, 'end')
-                        # self.txtfld5.delete(0, 'end')
+
 
                         self.txtfld1.set(str(quantifiers[1]))
                         self.txtfld2.set(str(quantifiers[2]))
                         self.txtfld3.set(str('0000' + str(quantifiers[3]))[-14:])
                         self.txtfld5.set(str(quantifiers[4]))
 
-                        # print(quantifiers)
 
-                        #print(quantifiers)
 
                     frame = Frame(window_user_login_4)
-                    #frame.place(x=-1, y=344)
 
-                    # print(data)
 
                     tree = ttk.Treeview(frame,
                                         columns=(1, 2, 3, 4, 5),
@@ -875,26 +866,22 @@ def main():
                     for i in range(1, len(val) + 1):
                         tree.heading(i, text=val[i - 1])
 
-                    # tree.heading(2, text="Column 2")
-                    # tree.heading(3, text="Column 3")
+
 
                     for i in range(1, len(val) + 1):
                         tree.column(i, width=116, anchor='center')
 
-                    # tree.column(2, width=100)
-                    # tree.column(3, width=100)
 
                     scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
                     scroll.pack(side='right', fill='y')
 
-                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
-                    scrollx.pack(side='bottom', fill='x')"""
+
 
                     tree.configure(yscrollcommand=scroll.set)
 
                     iter = 0
                     for valx in datax:
-                        #print(valx)
+
 
                         iter += 1
 
@@ -924,103 +911,10 @@ def main():
                                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
                                         tags=('evenx',))
 
-                    tree.tag_configure('oddx', background='#008001')
-                    tree.tag_configure('evenx', background='#FFFF00')
+                    # tree.tag_configure('oddx', background='#008001')
+                    # tree.tag_configure('evenx', background='#FFFF00')
 
 
-
-
-
-
-                    def delete():
-                        glm=tk.messagebox.askquestion('Warning',
-                                                  'Are you sure you want to Delete the item',
-                                                  icon='warning')
-                        if glm=='yes':
-
-                            def user_login_over_ride0():
-                                class User_Login():
-
-                                    def __init__(self, window):
-
-                                        self.UID = []
-                                        self.PWD = []
-
-                                        with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
-                                            all_lines = fh.readlines()
-                                            for each in all_lines:
-                                                x, y = list(map(str, each.split(",")))
-                                                #print(x, y)
-                                                x = str(x).replace("\n", "")
-                                                y = str(y).replace("\n", "")
-                                                self.UID.append(x)
-                                                self.PWD.append(y)
-
-                                        # Static user Name and Password
-                                        # self.UID = ["John_Deere_Admin"]
-                                        # self.PWD = ["1234"]
-
-                                        #print(self.UID)
-                                        #print(self.PWD)
-
-                                        self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
-                                        self.lbl.place(x=60, y=90)
-
-                                        self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
-                                        self.txtfld1.place(x=220, y=90)
-                                        self.txtfld1.insert(0,user_name)
-
-                                        self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
-                                                            bg='#EFEFEF')
-                                        self.lb2.place(x=60, y=220)
-
-                                        self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
-                                                                 font=("Helvetica", 20))
-                                        self.txtfld2.place(x=220, y=220)
-
-                                        self.btn = ttk.Button(window, text="DELETE", width=20, command=self.validate)
-                                        self.btn.place(x=60, y=330, width=200, height=50)
-
-                                        self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
-                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
-
-                                    def validate(self):
-                                        if (str(self.txtfld1.get()) in self.UID) and (
-                                                str(self.txtfld2.get()) in self.PWD):
-
-                                            print(tree.selection())
-
-                                            for selected_item in tree.selection():
-
-                                                #selected_item = tree.selection()[i]  ## get selected item
-                                                tree.delete(selected_item)
-
-                                            window_user_login.destroy()
-
-                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
-
-
-
-                                        else:
-
-                                            messagebox.showerror("Error", "INVALID CREDENTIALS")
-
-                                    def quit(self):
-                                        window_user_login.destroy()
-
-                                window_user_login = tk.Tk()
-                                window_user_login.config(background='#EFEFEF')
-                                window_user_login.attributes('-alpha', 0.97)
-
-                                user_login_window = User_Login(window_user_login)
-                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
-                                window_user_login.title('Admin Login ' + version)
-                                window_user_login.geometry("600x450")
-                                window_user_login.mainloop()
-
-                            user_login_over_ride0()
-                        else:
-                            pass
 
 
                     def finish():
@@ -1055,18 +949,13 @@ def main():
                                             all_lines = fh.readlines()
                                             for each in all_lines:
                                                 x, y = list(map(str, each.split(",")))
-                                                #print(x, y)
+
                                                 x = str(x).replace("\n", "")
                                                 y = str(y).replace("\n", "")
                                                 self.UID.append(x)
                                                 self.PWD.append(y)
 
-                                        # Static user Name and Password
-                                        # self.UID = ["John_Deere_Admin"]
-                                        # self.PWD = ["1234"]
 
-                                        #print(self.UID)
-                                        #print(self.PWD)
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                                         self.lbl.place(x=60, y=90)
@@ -1098,11 +987,12 @@ def main():
 
                                             window_user_login.destroy()
 
-                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
 
                                             data_xml=[]
                                             xx = tree.get_children()
-                                            #print(xx)
+
+
                                             for each in xx:
                                                 vc=tree.item(each)['values']
                                                 strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
@@ -1123,8 +1013,6 @@ def main():
                                                 bulk_lot_number = b1
                                                 repackage_lot_number = b2
                                                 strings = data_xml
-
-                                                #print(strings)
 
 
 
@@ -1185,12 +1073,12 @@ def main():
                                         window_user_login.destroy()
 
                                 window_user_login = tk.Tk()
-                                window_user_login.config(background='#EFEFEF')
-                                window_user_login.attributes('-alpha', 0.97)
+                                # window_user_login.config(background='#EFEFEF')
+                                # window_user_login.attributes('-alpha', 0.97)
 
                                 user_login_window = User_Login(window_user_login)
-                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
-                                window_user_login.title('Admin Login ' + version)
+                                # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ')
                                 window_user_login.geometry("600x450")
                                 window_user_login.mainloop()
 
@@ -1203,8 +1091,7 @@ def main():
 
 
 
-                    # self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=delete)
-                    # self.btn_quit.place(x=205, y=290, width=180, height=40)
+
 
                     self.btn_save = ttk.Button(window, text="FINISH", width=20, command=finish)
                     self.btn_save.place(x=400, y=400, width=180, height=40)
@@ -1245,14 +1132,7 @@ def main():
                 self.txtfld01.set(d2)
                 self.txtfld01.config(state='disabled')
 
-                # def turn_button(x=0):
-                #     self.txtfld1.destroy()
-                #     self.txtfld1 = DateEntry(window, font=(
-                #         "Helvetica", 10),
-                #                              state='readonly',
-                #                              date_pattern='y-mm-dd',
-                #                              anchor='center')
-                #     self.txtfld1.place(x=270, y=150, width=260)
+
 
                 self.lb1 = tk.Label(window,
                                     text="EXP(YYYY-MM-DD)",
@@ -1260,14 +1140,14 @@ def main():
                                     bg='#EFEFEF')
                 self.lb1.place(x=60, y=150)
 
-                # self.txtfld1 = DateEntry(window,font=("Helvetica", 10),state='readonly',date_pattern='y-mm-dd',anchor='center')
+
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
                 self.txtfld1.place(x=270, y=150, width=260)
                 self.txtfld1.set(a1)
                 self.txtfld1.config(state='disabled')
 
-                # self.txtfld1.bind("<Button-1>", turn_button)
+
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb2.place(x=60, y=190)
@@ -1394,7 +1274,15 @@ def main():
 
             def start(self):
 
-                window_user_login_4.destroy()
+                glmb = tk.messagebox.askquestion('Warning',
+                                                 'Are you sure you want to start scanning ?',
+                                                 icon='warning')
+                if glmb == 'yes':
+                    window_user_login_4.destroy()
+                else:
+                    exit(0)
+
+
 
             def display(self):
                 self.lb0.destroy()
@@ -1453,27 +1341,15 @@ def main():
                     def selectItem(a):
                         curItem = tree.focus()
 
-                        # print(tree.item(curItem)['values'])
+
                         quantifiers = (tree.item(curItem)['values'])
 
-                        # self.txtfld1.set("")
-                        # self.txtfld2.delete(0, 'end')
-                        # self.txtfld3.delete(0, 'end')
-                        # self.txtfld5.delete(0, 'end')
 
-                        # self.txtfld1.set(str(quantifiers[1]))
-                        # self.txtfld2.set(str(quantifiers[2]))
-                        # self.txtfld3.set(str('0000' + str(quantifiers[3]))[-14:])
-                        # self.txtfld5.set(str(quantifiers[4]))
-
-                        # print(quantifiers)
-
-                        #print(quantifiers)
 
                     frame = Frame(window_user_login_4)
                     frame.place(x=-1, y=0)
 
-                    # print(data)
+
 
                     tree = ttk.Treeview(frame,
                                         columns=(1, 2, 3, 4, 5),
@@ -1486,26 +1362,22 @@ def main():
                     for i in range(1, len(val) + 1):
                         tree.heading(i, text=val[i - 1])
 
-                    # tree.heading(2, text="Column 2")
-                    # tree.heading(3, text="Column 3")
+
 
                     for i in range(1, len(val) + 1):
                         tree.column(i, width=116, anchor='center')
 
-                    # tree.column(2, width=100)
-                    # tree.column(3, width=100)
+
 
                     scroll = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
                     scroll.pack(side='right', fill='y')
 
-                    """scrollx = ttk.Scrollbar(frame, orient=HORIZONTAL, command=tree.xview)
-                    scrollx.pack(side='bottom', fill='x')"""
+
 
                     tree.configure(yscrollcommand=scroll.set)
 
                     iter = 0
                     for valx in datax:
-                        #print(valx)
 
                         iter += 1
 
@@ -1535,8 +1407,8 @@ def main():
                                         values=(str(iter), str(valx[0]), str(valx[1]), str(valx[2]), str(valx[3])),
                                         tags=('evenx',))
 
-                    tree.tag_configure('oddx', background='#008001')
-                    tree.tag_configure('evenx', background='#FFFF00')
+                    # tree.tag_configure('oddx', background='#008001')
+                    # tree.tag_configure('evenx', background='#FFFF00')
 
 
 
@@ -1561,18 +1433,12 @@ def main():
                                             all_lines = fh.readlines()
                                             for each in all_lines:
                                                 x, y = list(map(str, each.split(",")))
-                                                #print(x, y)
                                                 x = str(x).replace("\n", "")
                                                 y = str(y).replace("\n", "")
                                                 self.UID.append(x)
                                                 self.PWD.append(y)
 
-                                        # Static user Name and Password
-                                        # self.UID = ["John_Deere_Admin"]
-                                        # self.PWD = ["1234"]
 
-                                        #print(self.UID)
-                                        #print(self.PWD)
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                                         self.lbl.place(x=60, y=90)
@@ -1603,12 +1469,12 @@ def main():
 
                                             for selected_item in tree.selection():
 
-                                                #selected_item = tree.selection()[i]  ## get selected item
+
                                                 tree.delete(selected_item)
 
                                             window_user_login.destroy()
 
-                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
+
 
 
 
@@ -1620,12 +1486,12 @@ def main():
                                         window_user_login.destroy()
 
                                 window_user_login = tk.Tk()
-                                window_user_login.config(background='#EFEFEF')
-                                window_user_login.attributes('-alpha', 0.97)
+                                # window_user_login.config(background='#EFEFEF')
+                                # window_user_login.attributes('-alpha', 0.97)
 
                                 user_login_window = User_Login(window_user_login)
-                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
-                                window_user_login.title('Admin Login ' + version)
+                                # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ')
                                 window_user_login.geometry("600x450")
                                 window_user_login.mainloop()
 
@@ -1666,18 +1532,14 @@ def main():
                                             all_lines = fh.readlines()
                                             for each in all_lines:
                                                 x, y = list(map(str, each.split(",")))
-                                                #print(x, y)
+
+
                                                 x = str(x).replace("\n", "")
                                                 y = str(y).replace("\n", "")
                                                 self.UID.append(x)
                                                 self.PWD.append(y)
 
-                                        # Static user Name and Password
-                                        # self.UID = ["John_Deere_Admin"]
-                                        # self.PWD = ["1234"]
 
-                                        #print(self.UID)
-                                        #print(self.PWD)
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                                         self.lbl.place(x=60, y=90)
@@ -1709,11 +1571,10 @@ def main():
 
                                             window_user_login.destroy()
 
-                                            # IF VALIDATION IS SUCCESFUL THEN IT OPENS USER EDIT WINDOW
 
                                             data_xml=[]
                                             xx = tree.get_children()
-                                            #print(xx)
+
                                             for each in xx:
                                                 vc=tree.item(each)['values']
                                                 strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
@@ -1735,7 +1596,6 @@ def main():
                                                 repackage_lot_number = b2
                                                 strings = data_xml
 
-                                                #print(strings)
 
 
 
@@ -1796,12 +1656,12 @@ def main():
                                         window_user_login.destroy()
 
                                 window_user_login = tk.Tk()
-                                window_user_login.config(background='#EFEFEF')
-                                window_user_login.attributes('-alpha', 0.97)
+                                # window_user_login.config(background='#EFEFEF')
+                                # window_user_login.attributes('-alpha', 0.97)
 
                                 user_login_window = User_Login(window_user_login)
-                                window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
-                                window_user_login.title('Admin Login ' + version)
+                                # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+                                window_user_login.title('Admin Login ')
                                 window_user_login.geometry("600x450")
                                 window_user_login.mainloop()
 
@@ -1851,14 +1711,14 @@ def main():
 
 
         window_user_login_4 = tk.Tk()
-        window_user_login_4.config(background='#EFEFEF')
-        window_user_login_4.attributes('-alpha', 0.97)
+        # window_user_login_4.config(background='#EFEFEF')
+        # window_user_login_4.attributes('-alpha', 0.97)
 
         user_login_window = User_4(window_user_login_4)
-        window_user_login_4.iconbitmap(
-            default='DATA/IMAGES/icons/favicon.ico')
+        # window_user_login_4.iconbitmap(
+        #     default='DATA/IMAGES/icons/favicon.ico')
         window_user_login_4.title(
-            'Scanning Page ' + '4.0.0')
+            'Scanning Page ' + '4')
 
         if limit!=3000:
             window_user_login_4.geometry("600x450")
@@ -1867,12 +1727,6 @@ def main():
             window_user_login_4.geometry("600x300")
             window_user_login_4.after(int(limit), lambda: window_user_login_4.destroy())
         window_user_login_4.mainloop()
-
-        return (validatex)
-
-
-
-
 
 
 
