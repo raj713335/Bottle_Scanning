@@ -1333,11 +1333,11 @@ def main():
 
 
 
-                    self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=delete)
-                    self.btn_quit.place(x=205, y=290, width=180, height=40)
+                    # self.btn_quit = ttk.Button(window, text="DELETE", width=20, command=delete)
+                    # self.btn_quit.place(x=205, y=290, width=180, height=40)
 
                     self.btn_save = ttk.Button(window, text="FINISH", width=20, command=finish)
-                    self.btn_save.place(x=400, y=290, width=180, height=40)
+                    self.btn_save.place(x=400, y=400, width=180, height=40)
 
 
 
@@ -1430,10 +1430,10 @@ def main():
 
                 if str(limit)==str('end'):
                     self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
-                    self.btn_back.place(x=10, y=290, width=180, height=40)
+                    self.btn_back.place(x=10, y=400, width=180, height=40)
 
                     self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
-                    self.btn_quit.place(x=205, y=290, width=180, height=40)
+                    self.btn_quit.place(x=205, y=400, width=180, height=40)
 
 
 
