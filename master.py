@@ -840,6 +840,20 @@ def main():
 
                         datax.append([date_x, lot, gstin, serial])
 
+
+
+                        if ((str(serial).isalnum())):
+
+                            c3 = serial
+
+                        else:
+
+                            messagebox.showwarning("Warning",
+                                                   "Serial "+serial+" must be aplhanumeric and should not contain any special characters")
+                            window_user_login_4.destroy()
+                            user_login_over_ride()
+
+
                     def selectItem(a):
                         curItem = tree.focus()
 
@@ -961,26 +975,26 @@ def main():
 
 
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
-                                        self.lbl.place(x=60, y=90)
+                                        #self.lbl.place(x=60, y=90)
 
                                         self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
-                                        self.txtfld1.place(x=220, y=90)
+                                        #self.txtfld1.place(x=220, y=90)
                                         self.txtfld1.insert(0,user_name)
 
                                         self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
                                                             bg='#EFEFEF')
-                                        self.lb2.place(x=60, y=220)
+                                        self.lb2.place(x=60, y=90)
 
                                         self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
                                                                  font=("Helvetica", 20))
-                                        self.txtfld2.place(x=220, y=220)
+                                        self.txtfld2.place(x=220, y=90)
 
 
                                         self.btn = ttk.Button(window, text="SAVE", width=20, command=self.validate)
-                                        self.btn.place(x=60, y=330, width=200, height=50)
+                                        self.btn.place(x=60, y=220, width=200, height=50)
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
-                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+                                        self.btn_quit.place(x=330, y=220, width=200, height=50)
 
 
                                     def validate(self):
@@ -1083,7 +1097,7 @@ def main():
                                 user_login_window = User_Login(window_user_login)
                                 # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
                                 window_user_login.title('Admin Login ')
-                                window_user_login.geometry("600x450")
+                                window_user_login.geometry("600x350")
                                 window_user_login.mainloop()
 
                             user_login_over_ride1()
@@ -1133,7 +1147,7 @@ def main():
 
                 self.txtfld01 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')
                 self.txtfld01.place(x=525, y=50, width=70)
-                self.txtfld01.set(d2)
+                self.txtfld01.set(d1)
                 self.txtfld01.config(state='disabled')
 
 
@@ -1264,9 +1278,6 @@ def main():
 
                     window_user_login_4.destroy()
                     user_login_over_ride()
-
-
-
 
 
 
@@ -1442,28 +1453,26 @@ def main():
                                                 self.UID.append(x)
                                                 self.PWD.append(y)
 
-
-
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
-                                        self.lbl.place(x=60, y=90)
+                                        # self.lbl.place(x=60, y=90)
 
                                         self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
-                                        self.txtfld1.place(x=220, y=90)
-                                        self.txtfld1.insert(0,user_name)
+                                        # self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0, user_name)
 
                                         self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
                                                             bg='#EFEFEF')
-                                        self.lb2.place(x=60, y=220)
+                                        self.lb2.place(x=60, y=90)
 
                                         self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
                                                                  font=("Helvetica", 20))
-                                        self.txtfld2.place(x=220, y=220)
+                                        self.txtfld2.place(x=220, y=90)
 
                                         self.btn = ttk.Button(window, text="DELETE", width=20, command=self.validate)
-                                        self.btn.place(x=60, y=330, width=200, height=50)
+                                        self.btn.place(x=60, y=220, width=200, height=50)
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
-                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+                                        self.btn_quit.place(x=330, y=220, width=200, height=50)
 
                                     def validate(self):
                                         if (str(self.txtfld1.get()) in self.UID) and (
@@ -1496,7 +1505,7 @@ def main():
                                 user_login_window = User_Login(window_user_login)
                                 # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
                                 window_user_login.title('Admin Login ')
-                                window_user_login.geometry("600x450")
+                                window_user_login.geometry("600x350")
                                 window_user_login.mainloop()
 
                             user_login_over_ride0()
@@ -1543,29 +1552,26 @@ def main():
                                                 self.UID.append(x)
                                                 self.PWD.append(y)
 
-
-
                                         self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
-                                        self.lbl.place(x=60, y=90)
+                                        # self.lbl.place(x=60, y=90)
 
                                         self.txtfld1 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 20))
-                                        self.txtfld1.place(x=220, y=90)
-                                        self.txtfld1.insert(0,user_name)
+                                        # self.txtfld1.place(x=220, y=90)
+                                        self.txtfld1.insert(0, user_name)
 
                                         self.lb2 = tk.Label(window, text="Password", font=("Helvetica", 20),
                                                             bg='#EFEFEF')
-                                        self.lb2.place(x=60, y=220)
+                                        self.lb2.place(x=60, y=90)
 
                                         self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*",
                                                                  font=("Helvetica", 20))
-                                        self.txtfld2.place(x=220, y=220)
-
+                                        self.txtfld2.place(x=220, y=90)
 
                                         self.btn = ttk.Button(window, text="SAVE", width=20, command=self.validate)
-                                        self.btn.place(x=60, y=330, width=200, height=50)
+                                        self.btn.place(x=60, y=220, width=200, height=50)
 
                                         self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
-                                        self.btn_quit.place(x=330, y=330, width=200, height=50)
+                                        self.btn_quit.place(x=330, y=220, width=200, height=50)
 
                                     def validate(self):
                                         if (str(self.txtfld1.get()) in self.UID) and (
@@ -1666,7 +1672,7 @@ def main():
                                 user_login_window = User_Login(window_user_login)
                                 # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
                                 window_user_login.title('Admin Login ')
-                                window_user_login.geometry("600x450")
+                                window_user_login.geometry("600x350")
                                 window_user_login.mainloop()
 
                             user_login_over_ride1()
