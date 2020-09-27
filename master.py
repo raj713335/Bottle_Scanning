@@ -567,18 +567,6 @@ def main():
 
 
 
-
-                if ((str(self.txtfld5.get()) != "") ):
-
-                    e2=(str(self.txtfld5.get()))
-
-                else:
-
-                    messagebox.showwarning("Warning", "Missing Batch Size Field")
-                    return (0)
-
-
-
                 if ((str(self.txtfld4.get()) != "") ):
 
                     d2=(str(self.txtfld4.get()))
@@ -645,8 +633,7 @@ def main():
                 self.txtfld3.delete(0, len(self.txtfld3.get()))
                 self.txtfld3.insert(0, "")
 
-                self.txtfld4.delete(0, len(self.txtfld4.get()))
-                self.txtfld4.insert(0, "")
+
 
                 self.txtfld5.delete(0, len(self.txtfld5.get()))
                 self.txtfld5.insert(0, "")
