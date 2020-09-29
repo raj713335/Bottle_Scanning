@@ -1015,7 +1015,7 @@ def main():
 
                                             for each in xx:
                                                 vc=tree.item(each)['values']
-                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
+                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1[2:]).replace('-','')+'10'+b1
                                                 data_xml.append(strx)
 
                                             def xml_creator():
@@ -1589,7 +1589,7 @@ def main():
 
                                             for each in xx:
                                                 vc=tree.item(each)['values']
-                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1).replace('-','')+'10'+b1
+                                                strx='01'+(str('0000' + str(c1))[-14:])+'21'+str(vc[4])+'17'+str(a1[2:]).replace('-','')+'10'+b1
                                                 data_xml.append(strx)
 
                                             def xml_creator():
