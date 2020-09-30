@@ -4,7 +4,9 @@ root = Tk()
 
 def task():
     print("hello")
-    root.after(2000, task)  # reschedule event in 2 seconds
+    x=int(input())
+    if x==2:
+        root.after(2000, task)  # reschedule event in 2 seconds
 
 root.after(2000, task)
 root.mainloop()
