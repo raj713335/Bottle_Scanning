@@ -133,6 +133,7 @@ def main():
 
             def quit(self):
                 window_user_login.destroy()
+                exit(0)
 
         window_user_login = tk.Tk()
         # window_user_login.config(background='#EFEFEF')
