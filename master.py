@@ -8,7 +8,8 @@ import cv2
 import sys
 
 
-#sys.stderr = open('log.txt', 'w')
+sys.stderr = open('log_err.txt', 'w')
+sys.stdout=open('log_out.txt','w')
 
 
 already_scanned_data=[]
