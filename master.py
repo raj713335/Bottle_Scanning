@@ -12,7 +12,7 @@ import sys
 
 
 already_scanned_data=[]
-serial=[]
+scanned_serial=[]
 
 class CreateToolTip(object):
     """
@@ -74,10 +74,10 @@ def main():
 
     def user_login_over_ride():
 
-        serial=[]
+        scanned_serial=[]
         already_scanned_data=[]
 
-        print(serial)
+        print(scanned_serial)
         print(already_scanned_data)
 
         class User_Login():
@@ -937,18 +937,18 @@ def main():
                         flag=True
 
 
-                        # if serial_x not in serial:
-                        #
-                        #     pass
-                        #
-                        #
-                        # else:
-                        #
-                        #     messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
-                        #                          " is duplicated. Please remove the duplicate bottle and restart the scanning" )
-                        #
-                        #     window_user_login_4.destroy()
-                        #     user_login_over_ride()
+                        if (serial_x not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
+
+                            pass
+
+
+                        else:
+
+                            messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
+                                                 " is duplicated. Please remove the duplicate bottle and restart the scanning" )
+
+                            window_user_login_4.destroy()
+                            user_login_over_ride()
 
 
                         if ((str(self.txtfld1.get()) == str(a1))):
@@ -1030,6 +1030,7 @@ def main():
 
                             if len(already_scanned_data)<len(scanned_data):
                                 already_scanned_data.append([a3, b3, c3, e3])
+                                scanned_serial.append(e3)
 
                             if len(already_scanned_data) < (len(scanned_data)):
                                 window_user_login_4.after(2000, task)
