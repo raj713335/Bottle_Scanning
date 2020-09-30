@@ -751,21 +751,9 @@ def main():
             for each in all_lines:
                 stringx.append(each.replace('\n', ''))
 
-        value=False
-
-        value=user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
-                     d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                     e2=e2,  id='NIL', limit='nil',scanned_data=str(0))
-
-        if value==False:
-            user_login_over_ride()
-
-
-
-
         i = 0
 
-        scanned_data=[]
+        scanned_data = []
 
         for string in stringx:
 
@@ -799,7 +787,30 @@ def main():
             except:
                 serial = ''
 
-            scanned_data.append([date_x,gstin,lot,serial])
+            scanned_data.append([date_x, gstin, lot, serial])
+
+
+
+
+
+
+
+
+        if len(scanned_data)!=len(already_scanned_data):
+            value = False
+
+            value = user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
+                                 d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                                 e2=e2, id='NIL', limit='nil', scanned_data=str(0))
+
+            if value == False:
+                user_login_over_ride()
+
+        else:
+            user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
+                         d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                         e2=e2, id='NIL', limit='end', scanned_data=scanned_data)
+
 
         user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
                      d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
@@ -816,6 +827,11 @@ def main():
         class User_4():
 
             def __init__(self, window):
+
+                stringx = already_scanned_data
+
+                self.stringc = stringx
+                self.windows = window
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
@@ -881,9 +897,18 @@ def main():
                 self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                 self.btn_back.place(x=10, y=400, width=180, height=40)
 
+                # self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.next)
+                # self.btn_next.place(x=400, y=400, width=180, height=40)
+
+
+
+
                 def task():
 
                     iterx = len(already_scanned_data)
+
+                    if iterx==len(scanned_data):
+                        iterx=len(scanned_data)-1
 
                     date_xx = scanned_data[iterx][0]
                     lot_x = scanned_data[iterx][2]
@@ -892,7 +917,7 @@ def main():
 
                     print(date_xx, lot_x, gstin_x, serial_x)
 
-                    self.txtfld00.set(str(len(already_scanned_data)))
+                    self.txtfld00.set(str(len(already_scanned_data)+1))
                     self.txtfld1.set(date_xx)
                     self.txtfld2.set(lot_x)
                     self.txtfld3.set(gstin_x)
@@ -911,8 +936,17 @@ def main():
                                                  " do not match with Bulk Date " + str(a1) +
                                                  " , returning back to Admin page.")
 
-                            window_user_login_4.destroy()
-                            user_login_over_ride()
+                            # window_user_login_4.destroy()
+                            # user_login_over_ride()
+
+
+                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.next)
+                            self.btn_next.place(x=400, y=400, width=180, height=40)
+
+
+                            def next(self):
+                                task()
+
 
                         if ((str(self.txtfld2.get()) == str(b1))):
 
@@ -965,7 +999,8 @@ def main():
                             window_user_login_4.destroy()
                             user_login_over_ride()
 
-                        already_scanned_data.append([a3, b3, c3, e3])
+                        if len(already_scanned_data)<len(scanned_data):
+                            already_scanned_data.append([a3, b3, c3, e3])
                         if len(already_scanned_data) < (len(scanned_data)):
                             window_user_login_4.after(2000, task)
                         else:
@@ -1957,15 +1992,24 @@ def main():
                 if limit == 'start':
                     if len(already_scanned_data) < (len(scanned_data)):
                         task()
+                if limit == 'end':
+                    if len(already_scanned_data) ==(len(scanned_data)):
+                        task()
 
                 if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
                     self.btn_finish.place(x=-1, y=290, width=605, height=160)
 
-                stringx = scanned_data
+
+
+                stringx = already_scanned_data
 
                 self.stringc = stringx
                 self.windows = window
+
+
+
+
 
             def start(self):
 
