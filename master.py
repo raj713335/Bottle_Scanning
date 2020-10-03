@@ -75,10 +75,10 @@ def main():
     def user_login_over_ride():
 
         for i in range(len(already_scanned_data)):
-            print(already_scanned_data.pop())
+            already_scanned_data.pop()
 
         for i in range(len(scanned_serial)):
-            print(scanned_serial.pop())
+            scanned_serial.pop()
 
         class User_Login():
 
@@ -767,7 +767,7 @@ def main():
 
         stringx = []
 
-        print(limit)
+
 
 
 
@@ -816,9 +816,7 @@ def main():
 
 
 
-        print(scanned_data)
 
-        print(already_scanned_data)
 
 
 
