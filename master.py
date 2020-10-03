@@ -74,15 +74,11 @@ def main():
 
     def user_login_over_ride():
 
+        for i in range(len(already_scanned_data)):
+            print(already_scanned_data.pop())
 
-
-
-
-        scanned_serial=[]
-        already_scanned_data=[]
-
-        print(scanned_serial)
-        print(already_scanned_data)
+        for i in range(len(scanned_serial)):
+            print(scanned_serial.pop())
 
         class User_Login():
 
@@ -862,6 +858,8 @@ def main():
         class User_4():
 
             def __init__(self, window):
+
+
 
                 stringx = already_scanned_data
 
