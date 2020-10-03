@@ -74,6 +74,10 @@ def main():
 
     def user_login_over_ride():
 
+
+
+
+
         scanned_serial=[]
         already_scanned_data=[]
 
@@ -82,10 +86,14 @@ def main():
 
         class User_Login():
 
+
+
             def __init__(self, window):
 
                 self.UID = []
                 self.PWD = []
+
+
 
                 with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
                     all_lines = fh.readlines()
@@ -758,9 +766,12 @@ def main():
 
     def quiter(user_name=str(0),a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
                      e2=str(0),limit=str(0)):
+
         xml_data=[]
 
         stringx = []
+
+        print(limit)
 
 
 
@@ -809,7 +820,9 @@ def main():
 
 
 
+        print(scanned_data)
 
+        print(already_scanned_data)
 
 
 
@@ -927,7 +940,7 @@ def main():
 
                 def task():
 
-                    print(already_scanned_data,"ccc")
+
                     try:
                         if already_scanned_data[-1]==False:
                             flagx=False
@@ -936,7 +949,7 @@ def main():
                     except:
                         flagx=True
 
-                    print(flagx)
+
 
 
 
@@ -954,11 +967,7 @@ def main():
                     gstin_x = scanned_data[iterx][1]
                     serial_x = scanned_data[iterx][3]
 
-                    print(date_xx, lot_x, gstin_x, serial_x)
 
-                    print(len(already_scanned_data),iterx)
-
-                    print(already_scanned_data)
 
                     if flagx==True:
 
@@ -977,8 +986,7 @@ def main():
                         # except:
                         #     pass
 
-                    print(already_scanned_data,"xxx")
-                    print(scanned_serial)
+
 
 
 
@@ -1360,8 +1368,13 @@ def main():
                                                                         xml_creator()
                                                                         messagebox.showwarning("Info",
                                                                                                "XML file Created Succesfully")
-                                                                        already_scanned_data=[]
-                                                                        scanned_data=[]
+                                                                        for i in range(len(already_scanned_data)):
+                                                                            already_scanned_data.pop()
+
+                                                                        for i in range(len(scanned_serial)):
+                                                                            scanned_serial.pop()
+
+
                                                                         window_user_login_4.destroy()
                                                                         user_login_over_ride()
 
@@ -1540,8 +1553,12 @@ def main():
                                                             xml_creator()
                                                             messagebox.showwarning("Info",
                                                                                    "XML file Created Succesfully")
-                                                            already_scanned_data = []
-                                                            scanned_data = []
+                                                            for i in range(len(already_scanned_data)):
+                                                                already_scanned_data.pop()
+
+                                                            for i in range(len(scanned_serial)):
+                                                                scanned_serial.pop()
+
                                                             window_user_login_4.destroy()
                                                             user_login_over_ride()
 
@@ -1640,7 +1657,7 @@ def main():
 
                 tree = ttk.Treeview(frame,
                                     columns=(1, 2, 3, 4, 5),
-                                    height=18, show="headings")
+                                    height=17, show="headings")
                 tree.pack(side='left')
                 tree.bind('<ButtonRelease-1>', selectItem)
 
@@ -2147,6 +2164,10 @@ def main():
                                 window_user_login.mainloop()
 
                             user_login_over_ride1()
+
+                self.lbx = tk.Label(self.windows, text="* To delete multiple rows press ctrl and select the rows you want to delete and press delete button",
+                                    font=("Helvetica", 10), bg='#EFEFEF')
+                self.lbx.place(x=10,y=374)
 
                 self.btn_quit = ttk.Button(self.windows, text="DELETE", width=20, command=delete)
                 self.btn_quit.place(x=205, y=400, width=180, height=40)
