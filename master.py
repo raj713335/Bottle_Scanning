@@ -8,8 +8,6 @@ import cv2
 import sys
 
 
-sys.stderr = open('log_err.txt', 'w')
-sys.stdout=open('log_out.txt','w')
 
 
 already_scanned_data=[]
@@ -913,12 +911,19 @@ def main():
 
 
 
-                def task():
+                def task(flagx=True):
+
+                    flagx=flagx
+
+                    print(flagx)
+
+
 
                     iterx = len(already_scanned_data)
 
                     if iterx==len(scanned_data):
                         iterx=len(scanned_data)-1
+
 
                     date_xx = scanned_data[iterx][0]
                     lot_x = scanned_data[iterx][2]
@@ -927,11 +932,13 @@ def main():
 
                     print(date_xx, lot_x, gstin_x, serial_x)
 
-                    self.txtfld00.set(str(len(already_scanned_data)+1))
-                    self.txtfld1.set(date_xx)
-                    self.txtfld2.set(lot_x)
-                    self.txtfld3.set(gstin_x)
-                    self.txtfld5.set(serial_x)
+                    if flagx == True:
+
+                        self.txtfld00.set(str(len(already_scanned_data)+1))
+                        self.txtfld1.set(date_xx)
+                        self.txtfld2.set(lot_x)
+                        self.txtfld3.set(gstin_x)
+                        self.txtfld5.set(serial_x)
 
                     def validatex():
 
@@ -967,10 +974,11 @@ def main():
 
                             # window_user_login_4.destroy()
                             # user_login_over_ride()
+
                             self.txtfld1.config(state='enabled')
                             self.txtfld1.set(str(self.txtfld1.get()))
 
-                            window_user_login_4.after(5000, task)
+                            window_user_login_4.after(5000, task(flagx=False))
 
 
 
