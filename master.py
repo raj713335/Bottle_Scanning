@@ -8,8 +8,6 @@ import cv2
 import sys
 
 
-
-
 already_scanned_data=[]
 scanned_serial=[]
 
@@ -216,7 +214,7 @@ def main():
 
 
                 if e1==str(0):
-                    serial = re.findall(r'21[0-9]*', string)
+                    serial = re.findall(r'21[0-9]+', string)
                     try:
                         serial = serial[0][2:-1]
                     except:
