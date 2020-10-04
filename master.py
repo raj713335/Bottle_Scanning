@@ -939,7 +939,7 @@ def main():
 
                     try:
                         if already_scanned_data[-1]==False:
-                            flagx=False
+                            flagx=True      #Earlier it was False
                         else:
                             flagx=True
                     except:
@@ -974,6 +974,11 @@ def main():
                         self.txtfld3.set(gstin_x)
                         self.txtfld5.set(serial_x)
 
+                        try:
+                            self.btn_next.destroy()
+                        except:
+                            pass
+
                     else:
                         self.btn_next.destroy()
                         already_scanned_data.pop()
@@ -1002,10 +1007,11 @@ def main():
                             messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
                                                  " is duplicated. Please remove the duplicate bottle and restart the scanning" )
 
-                            self.txtfld5.config(state='enabled')
+                            #self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
-                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
-                            self.btn_next.place(x=400, y=400, width=180, height=40)
+                            if len(already_scanned_data)<len(scanned_data):
+                                self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
+                                self.btn_next.place(x=400, y=400, width=180, height=40)
                             return (0)
 
 
@@ -1030,11 +1036,12 @@ def main():
                             # self.txtfld1.set('')
                             #self.txtfld1.set(str(self.txtfld1.get()))
 
-                            self.txtfld1.config(state='enabled')
+                            #self.txtfld1.config(state='enabled')
                             self.txtfld1.bind('<Double-Button>')
                             already_scanned_data.append(False)
-                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
-                            self.btn_next.place(x=400, y=400, width=180, height=40)
+                            if len(already_scanned_data) < len(scanned_data):
+                                self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
+                                self.btn_next.place(x=400, y=400, width=180, height=40)
                             return (0)
 
 
@@ -1055,10 +1062,11 @@ def main():
                                                  " do not match with Bulk Lot " + str(b1) +
                                                  " , Please change Lot Number")
 
-                            self.txtfld2.config(state='enabled')
+                            #self.txtfld2.config(state='enabled')
                             already_scanned_data.append(False)
-                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
-                            self.btn_next.place(x=400, y=400, width=180, height=40)
+                            if len(already_scanned_data) < len(scanned_data):
+                                self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
+                                self.btn_next.place(x=400, y=400, width=180, height=40)
                             return (0)
 
                         if ((str(self.txtfld3.get()) == str(c1))):
@@ -1073,10 +1081,11 @@ def main():
                                                  " do not match with Bulk Data GTIN " + str(c1) +
                                                  " , Please change GTIN Number")
 
-                            self.txtfld3.config(state='enabled')
+                            #self.txtfld3.config(state='enabled')
                             already_scanned_data.append(False)
-                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
-                            self.btn_next.place(x=400, y=400, width=180, height=40)
+                            if len(already_scanned_data) < len(scanned_data):
+                                self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
+                                self.btn_next.place(x=400, y=400, width=180, height=40)
                             return (0)
 
                         if ((str(self.txtfld5.get()).isalnum())):
@@ -1089,10 +1098,11 @@ def main():
                             messagebox.showwarning("Warning",
                                                    "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
 
-                            self.txtfld5.config(state='enabled')
+                            #self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
-                            self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
-                            self.btn_next.place(x=400, y=400, width=180, height=40)
+                            if len(already_scanned_data) < len(scanned_data):
+                                self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
+                                self.btn_next.place(x=400, y=400, width=180, height=40)
                             return (0)
 
                         if ((str(self.txtfld5.get()) != "")):
@@ -1166,33 +1176,37 @@ def main():
 
                                     flag = False
 
-                                    if ((str(valx[0]) == "")):
-                                        flag = True
+                                    try:
 
-                                    if ((str(str(valx[1])) == "")):
-                                        flag = True
+                                        if ((str(valx[0]) == "")):
+                                            flag = True
 
-                                    if ((str(valx[2]) == "")):
-                                        flag = True
+                                        if ((str(str(valx[1])) == "")):
+                                            flag = True
 
-                                    if ((len(str(valx[2])) != 14)):
-                                        flag = True
+                                        if ((str(valx[2]) == "")):
+                                            flag = True
 
-                                    if ((str(valx[3]) == "")):
-                                        flag = True
+                                        if ((len(str(valx[2])) != 14)):
+                                            flag = True
 
-                                    if flag == False:
-                                        tree.insert('', 'end',
-                                                    values=(
-                                                        str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
-                                                        str(valx[3])),
-                                                    tags=('oddx',))
-                                    else:
-                                        tree.insert('', 'end',
-                                                    values=(
-                                                        str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
-                                                        str(valx[3])),
-                                                    tags=('evenx',))
+                                        if ((str(valx[3]) == "")):
+                                            flag = True
+
+                                        if flag == False:
+                                            tree.insert('', 'end',
+                                                        values=(
+                                                            str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
+                                                            str(valx[3])),
+                                                        tags=('oddx',))
+                                        else:
+                                            tree.insert('', 'end',
+                                                        values=(
+                                                            str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
+                                                            str(valx[3])),
+                                                        tags=('evenx',))
+                                    except:
+                                        pass
 
                                 def finish():
 
@@ -1600,6 +1614,10 @@ def main():
                         task()
                 if limit == 'end':
                     if len(already_scanned_data) ==(len(scanned_data)):
+                        try:
+                            self.btn_next.destroy()
+                        except:
+                            pass
                         task()
 
                 if str(limit) == str('nil'):
@@ -1684,36 +1702,41 @@ def main():
 
                     flag = False
 
-                    if ((str(valx[0]) == "")):
-                        flag = True
+                    try:
 
-                    if ((str(str(valx[1])) == "")):
-                        flag = True
+                        if ((str(valx[0]) == "")):
+                            flag = True
 
-                    if ((str(valx[2]) == "")):
-                        flag = True
+                        if ((str(str(valx[1])) == "")):
+                            flag = True
 
-                    if ((len(str(valx[2])) != 14)):
-                        flag = True
+                        if ((str(valx[2]) == "")):
+                            flag = True
 
-                    if ((str(valx[3]) == "")):
-                        flag = True
+                        if ((len(str(valx[2])) != 14)):
+                            flag = True
 
-                    if flag == False:
-                        tree.insert('', 'end',
-                                    values=(
-                                        str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
-                                        str(valx[3])),
-                                    tags=('oddx',))
-                    else:
-                        tree.insert('', 'end',
-                                    values=(
-                                        str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
-                                        str(valx[3])),
-                                    tags=('evenx',))
+                        if ((str(valx[3]) == "")):
+                            flag = True
 
-                # tree.tag_configure('oddx', background='#008001')
-                # tree.tag_configure('evenx', background='#FFFF00')
+                        if flag == False:
+                            tree.insert('', 'end',
+                                        values=(
+                                            str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
+                                            str(valx[3])),
+                                        tags=('oddx',))
+                        else:
+                            tree.insert('', 'end',
+                                        values=(
+                                            str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
+                                            str(valx[3])),
+                                        tags=('evenx',))
+
+                    # tree.tag_configure('oddx', background='#008001')
+                    # tree.tag_configure('evenx', background='#FFFF00')
+                    except:
+                        pass
+
 
                 def delete():
                     glm = tk.messagebox.askquestion('Warning',
