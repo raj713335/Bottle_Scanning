@@ -278,7 +278,7 @@ def main():
                 self.txtfld4.insert(0, total)
 
 
-                self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
+                self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
                 self.txtfld5 = ttk.Entry(window,font=("Helvetica", 10))
                 self.txtfld5.insert(0, serial)
 
@@ -343,7 +343,7 @@ def main():
 
                 else:
 
-                    messagebox.showwarning("Warning", "Missing Batch Size Field")
+                    messagebox.showwarning("Warning", "Missing Serial Number Field")
                     return (0)
 
 
@@ -608,7 +608,7 @@ def main():
                                          font=("Helvetica", 10))
                 self.txtfld4.insert(0, d1)
 
-                self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
+                self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
                 self.txtfld5 = ttk.Entry(window,
                                          font=("Helvetica", 10))
                 self.txtfld5.insert(0, serial)
@@ -914,7 +914,7 @@ def main():
                 self.txtfld3.set(c1)
                 self.txtfld3.config(state='disabled')
 
-                self.lb5 = tk.Label(window, text="Batch Size", font=("Helvetica", 10), bg='#EFEFEF')
+                self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb5.place(x=60, y=290)
 
                 self.txtfld5 = ttk.Combobox(window,
@@ -929,6 +929,8 @@ def main():
                 self.btn_next = ttk.Button(window, text="NEXT", width=20)
                 # self.btn_next.place(x=400, y=400, width=180, height=40)
 
+                self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
+                self.btn_quit.place(x=205, y=400, width=180, height=40)
 
 
 
@@ -1099,7 +1101,7 @@ def main():
 
                         else:
 
-                            messagebox.showwarning("Warning", "Missing Batch Size Field")
+                            messagebox.showwarning("Warning", "Missing Serial Number Field")
                             window_user_login_4.destroy()
                             user_login_over_ride()
 
@@ -1111,9 +1113,12 @@ def main():
 
                             if len(already_scanned_data) < (len(scanned_data)):
                                 window_user_login_4.after(2000, task)
+
                             else:
                                 self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
                                 self.btn_quit.place(x=205, y=400, width=180, height=40)
+
+                                self.btn_back.place(x=3000,y=3000)
 
                                 # self.btn_save = ttk.Button(self.windows, text="FINISH", width=20, command=finish)
                                 # self.btn_save.place(x=400, y=400, width=180, height=40)
@@ -1191,21 +1196,25 @@ def main():
 
                                 def finish():
 
-                                    glm = tk.messagebox.askquestion('Warning',
-                                                                    'Are you sure you save the data to xml file ?',
-                                                                    icon='warning')
-                                    if glm == 'yes':
+                                    if str(self.txtfld01.get()) != str(len(tree.get_children())):
+                                        glmb = tk.messagebox.askquestion('Warning',
+                                                                         'Total Bottle Scanned: ' + str(
+                                                                             len(tree.get_children()))
+                                                                         + ' \nTotal Bottles Entered: ' + str(
+                                                                             d1)
+                                                                         + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
+                                                                         ,
+                                                                         icon='warning')
 
-                                        if str(self.txtfld01.get()) != str(len(tree.get_children())):
-                                            glmb = tk.messagebox.askquestion('Warning',
-                                                                             'Total Bottle Scanned: ' + str(
-                                                                                 len(tree.get_children()))
-                                                                             + ' \nTotal Bottles Entered: ' + str(
-                                                                                 d1)
-                                                                             + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
-                                                                             ,
-                                                                             icon='warning')
-                                            if glmb == 'yes':
+
+                                        if glmb == 'yes':
+
+                                            glm = tk.messagebox.askquestion('Warning',
+                                                                            'Are you sure you save the data to xml file ?',
+                                                                            icon='warning')
+
+
+                                            if glm == 'yes':
 
                                                 try:
                                                     root.destroy()
@@ -1789,22 +1798,25 @@ def main():
                         pass
 
                 def finish():
+                    if str(self.txtfld01.get()) != str(len(tree.get_children())):
+                        glmb = tk.messagebox.askquestion('Warning',
+                                                         'Total Bottle Scanned: ' + str(
+                                                             len(tree.get_children()))
+                                                         + ' \nTotal Bottles Entered: ' + str(
+                                                             d1)
+                                                         + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
+                                                         ,
+                                                         icon='warning')
 
-                    glm = tk.messagebox.askquestion('Warning',
-                                                    'Are you sure you save the data to xml file ?',
-                                                    icon='warning')
-                    if glm == 'yes':
 
-                        if str(self.txtfld01.get()) != str(len(tree.get_children())):
-                            glmb = tk.messagebox.askquestion('Warning',
-                                                                             'Total Bottle Scanned: ' + str(
-                                                                                 len(tree.get_children()))
-                                                                             + ' \nTotal Bottles Entered: ' + str(
-                                                                                 d1)
-                                                                             + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
-                                                                             ,
-                                                                             icon='warning')
-                            if glmb == 'yes':
+                        if glmb == 'yes':
+
+                            glm = tk.messagebox.askquestion('Warning',
+                                                            'Are you sure you save the data to xml file ?',
+                                                            icon='warning')
+
+
+                            if glm == 'yes':
 
                                 try:
                                     root.destroy()
@@ -1957,6 +1969,15 @@ def main():
 
                                                             with open(save_path_file, "w") as f:
                                                                 f.write(xml_str.decode())
+
+                                                        xml_creator()
+                                                        messagebox.showwarning("Info",
+                                                                               "XML file Created Succesfully")
+                                                        for i in range(len(already_scanned_data)):
+                                                            already_scanned_data.pop()
+
+                                                        for i in range(len(scanned_serial)):
+                                                            scanned_serial.pop()
 
                                                         xml_creator()
                                                         window_user_login_4.destroy()
