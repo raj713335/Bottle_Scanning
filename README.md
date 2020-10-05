@@ -1,6 +1,8 @@
 # Bottle Scanning
 A crossplatform desktop application to read and scan data and validate the data according to the given requirements before saving it to an xml file.
 
+
+
 # Bottle Scanning
 
 
@@ -8,7 +10,11 @@ A crossplatform desktop application to read and scan data and validate the data 
 
 
 
-
+<p align="center">
+    <img src="demo/Bottle_Scanning.gif" width="1000">
+    <br>
+    <sup></sup>
+</p>
 
 ## Getting Started
 - Clone the repo and cd into the directory
