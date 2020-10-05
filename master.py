@@ -169,58 +169,51 @@ def main():
                     for each in all_lines:
                         string = str(each)
 
-
-
-                if a1==str(0):
-                    date_x = re.findall('17[0-9]{6}', string)
+                if a1 == str(0):
+                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+                    string = string.replace(date_x[0], "")
                     try:
                         date_x = date_x[0]
                     except:
                         date_x = ''
                     date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
                 else:
-                    date_x=a1
+                    date_x = a1
 
-
-
-                if b1==str(0):
-
-                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
-                    try:
-                        lot = str(lot[0]).replace('', "")
-                        lot = lot.replace('10', '')
-
-                    except:
-                        lot = ''
-                else:
-                    lot=b1
-
-
-                if c1==str(0):
+                if c1 == str(0):
                     gstin = re.findall('01[0-9]{14}', string)
+                    string = string.replace(gstin[0], '')
                     try:
                         gstin = gstin[0][2:]
                     except:
                         gstin = ''
                 else:
-                    gstin=c1
+                    gstin = c1
 
-
-                if str(d1)==str(0):
-                    total=""
+                if b1 == str(0):
+                    lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
+                    string = string.replace(lot[0], '')
+                    try:
+                        lot = str(lot[0]).replace('', "")
+                        lot = lot.replace('10', '')
+                    except:
+                        lot = ''
                 else:
-                    total=d1
+                    lot = b1
 
+                if d1 == str(0):
+                    total = ""
+                else:
+                    total = d1
 
-
-                if e1==str(0):
-                    serial = re.findall(r'21[0-9]+', string)
+                if e1 == str(0):
+                    serial = re.findall(r'21[0-9]*', string)
                     try:
                         serial = serial[0][2:-1]
                     except:
                         serial = ''
                 else:
-                    serial=e1
+                    serial = e1
 
 
                 def turn_button(x=0):
@@ -500,16 +493,14 @@ def main():
 
                 self.windows=window
 
-
-
                 with open('DATA/Scanning/data.txt', 'r') as fh:
                     all_lines = fh.readlines()
                     for each in all_lines:
                         string = str(each)
 
-
                 if a2 == str(0):
-                    date_x = re.findall('17[0-9]{6}', string)
+                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+                    string = string.replace(date_x[0], "")
                     try:
                         date_x = date_x[0]
                     except:
@@ -518,9 +509,19 @@ def main():
                 else:
                     date_x = a2
 
-                if b2 == str(0):
+                if c2 == str(0):
+                    gstin = re.findall('01[0-9]{14}', string)
+                    string = string.replace(gstin[0], '')
+                    try:
+                        gstin = gstin[0][2:]
+                    except:
+                        gstin = ''
+                else:
+                    gstin = c2
 
-                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+                if b2 == str(0):
+                    lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
+                    string = string.replace(lot[0], '')
                     try:
                         lot = str(lot[0]).replace('', "")
                         lot = lot.replace('10', '')
@@ -528,15 +529,6 @@ def main():
                         lot = ''
                 else:
                     lot = b2
-
-                if c2 == str(0):
-                    gstin = re.findall('01[0-9]{14}', string)
-                    try:
-                        gstin = gstin[0][2:]
-                    except:
-                        gstin = ''
-                else:
-                    gstin = c2
 
                 if d2 == str(0):
                     total = ""
@@ -551,7 +543,6 @@ def main():
                         serial = ''
                 else:
                     serial = e2
-
 
 
                 def turn_button(x=0):
@@ -967,12 +958,18 @@ def main():
 
                     if flagx==True:
 
-                        if len(already_scanned_data)<len(scanned_data):
-                            self.txtfld00.set(str(len(already_scanned_data)+1))
-                        self.txtfld1.set(date_xx)
-                        self.txtfld2.set(lot_x)
-                        self.txtfld3.set(gstin_x)
-                        self.txtfld5.set(serial_x)
+                        try:
+                            if len(already_scanned_data)<len(scanned_data):
+                                self.txtfld00.set(str(len(already_scanned_data)+1))
+                        except:
+                            pass
+                        try:
+                            self.txtfld1.set(date_xx)
+                            self.txtfld2.set(lot_x)
+                            self.txtfld3.set(gstin_x)
+                            self.txtfld5.set(serial_x)
+                        except:
+                            pass
 
                         try:
                             self.btn_next.destroy()
@@ -1651,17 +1648,21 @@ def main():
                     exit(0)
 
             def display(self):
-                self.lb0.destroy()
-                self.lb1.destroy()
-                self.txtfld1.destroy()
-                self.lb2.destroy()
-                self.txtfld2.destroy()
-                self.lb3.destroy()
-                self.txtfld3.destroy()
-                self.txtfld00.destroy()
-                #self.btn_quit.destroy()
-                self.btn_back.place(x=10, y=400, width=180, height=40)
-                self.btn_save.destroy()
+
+                try:
+                    self.lb0.destroy()
+                    self.lb1.destroy()
+                    self.txtfld1.destroy()
+                    self.lb2.destroy()
+                    self.txtfld2.destroy()
+                    self.lb3.destroy()
+                    self.txtfld3.destroy()
+                    self.txtfld00.destroy()
+                    #self.btn_quit.destroy()
+                    self.btn_back.place(x=10, y=400, width=180, height=40)
+                    self.btn_save.destroy()
+                except:
+                    pass
 
 
 
@@ -2002,7 +2003,7 @@ def main():
                                                         for i in range(len(scanned_serial)):
                                                             scanned_serial.pop()
 
-                                                        xml_creator()
+                                                        #xml_creator()
                                                         window_user_login_4.destroy()
                                                         user_login_over_ride()
 
@@ -2178,7 +2179,7 @@ def main():
                                                 with open(save_path_file, "w") as f:
                                                     f.write(xml_str.decode())
 
-                                            xml_creator()
+                                            #xml_creator()
                                             window_user_login_4.destroy()
                                             user_login_over_ride()
 
