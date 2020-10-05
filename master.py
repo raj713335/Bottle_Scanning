@@ -773,7 +773,8 @@ def main():
 
             i += 1
 
-            date_x = re.findall('17[0-9]{6}', string)
+            date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+            string = string.replace(date_x[0], "")
             try:
                 date_x = date_x[0]
             except:
@@ -782,13 +783,16 @@ def main():
                                                 4:6] + '-' + date_x[
                                                              6:8]
 
+
             gstin = re.findall('01[0-9]{14}', string)
+            string = string.replace(gstin[0], '')
             try:
                 gstin = gstin[0][2:]
             except:
                 gstin = ''
 
             lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+            string = string.replace(lot[0], '')
             try:
                 lot = str(lot[0]).replace('', "")
                 lot = lot.replace('10', '')
