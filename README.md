@@ -6,7 +6,15 @@ A crossplatform desktop application to read and scan data and validate the data 
 # Bottle Scanning
 
 
-![](favicon.ico)
+
+<p align="center">
+    <img src="favicon.ico" >
+    <br>
+    
+</p>
+
+<br>
+<br>
 
 
 
