@@ -6,13 +6,19 @@ from tkcalendar import  DateEntry
 from PIL import Image, ImageTk
 import cv2
 import sys
-import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
-from time import sleep     # Import the sleep function from the time module
+
+# import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
+# from time import sleep     # Import the sleep function from the time module
+#
+#
+# GPIO.setwarnings(False)    # Ignore warning for now
+# GPIO.setmode(GPIO.BOARD)   # Use physical pin numbering
+# GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-GPIO.setwarnings(False)    # Ignore warning for now
-GPIO.setmode(GPIO.BOARD)   # Use physical pin numbering
-GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
+from gpiozero import LED
+led = LED(21)
+
 
 
 already_scanned_data=[]
@@ -995,7 +1001,8 @@ def main():
                         # except:
                         #     pass
 
-                    GPIO.output(17, GPIO.LOW)
+                    # GPIO.output(17, GPIO.LOW)
+                    led.off()
 
 
 
@@ -1014,7 +1021,9 @@ def main():
 
                         else:
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            led.on()
+
+                            #GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
                                                  " is duplicated. Please remove the duplicate bottle and restart the scanning" )
@@ -1041,7 +1050,9 @@ def main():
 
                         else:
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            led.on()
+
+                            #GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showerror("Error", "Date " + str(self.txtfld1.get()) +
                                                  " in serial number " + str(self.txtfld5.get()) +
@@ -1099,7 +1110,9 @@ def main():
 
                         else:
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            led.on()
+
+                            #GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showerror("Error", "GTIN " + str(self.txtfld3.get()) +
                                                  " in serial number " + str(self.txtfld5.get()) +
@@ -1124,7 +1137,9 @@ def main():
 
                         else:
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            led.on()
+
+                            #GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showwarning("Warning",
                                                    "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
