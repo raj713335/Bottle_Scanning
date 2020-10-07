@@ -6,6 +6,13 @@ from tkcalendar import  DateEntry
 from PIL import Image, ImageTk
 import cv2
 import sys
+import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
+from time import sleep     # Import the sleep function from the time module
+
+
+GPIO.setwarnings(False)    # Ignore warning for now
+GPIO.setmode(GPIO.BOARD)   # Use physical pin numbering
+GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
 already_scanned_data=[]
@@ -1008,11 +1015,17 @@ def main():
                             messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
                                                  " is duplicated. Please remove the duplicate bottle and restart the scanning" )
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            sleep(1)  # Sleep for 1 second
+                            GPIO.output(17, GPIO.LOW)
+
                             #self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
                             if len(already_scanned_data)<len(scanned_data):
                                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
                                 self.btn_next.place(x=400, y=400, width=180, height=40)
+
+
                             return (0)
 
 
@@ -1029,6 +1042,10 @@ def main():
                                                  " in serial number " + str(self.txtfld5.get()) +
                                                  " do not match with Bulk Date " + str(a1) +
                                                  " , Please change Date .")
+
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            sleep(1)  # Sleep for 1 second
+                            GPIO.output(17, GPIO.LOW)
 
                             # window_user_login_4.destroy()
                             # user_login_over_ride()
@@ -1082,6 +1099,10 @@ def main():
                                                  " do not match with Bulk Data GTIN " + str(c1) +
                                                  " , Please change GTIN Number")
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            sleep(1)  # Sleep for 1 second
+                            GPIO.output(17, GPIO.LOW)
+
                             #self.txtfld3.config(state='enabled')
                             already_scanned_data.append(False)
                             if len(already_scanned_data) < len(scanned_data):
@@ -1099,7 +1120,12 @@ def main():
                             messagebox.showwarning("Warning",
                                                    "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
 
-                            #self.txtfld5.config(state='enabled')
+
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+                            sleep(1)  # Sleep for 1 second
+                            GPIO.output(17, GPIO.LOW)
+
+                            # self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
                             if len(already_scanned_data) < len(scanned_data):
                                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=task)
