@@ -995,6 +995,8 @@ def main():
                         # except:
                         #     pass
 
+                    GPIO.output(17, GPIO.LOW)
+
 
 
 
@@ -1012,12 +1014,14 @@ def main():
 
                         else:
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+
                             messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
                                                  " is duplicated. Please remove the duplicate bottle and restart the scanning" )
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
-                            sleep(1)  # Sleep for 1 second
-                            GPIO.output(17, GPIO.LOW)
+
+                            #sleep(1)  # Sleep for 1 second
+                            #GPIO.output(17, GPIO.LOW)
 
                             #self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
@@ -1037,15 +1041,16 @@ def main():
 
                         else:
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showerror("Error", "Date " + str(self.txtfld1.get()) +
                                                  " in serial number " + str(self.txtfld5.get()) +
                                                  " do not match with Bulk Date " + str(a1) +
                                                  " , Please change Date .")
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
-                            sleep(1)  # Sleep for 1 second
-                            GPIO.output(17, GPIO.LOW)
+
+                            #sleep(1)  # Sleep for 1 second
+                            #GPIO.output(17, GPIO.LOW)
 
                             # window_user_login_4.destroy()
                             # user_login_over_ride()
@@ -1094,14 +1099,16 @@ def main():
 
                         else:
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+
                             messagebox.showerror("Error", "GTIN " + str(self.txtfld3.get()) +
                                                  " in serial number " + str(self.txtfld5.get()) +
                                                  " do not match with Bulk Data GTIN " + str(c1) +
                                                  " , Please change GTIN Number")
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
-                            sleep(1)  # Sleep for 1 second
-                            GPIO.output(17, GPIO.LOW)
+
+                            #sleep(1)  # Sleep for 1 second
+                            #GPIO.output(17, GPIO.LOW)
 
                             #self.txtfld3.config(state='enabled')
                             already_scanned_data.append(False)
@@ -1117,13 +1124,15 @@ def main():
 
                         else:
 
+                            GPIO.output(17, GPIO.HIGH)  # Turn on
+
                             messagebox.showwarning("Warning",
                                                    "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
 
 
-                            GPIO.output(17, GPIO.HIGH)  # Turn on
-                            sleep(1)  # Sleep for 1 second
-                            GPIO.output(17, GPIO.LOW)
+
+                            #sleep(1)  # Sleep for 1 second
+                            #GPIO.output(17, GPIO.LOW)
 
                             # self.txtfld5.config(state='enabled')
                             already_scanned_data.append(False)
