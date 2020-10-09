@@ -1012,6 +1012,8 @@ def main():
 
                         flag=True
 
+                        led.off()
+
 
                         if (str(self.txtfld5.get()) not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
 
