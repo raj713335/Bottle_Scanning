@@ -1200,6 +1200,9 @@ def main():
 
                                 self.btn_back.place(x=3000,y=3000)
 
+                                self.mannual_entry = ttk.Button(window, text="ADD NEW DATA", width=20, command=self.back)
+                                self.mannual_entry.place(x=10, y=400, width=180, height=40)
+
                                 # self.btn_save = ttk.Button(self.windows, text="FINISH", width=20, command=finish)
                                 # self.btn_save.place(x=400, y=400, width=180, height=40)
 
@@ -1727,6 +1730,7 @@ def main():
 
             def display(self):
 
+
                 self.txtfld00.destroy()
 
                 try:
@@ -1738,6 +1742,7 @@ def main():
                     self.lb3.destroy()
                     self.txtfld3.destroy()
                     self.txtfld00.destroy()
+                    self.mannual_entry.destroy()
                     #self.btn_quit.destroy()
                     self.btn_back.place(x=10, y=400, width=180, height=40)
                     self.btn_save.destroy()
