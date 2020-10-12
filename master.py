@@ -1292,6 +1292,8 @@ def main():
                                                                          + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
                                                                          ,
                                                                          icon='warning')
+                                        if glmb=='no':
+                                            return(0)
 
 
                                         if glmb == 'yes':
@@ -1915,6 +1917,9 @@ def main():
                                                          + '\nTotal Bottles are not matching \nPlease Change the Total Bottles'
                                                          ,
                                                          icon='warning')
+
+                        if glmb == 'no':
+                            return (0)
 
 
                         if glmb == 'yes':
