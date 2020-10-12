@@ -948,6 +948,8 @@ def main():
 
 
 
+
+
                 def task():
 
 
@@ -979,6 +981,8 @@ def main():
 
 
 
+
+
                     if flagx==True:
 
                         try:
@@ -991,7 +995,7 @@ def main():
                                         key_total_bottle += 1
                                 self.txtfld00.set(str(key_total_bottle+1))
                         except:
-                            pass
+                            return (0)
                         try:
                             self.txtfld1.set(date_xx)
                             self.txtfld2.set(lot_x)
@@ -1720,6 +1724,8 @@ def main():
                     exit(0)
 
             def display(self):
+
+                self.txtfld00.destroy()
 
                 try:
                     self.lb0.destroy()
