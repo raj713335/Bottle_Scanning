@@ -16,8 +16,8 @@ import sys
 # GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-# from gpiozero import LED
-# led = LED(21)
+from gpiozero import LED
+led = LED(21)
 
 
 
@@ -768,6 +768,9 @@ def main():
 
         if limit!="mannual":
 
+
+
+
             xml_data=[]
 
             stringx = []
@@ -783,49 +786,55 @@ def main():
 
             i = 0
 
-            scanned_data = []
+            try:
+                print(len(scanned_data))
+            except:
+                scanned_data = []
 
-            for string in stringx:
+                for string in stringx:
 
-                i += 1
+                    i += 1
 
-                date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-                string = string.replace(date_x[0], "")
-                try:
-                    date_x = date_x[0]
-                except:
-                    date_x = ''
-                date_x = '20' + date_x[2:4] + '-' + date_x[
-                                                    4:6] + '-' + date_x[
-                                                                 6:8]
+                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+                    string = string.replace(date_x[0], "")
+                    try:
+                        date_x = date_x[0]
+                    except:
+                        date_x = ''
+                    date_x = '20' + date_x[2:4] + '-' + date_x[
+                                                        4:6] + '-' + date_x[
+                                                                     6:8]
 
 
-                gstin = re.findall('01[0-9]{14}', string)
-                string = string.replace(gstin[0], '')
-                try:
-                    gstin = gstin[0][2:]
-                except:
-                    gstin = ''
+                    gstin = re.findall('01[0-9]{14}', string)
+                    string = string.replace(gstin[0], '')
+                    try:
+                        gstin = gstin[0][2:]
+                    except:
+                        gstin = ''
 
-                lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
-                string = string.replace(lot[0], '')
-                try:
-                    lot = str(lot[0]).replace('', "")
-                    lot = lot.replace('10', '')
-                except:
-                    lot = ''
+                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+                    string = string.replace(lot[0], '')
+                    try:
+                        lot = str(lot[0]).replace('', "")
+                        lot = lot.replace('10', '')
+                    except:
+                        lot = ''
 
-                serial = re.findall(r'21[0-9]*', string)
-                try:
-                    serial = serial[0][2:-1]
-                except:
-                    serial = ''
+                    serial = re.findall(r'21[0-9]*', string)
+                    try:
+                        serial = serial[0][2:-1]
+                    except:
+                        serial = ''
 
-                scanned_data.append([date_x, gstin, lot, serial])
+                    scanned_data.append([date_x, gstin, lot, serial])
+
+                    if len(scanned_datax)!=0:
+                        scanned_data=scanned_datax
 
         else:
             scanned_data=scanned_datax
-            print(scanned_data)
+            #print(scanned_data)
 
 
 
@@ -953,6 +962,20 @@ def main():
                 self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
                 self.btn_quit.place(x=205, y=400, width=180, height=40)
 
+                # print(already_scanned_data)
+                # print(scanned_data)
+                # print(len(already_scanned_data),len(scanned_data))
+                #
+                # if len(already_scanned_data)>len(scanned_data):
+                #     self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
+                #     self.btn_quit.place(x=205, y=400, width=180, height=40)
+                #
+                #     self.btn_back.place(x=3000, y=3000)
+                #
+                #     self.mannual_entry = ttk.Button(window, text="ADD NEW DATA", width=20,
+                #                                     command=self.mannual_entry)
+                #     self.mannual_entry.place(x=10, y=400, width=180, height=40)
+
 
 
 
@@ -1026,7 +1049,7 @@ def main():
 
                     # GPIO.output(17, GPIO.LOW)
 
-                    #led.off()
+                    led.off()
 
 
 
@@ -1036,7 +1059,7 @@ def main():
 
                         flag=True
 
-                        #led.off()
+                        led.off()
 
 
                         if (str(self.txtfld5.get()) not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
@@ -1047,7 +1070,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1076,7 +1099,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1136,7 +1159,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1163,7 +1186,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -2323,7 +2346,7 @@ def main():
 
                 value=True
 
-                print(scanned_data)
+                #print(scanned_data)
 
 
 
