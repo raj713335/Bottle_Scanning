@@ -16,8 +16,8 @@ import sys
 # GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-from gpiozero import LED
-led = LED(21)
+# from gpiozero import LED
+# led = LED(21)
 
 
 
@@ -884,7 +884,13 @@ def main():
 
                 self.txtfld00 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')
                 self.txtfld00.place(x=450, y=50, width=70)
-                self.txtfld00.set(str(len(already_scanned_data)))
+                key_total_bottle=0
+
+                for each in already_scanned_data:
+                    #print(each)
+                    if each!=False:
+                        key_total_bottle+=1
+                self.txtfld00.set(str(key_total_bottle))
                 self.txtfld00.config(state='disabled')
 
 
@@ -977,7 +983,13 @@ def main():
 
                         try:
                             if len(already_scanned_data)<len(scanned_data):
-                                self.txtfld00.set(str(len(already_scanned_data)+1))
+                                key_total_bottle = 0
+
+                                for each in already_scanned_data:
+                                    # print(each)
+                                    if each != False:
+                                        key_total_bottle += 1
+                                self.txtfld00.set(str(key_total_bottle+1))
                         except:
                             pass
                         try:
@@ -1002,7 +1014,8 @@ def main():
                         #     pass
 
                     # GPIO.output(17, GPIO.LOW)
-                    led.off()
+
+                    #led.off()
 
 
 
@@ -1012,7 +1025,7 @@ def main():
 
                         flag=True
 
-                        led.off()
+                        #led.off()
 
 
                         if (str(self.txtfld5.get()) not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
@@ -1023,7 +1036,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1052,7 +1065,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1112,7 +1125,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1139,7 +1152,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1225,7 +1238,7 @@ def main():
                                 iter = 0
                                 for valx in already_scanned_data:
 
-                                    iter += 1
+
 
                                     flag = False
 
@@ -1247,6 +1260,8 @@ def main():
                                             flag = True
 
                                         if flag == False:
+                                            iter += 1
+
                                             tree.insert('', 'end',
                                                         values=(
                                                             str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
@@ -1258,6 +1273,7 @@ def main():
                                                             str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
                                                             str(valx[3])),
                                                         tags=('evenx',))
+
                                     except:
                                         pass
 
@@ -1755,7 +1771,7 @@ def main():
                 iter = 0
                 for valx in datax:
 
-                    iter += 1
+
 
                     flag = False
 
@@ -1777,12 +1793,18 @@ def main():
                             flag = True
 
                         if flag == False:
+                            iter += 1
+
                             tree.insert('', 'end',
                                         values=(
                                             str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
                                             str(valx[3])),
                                         tags=('oddx',))
+
+
                         else:
+
+
                             tree.insert('', 'end',
                                         values=(
                                             str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
