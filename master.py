@@ -2736,5 +2736,8 @@ def main():
 
 
 if __name__ == '__main__':
+    '''
+    The main fuction that will loop the program from start to end 
+    '''
     main()
 
