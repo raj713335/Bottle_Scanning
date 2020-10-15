@@ -1,8 +1,11 @@
-import time
-import serial,string
-import RPi.GPIO as IO
+
 
 def Read():
+
+	import time
+	import serial, string
+	import RPi.GPIO as IO
+
 
 
 	Bottle=[]
