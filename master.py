@@ -763,78 +763,69 @@ def main():
 
 
     def quiter(user_name=str(0),a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
-                     e2=str(0),limit=str(0),scanned_datax=[]):
-
-
-        if limit!="mannual":
-
-
-
-
-            xml_data=[]
-
-            stringx = []
+                     e2=str(0),limit=str(0)):
 
 
 
 
 
-            with open('DATA/Scanning/scanning.txt', 'r') as fh:
-                all_lines = fh.readlines()
-                for each in all_lines:
-                    stringx.append(each.replace('\n', ''))
 
-            i = 0
 
+        xml_data=[]
+
+        stringx = []
+
+
+
+
+
+        with open('DATA/Scanning/scanning.txt', 'r') as fh:
+            all_lines = fh.readlines()
+            for each in all_lines:
+                stringx.append(each.replace('\n', ''))
+
+        i = 0
+
+
+        scanned_data = []
+
+        for string in stringx:
+
+            i += 1
+
+            date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+            string = string.replace(date_x[0], "")
             try:
-                print(len(scanned_data))
+                date_x = date_x[0]
             except:
-                scanned_data = []
-
-                for string in stringx:
-
-                    i += 1
-
-                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-                    string = string.replace(date_x[0], "")
-                    try:
-                        date_x = date_x[0]
-                    except:
-                        date_x = ''
-                    date_x = '20' + date_x[2:4] + '-' + date_x[
-                                                        4:6] + '-' + date_x[
-                                                                     6:8]
+                date_x = ''
+            date_x = '20' + date_x[2:4] + '-' + date_x[
+                                                4:6] + '-' + date_x[
+                                                             6:8]
 
 
-                    gstin = re.findall('01[0-9]{14}', string)
-                    string = string.replace(gstin[0], '')
-                    try:
-                        gstin = gstin[0][2:]
-                    except:
-                        gstin = ''
+            gstin = re.findall('01[0-9]{14}', string)
+            string = string.replace(gstin[0], '')
+            try:
+                gstin = gstin[0][2:]
+            except:
+                gstin = ''
 
-                    lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
-                    string = string.replace(lot[0], '')
-                    try:
-                        lot = str(lot[0]).replace('', "")
-                        lot = lot.replace('10', '')
-                    except:
-                        lot = ''
+            lot = re.findall(r'10[A-Za-z]{2}[0-9]*[]*', string)
+            string = string.replace(lot[0], '')
+            try:
+                lot = str(lot[0]).replace('', "")
+                lot = lot.replace('10', '')
+            except:
+                lot = ''
 
-                    serial = re.findall(r'21[0-9]*', string)
-                    try:
-                        serial = serial[0][2:-1]
-                    except:
-                        serial = ''
+            serial = re.findall(r'21[0-9]*', string)
+            try:
+                serial = serial[0][2:-1]
+            except:
+                serial = ''
 
-                    scanned_data.append([date_x, gstin, lot, serial])
-
-                    if len(scanned_datax)!=0:
-                        scanned_data=scanned_datax
-
-        else:
-            scanned_data=scanned_datax
-            #print(scanned_data)
+            scanned_data.append([date_x, gstin, lot, serial])
 
 
 
@@ -843,12 +834,18 @@ def main():
 
 
 
-        if len(scanned_data)!=len(already_scanned_data):
+
+
+
+
+        if len(scanned_data)>len(already_scanned_data):
             value = False
 
+
+
             value = user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
-                                 d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                                 e2=e2, id='NIL', limit='nil', scanned_data=str(0))
+                             d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                             e2=e2, id='NIL', limit='nil', scanned_data=str(0))
 
 
 
@@ -878,6 +875,8 @@ def main():
         class User_4():
 
             def __init__(self, window):
+
+                print(limit)
 
 
 
@@ -1717,20 +1716,48 @@ def main():
 
                     validatex()
 
-                if limit == 'start':
-                    if len(already_scanned_data) < (len(scanned_data)):
-                        task()
-                if limit == 'end':
-                    if len(already_scanned_data) ==(len(scanned_data)):
-                        try:
-                            self.btn_next.destroy()
-                        except:
-                            pass
-                        task()
 
                 if str(limit) == str('nil'):
                     self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
                     self.btn_finish.place(x=-1, y=290, width=605, height=160)
+                if limit == 'start':
+                    if len(already_scanned_data) < (len(scanned_data)):
+                        task()
+                if limit == 'end':
+                    print("kk")
+                    if len(already_scanned_data) ==(len(scanned_data)):
+                        try:
+                            self.btn_next.destroy()
+                            self.btn_finish.destroy()
+
+                        except:
+                            pass
+                        task()
+
+                    if len(already_scanned_data) >= len(scanned_data):
+
+                        print(len(already_scanned_data) , len(scanned_data))
+
+                        try:
+                            self.btn_back.destroy()
+                        except:
+                            pass
+
+                        # self.mannual_entry = ttk.Button(window, text="ADD NEW DATA", width=20,
+                        #                                 command=self.mannual_entry)
+                        # self.mannual_entry.place(x=10, y=400, width=180, height=40)
+
+                        # self.btn_finish = ttk.Button(window, text="START  SCANNING", width=20, command=self.start)
+                        # self.btn_finish.place(x=-1, y=290, width=605, height=160)
+
+                        # self.btn_save = ttk.Button(self.windows, text="FINISH", width=20, command=finish)
+                        # self.btn_save.place(x=400, y=400, width=180, height=40)
+
+
+
+
+
+
 
 
 
@@ -1756,7 +1783,7 @@ def main():
                 if glmb == 'yes':
                     window_user_login_4.destroy()
                 else:
-                    exit(0)
+                    pass
 
             def display(self):
 
@@ -2449,7 +2476,7 @@ def main():
 
                                                     window_user_login.destroy()
 
-                                                    scanned_data.append([a1,c1,b1,updates_total_bottle])
+                                                    already_scanned_data.append([a1,b1,c1,updates_total_bottle])
 
 
 
@@ -2468,10 +2495,8 @@ def main():
 
                                                     messagebox.showwarning("Info",
                                                                            "Serial Added Succesfully")
-                                                    window_user_login_4.destroy()
-                                                    quiter(user_name=user_name, a1=a1, b1=b1, c1=c1, d1=d1, e1=e1,
-                                                           a2=a2, b2=b2,
-                                                           c2=c2, d2=d2, e2=e2, limit='mannual',scanned_datax=scanned_data)
+
+
 
 
 
