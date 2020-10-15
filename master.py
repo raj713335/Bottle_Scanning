@@ -88,10 +88,13 @@ class CreateToolTip(object):
 '''
 The main fuction that will loop the program from start to end 
 '''
+
 def main():
 
 
-
+    '''
+    the function for login page
+    '''
     def user_login_over_ride():
 
         for i in range(len(already_scanned_data)):
@@ -112,7 +115,7 @@ def main():
                 self.PWD = []
 
 
-
+                '''read username and password from text file stored in DATA/PRIVATE/passkey.txt'''
                 with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
                     all_lines = fh.readlines()
                     for each in all_lines:
@@ -143,7 +146,9 @@ def main():
                 self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
                 self.btn_quit.place(x=330, y=330, width=200, height=50)
 
-
+            '''
+            validating username and password and if validated move to next page
+            '''
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
 
@@ -177,7 +182,10 @@ def main():
 
 
 
-
+    '''
+    The bulk data page after the login  validation is succesful that asked user to enter few data like total bottles and
+            bottles per carate etc
+    '''
     def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),user_name=str(0),f1=str(0)):
         class User_2():
 
@@ -186,7 +194,7 @@ def main():
 
             """
             The second page after the login  validation is succesful that asked user to enter few data like total bottles and
-            bottles per crate etc
+            bottles per carate etc
             """
 
             def __init__(self, window):
@@ -320,6 +328,10 @@ def main():
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=370, y=380, width=160, height=40)
 
+
+            '''
+            function to validate username and password
+            '''
             def validate(self):
 
 
@@ -488,7 +500,9 @@ def main():
 
 
 
-
+            '''
+            reset function to clear all fields
+            '''
             def reset(self):
 
                 def turn_button(x=0):
@@ -546,10 +560,10 @@ def main():
 
 
 
-
-
-
-
+    '''
+    The repacking data page after proper data entered in bulk data page and validating them if they are correctly entered
+           
+    '''
     def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),f1=str(0)):
 
 
@@ -557,6 +571,10 @@ def main():
 
         class User_3():
 
+            '''
+                The repacking data page after proper data entered in bulk data page and validating them if they are correctly entered
+
+                '''
             def __init__(self, window):
 
                 self.windows=window
@@ -681,7 +699,7 @@ def main():
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=400, y=380, width=130, height=40)
 
-
+            '''back button to go to bulk data page'''
             def back(self):
                 a2 = (str(self.txtfld1.get()))
                 b2 = (str(self.txtfld2.get()))
@@ -698,7 +716,7 @@ def main():
                              c2=c2,d2=d2,e2=e2,f1=f1)
 
 
-
+            '''validation function to check data are in correct format or not'''
             def validate(self):
 
                 if ((str(self.txtfld1.get()) != "")):
@@ -774,7 +792,7 @@ def main():
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
                              e2=e2,f1=f1)
 
-
+            '''reset function to clear all the entered data'''
             def reset(self):
 
                 def turn_button(x=0):
@@ -813,6 +831,7 @@ def main():
             exit(0)
         window_user_login_3.protocol('WM_DELETE_WINDOW', exitx)
         window_user_login_3.mainloop()
+
 
 
 
@@ -923,7 +942,7 @@ def main():
 
 
 
-
+    '''scanning page for scanning all the bottles'''
     def user_login_4(user_name=str(0), a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0),
                      c2=str(0), d2=str(0),
                      e2=str(0), id=str(0), limit=str(0),scanned_data=str(0),f1=str(0)):
@@ -1356,6 +1375,8 @@ def main():
 
                         if flag==True:
 
+                            print("wdwdwj")
+
                             if len(already_scanned_data)<len(scanned_data):
                                 already_scanned_data.append([a3, b3, c3, e3])
                                 scanned_serial.append(e3)
@@ -1367,7 +1388,9 @@ def main():
                                 self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
                                 self.btn_quit.place(x=205, y=400, width=180, height=40)
 
-                                #self.btn_back.place(x=3000,y=3000)
+                                #self.btn_back.place(x=30,y=30)
+
+                                print("hero")
 
                                 self.mannual_entry = ttk.Button(window, text="ADD NEW DATA", width=20, command=self.mannual_entry)
                                 self.mannual_entry.place(x=10, y=400, width=180, height=40)
@@ -1691,9 +1714,8 @@ def main():
 
 
 
-
-
-                    validatex()
+                    if len(already_scanned_data)<len(scanned_data):
+                        validatex()
 
 
                 if str(limit) == str('nil'):
@@ -1719,7 +1741,7 @@ def main():
 
                         try:
                             # self.btn_back.destroy()
-                            print(0)
+                            task()
                         except:
                             pass
 
@@ -2381,10 +2403,6 @@ def main():
 
 
 
-
-
-
-
             def back(self):
 
                 MsgBox = tk.messagebox.askquestion('Warning',
@@ -2402,6 +2420,9 @@ def main():
 
                 else:
                     pass
+
+
+
 
         window_user_login_4 = tk.Tk()
         # window_user_login_4.config(background='#EFEFEF')
