@@ -24,15 +24,12 @@ import sys
 already_scanned_data=[]
 scanned_serial=[]
 
-'''
-REQUIREMENTS
 
-'''
 
 
 class CreateToolTip(object):
     """
-    create a tooltip for a given widget
+    create a tooltip for a given widget of delete button
     """
     def __init__(self, widget, text='widget info'):
         self.waittime = 500     #miliseconds
@@ -84,7 +81,9 @@ class CreateToolTip(object):
             tw.destroy()
 
 
-
+"""
+The main fuction that will loop the program from start to end 
+"""
 def main():
 
 
@@ -100,7 +99,9 @@ def main():
         class User_Login():
 
 
-
+            """
+            The login window that ask user for password and id , and validates then to move to the second page
+            """
             def __init__(self, window):
 
                 self.UID = []
@@ -138,6 +139,7 @@ def main():
                 self.btn_quit = ttk.Button(window, text="QUIT", width=20, command=self.quit)
                 self.btn_quit.place(x=330, y=330, width=200, height=50)
 
+
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
 
@@ -172,12 +174,16 @@ def main():
 
 
 
-    def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),user_name=str(0)):
+    def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),user_name=str(0),f1=str(0)):
         class User_2():
 
 
 
 
+            """
+            The second page after the login  validation is succesful that asked user to enter few data like total bottles and
+            bottles per crate etc
+            """
 
             def __init__(self, window):
 
@@ -225,6 +231,11 @@ def main():
                 else:
                     total = d1
 
+                if f1 == str(0):
+                    total_bottles = ""
+                else:
+                    total_bottles = f1
+
                 if e1 == str(0):
                     serial = re.findall(r'21[0-9]*', string)
                     try:
@@ -255,44 +266,48 @@ def main():
                 self.lb0.place(x=200, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb1.place(x=60, y=160)
+                self.lb1.place(x=60, y=140)
 
 
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=160, width=260)
+                self.txtfld1.place(x=270, y=140, width=260)
                 self.txtfld1.set(date_x)
 
                 self.txtfld1.bind("<Button-1>", turn_button)
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb2.place(x=60, y=210)
+                self.lb2.place(x=60, y=190)
 
                 self.txtfld2 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld2.place(x=270, y=210, width=260)
+                self.txtfld2.place(x=270, y=190, width=260)
                 self.txtfld2.insert(0, lot)
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb3.place(x=60, y=260)
+                self.lb3.place(x=60, y=240)
 
                 self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
-                self.txtfld3.place(x=270, y=260, width=260)
+                self.txtfld3.place(x=270, y=240, width=260)
                 self.txtfld3.insert(0, gstin)
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
-                self.lb4.place(x=60, y=310)
+                self.lb4.place(x=60, y=290)
 
 
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
-                self.txtfld4.place(x=270, y=310, width=260)
+                self.txtfld4.place(x=270, y=290, width=260)
                 self.txtfld4.insert(0, total)
 
 
-                self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
+                self.lb5 = tk.Label(window, text="Bottles/Case", font=("Helvetica", 10), bg='#EFEFEF')
+                self.lb5.place(x=60, y=340)
+
                 self.txtfld5 = ttk.Entry(window,font=("Helvetica", 10))
-                self.txtfld5.insert(0, serial)
+                self.txtfld5.place(x=270, y=340, width=260)
+                self.txtfld5.insert(0, total_bottles)
+
 
 
                 self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
@@ -351,11 +366,11 @@ def main():
 
                 if ((str(self.txtfld5.get()) != "") ):
 
-                    e1=(str(self.txtfld5.get()))
+                    f1=(str(self.txtfld5.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Missing Serial Number Field")
+                    messagebox.showwarning("Warning", "Missing Bottles/Case Field")
                     return (0)
 
 
@@ -427,6 +442,36 @@ def main():
 
 
 
+
+
+                if ((str(self.txtfld5.get()) != "0")):
+
+                    f1=(str(self.txtfld5.get()))
+
+                else:
+
+                    messagebox.showwarning("Warning", "Bottles/Case value cannot be 0")
+                    return (0)
+
+
+
+
+
+
+                try:
+
+                    temp=int((self.txtfld5.get()))
+
+                    f1=str(self.txtfld5.get())
+
+
+                except:
+                    messagebox.showwarning("Warning", "Bottles/Case field must be numeric")
+                    return (0)
+
+
+
+
                 window_user_login_2.destroy()
 
 
@@ -435,7 +480,7 @@ def main():
 
                 user_login_3(user_name=user_name,a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                             e2=e2)
+                             e2=e2,f1=f1)
 
 
 
@@ -501,7 +546,7 @@ def main():
 
 
 
-    def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0)):
+    def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),f1=str(0)):
 
 
 
@@ -646,7 +691,7 @@ def main():
 
 
                 user_login_2(user_name=user_name,a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
-                             c2=c2,d2=d2,e2=e2)
+                             c2=c2,d2=d2,e2=e2,f1=f1)
 
 
 
@@ -723,7 +768,7 @@ def main():
 
                 quiter(user_name=user_name,a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                             e2=e2)
+                             e2=e2,f1=f1)
 
 
             def reset(self):
@@ -769,7 +814,7 @@ def main():
 
 
     def quiter(user_name=str(0),a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0), c2=str(0), d2=str(0),
-                     e2=str(0),limit=str(0)):
+                     e2=str(0),limit=str(0),f1=str(0)):
 
 
 
@@ -851,7 +896,7 @@ def main():
 
             value = user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                             e2=e2, id='NIL', limit='nil', scanned_data=str(0))
+                             e2=e2, id='NIL', limit='nil', scanned_data=str(0),f1=f1)
 
 
 
@@ -861,14 +906,14 @@ def main():
         else:
             user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
                          d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                         e2=e2, id='NIL', limit='end', scanned_data=scanned_data)
+                         e2=e2, id='NIL', limit='end', scanned_data=scanned_data,f1=f1)
 
 
 
 
         user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
                      d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                     e2=e2, id='NIL', limit='start', scanned_data=scanned_data)
+                     e2=e2, id='NIL', limit='start', scanned_data=scanned_data,f1=f1)
 
 
 
@@ -877,7 +922,7 @@ def main():
 
     def user_login_4(user_name=str(0), a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0),
                      c2=str(0), d2=str(0),
-                     e2=str(0), id=str(0), limit=str(0),scanned_data=str(0)):
+                     e2=str(0), id=str(0), limit=str(0),scanned_data=str(0),f1=str(0)):
         class User_4():
 
             def __init__(self, window):
@@ -2574,7 +2619,7 @@ def main():
                         already_scanned_data.pop()
 
                     quiter(user_name=user_name, a1=a1, b1=b1, c1=c1, d1=d1, e1=e1, a2=a2, b2=b2,
-                                 c2=c2, d2=d2, e2=e2,limit=limit)
+                                 c2=c2, d2=d2, e2=e2,limit=limit,f1=f1)
 
                 else:
                     pass
