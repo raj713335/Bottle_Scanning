@@ -374,6 +374,47 @@ def main():
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=370, y=380, width=160, height=40)
 
+                def scan():
+                    print("bar code scanning test area")
+
+                    value=Read()
+                    print(value)
+
+                    try:
+
+                        print(value[0])
+
+                        def turn_button(x=0):
+
+                            self.txtfld1.destroy()
+                            self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
+                                                     date_pattern='y-mm-dd', anchor='center')
+                            self.txtfld1.place(x=270, y=140, width=260)
+
+                        self.txtfld1.destroy()
+                        self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
+                        self.txtfld1.place(x=270, y=140, width=260)
+                        self.txtfld1.set(value[0])
+                        self.txtfld1.bind("<Button-1>", turn_button)
+
+                        self.txtfld2.delete(0, len(self.txtfld2.get()))
+                        self.txtfld2.insert(0, value[1])
+
+                        self.txtfld3.delete(0, len(self.txtfld3.get()))
+                        self.txtfld3.insert(0, value[2])
+
+
+
+                    except:
+                        pass
+
+                    window_user_login_2.after(10, scan)
+
+
+
+
+                window_user_login_2.after(1, scan)
+
 
             '''
             function to validate username and password
