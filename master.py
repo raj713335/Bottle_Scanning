@@ -16,8 +16,8 @@ import sys
 # GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-from gpiozero import LED
-led = LED(21)
+# from gpiozero import LED
+# led = LED(21)
 
 
 
@@ -1049,7 +1049,7 @@ def main():
 
                     # GPIO.output(17, GPIO.LOW)
 
-                    led.off()
+                    #led.off()
 
 
 
@@ -1059,7 +1059,7 @@ def main():
 
                         flag=True
 
-                        led.off()
+                        #led.off()
 
 
                         if (str(self.txtfld5.get()) not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
@@ -1070,7 +1070,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1099,7 +1099,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1159,7 +1159,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1186,7 +1186,7 @@ def main():
 
                         else:
 
-                            led.on()
+                            #led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
