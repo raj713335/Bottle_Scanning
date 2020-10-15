@@ -7,17 +7,21 @@ from PIL import Image, ImageTk
 import cv2
 import sys
 
+
+# from gpiozero import LED
+# led = LED(21)
+
+
+
+
 # import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
 # from time import sleep     # Import the sleep function from the time module
-#
-#
 # GPIO.setwarnings(False)    # Ignore warning for now
 # GPIO.setmode(GPIO.BOARD)   # Use physical pin numbering
 # GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-# from gpiozero import LED
-# led = LED(21)
+
 
 
 
@@ -1278,7 +1282,7 @@ def main():
                                 self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
                                 self.btn_quit.place(x=205, y=400, width=180, height=40)
 
-                                self.btn_back.place(x=3000,y=3000)
+                                #self.btn_back.place(x=3000,y=3000)
 
                                 self.mannual_entry = ttk.Button(window, text="ADD NEW DATA", width=20, command=self.mannual_entry)
                                 self.mannual_entry.place(x=10, y=400, width=180, height=40)
@@ -1790,7 +1794,8 @@ def main():
                         print(len(already_scanned_data) , len(scanned_data))
 
                         try:
-                            self.btn_back.destroy()
+                            # self.btn_back.destroy()
+                            print(0)
                         except:
                             pass
 
@@ -1852,7 +1857,7 @@ def main():
                     self.txtfld00.destroy()
                     self.mannual_entry.destroy()
                     #self.btn_quit.destroy()
-                    self.btn_back.place(x=10, y=400, width=180, height=40)
+                    #self.btn_back.place(x=10, y=400, width=180, height=40)
                     self.btn_save.destroy()
                 except:
                     pass
