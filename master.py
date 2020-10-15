@@ -240,7 +240,7 @@ def main():
 
             """
             The second page after the login  validation is succesful that asked user to enter few data like total bottles and
-            bottles per carate etc
+            bottles per carate etc.
             """
 
             def __init__(self, window):
