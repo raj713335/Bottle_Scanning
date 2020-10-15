@@ -1111,13 +1111,16 @@ def main():
 
                         for each in xx:
                             # vc = tree.item(each)['values']
-                            if len(each)>1:
-                                strx = '01' + (
-                                    str('0000' + str(c1))[
-                                    -14:]) + '21' + str(
-                                    each[3]) + '17' + str(a1[2:]).replace('-',
-                                                                        '') + '10' + b1
-                                data_xml.append(strx)
+                            try:
+                                if len(each)>1:
+                                    strx = '01' + (
+                                        str('0000' + str(c1))[
+                                        -14:]) + '21' + str(
+                                        each[3]) + '17' + str(a1[2:]).replace('-',
+                                                                            '') + '10' + b1
+                                    data_xml.append(strx)
+                            except:
+                                pass
 
                         def xml_creator():
 
@@ -1180,7 +1183,7 @@ def main():
                                                       newl='',
                                                       encoding='UTF-8')
                             timestamp = int(datetime.now().timestamp())
-                            save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+                            save_path_file = f"{b1}-{b2}.xml"
 
                             with open(save_path_file, "w") as f:
                                 f.write(xml_str.decode())
