@@ -81,9 +81,9 @@ class CreateToolTip(object):
             tw.destroy()
 
 
-"""
+'''
 The main fuction that will loop the program from start to end 
-"""
+'''
 def main():
 
 
@@ -492,12 +492,12 @@ def main():
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
-                    self.txtfld1.place(x=270, y=160, width=260)
+                    self.txtfld1.place(x=270, y=140, width=260)
 
 
                 self.txtfld1.destroy()
                 self.txtfld1 = ttk.Combobox(self.windows,font=("Helvetica", 10), state='readonly')
-                self.txtfld1.place(x=270, y=160, width=260)
+                self.txtfld1.place(x=270, y=140, width=260)
                 self.txtfld1.set("")
                 self.txtfld1.bind("<Button-1>", turn_button)
 
