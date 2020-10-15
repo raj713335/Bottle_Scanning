@@ -24,6 +24,11 @@ import sys
 already_scanned_data=[]
 scanned_serial=[]
 
+'''
+REQUIREMENTS
+
+'''
+
 
 class CreateToolTip(object):
     """
@@ -81,6 +86,7 @@ class CreateToolTip(object):
 
 
 def main():
+
 
 
     def user_login_over_ride():
