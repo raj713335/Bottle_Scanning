@@ -1105,6 +1105,88 @@ def main():
 
                     #led.off()
 
+                    if (len(already_scanned_data)%int(f1)==0) and (len(already_scanned_data)>1):
+                        data_xml = []
+                        xx = already_scanned_data
+
+                        for each in xx:
+                            # vc = tree.item(each)['values']
+                            print(each)
+                            strx = '01' + (
+                                str('0000' + str(c1))[
+                                -14:]) + '21' + str(
+                                each[3]) + '17' + str(a1[2:]).replace('-',
+                                                                    '') + '10' + b1
+                            data_xml.append(strx)
+
+                        def xml_creator():
+
+                            from datetime import datetime
+                            from xml.dom import minidom
+                            from xml.dom.minidom import \
+                                getDOMImplementation
+
+                            root = minidom.Document()
+                            root.standalone = 'No'
+
+                            iso_date = datetime.now().astimezone().isoformat()
+                            offset = iso_date[-6:]
+                            expire_date = a1
+                            bulk_lot_number = b1
+                            repackage_lot_number = b2
+                            strings = data_xml
+
+                            list_data = ''
+
+                            for each in strings:
+                                list_data += str(
+                                    '<epcis:epc>') + each + str(
+                                    '</epcis:epc>')
+
+                            stringlx = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                                                                                                    <epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creationDate="{iso_date}" schemaVersion="1">
+                                                                                                    <epcis:EPCISBody>
+                                                                                                    <epcis:EventList>
+                                                                                                    <epcis:ObjectEvent>
+                                                                                                    <epcis:eventTime>{iso_date}</epcis:eventTime>
+                                                                                                    <epcis:eventTimeZoneOffset>{offset}</epcis:eventTimeZoneOffset>
+                                                                                                    <epcis:epcList>''' + str(
+                                list_data) + f'''
+                                                                                                    </epcis:epcList>
+                                                                                                    <epcis:action>ADD</epcis:action>
+                                                                                                    <epcis:bizStep>urn:epcglobal:cbv:bizstep:commissioning</epcis:bizStep>
+                                                                                                    <epcis:disposition>urn:epcglobal:cbv:disp:active</epcis:disposition>
+                                                                                                    <epcis:readPoint>
+                                                                                                    <epcis:id>urn:systechcitadel.com:device:sgln:101</epcis:id>
+                                                                                                    </epcis:readPoint>
+                                                                                                    <epcis:bizLocation>
+                                                                          F                          <epcis:id>urn:epc:id:sgln:08662190003.0.0</epcis:id>
+                                                                                                    </epcis:bizLocation>
+                                                                                                    <epcis:extension><!--@Verify By ''' + str(
+                                user_name) + f'''-->
+                                                                                                    <epcis:field name="Lot Number (Bulk)" value="{bulk_lot_number}"/>
+                                                                                                    <epcis:field name="Expiration Date" value="{expire_date}"/>
+                                                                                                    <epcis:field name="Lot Number (Repackaged)" value="{repackage_lot_number}"/>
+                                                                                                    </epcis:extension>
+                                                                                                    </epcis:ObjectEvent>
+                                                                                                    </epcis:EventList>
+                                                                                                    </epcis:EPCISBody>
+                                                                                                    </epcis:EPCISDocument>
+                                                                                                    '''
+
+                            dom = minidom.parseString(stringlx)
+
+                            xml_str = dom.toprettyxml(indent="  ",
+                                                      newl='',
+                                                      encoding='UTF-8')
+                            timestamp = int(datetime.now().timestamp())
+                            save_path_file = f"{b1}-{b2}-{timestamp}.xml"
+
+                            with open(save_path_file, "w") as f:
+                                f.write(xml_str.decode())
+
+                        xml_creator()
+
 
 
 
