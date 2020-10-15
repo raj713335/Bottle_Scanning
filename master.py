@@ -251,7 +251,7 @@ def main():
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(window, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
-                    self.txtfld1.place(x=270, y=160, width=260)
+                    self.txtfld1.place(x=270, y=140, width=260)
 
                 load = cv2.imread('DATA/IMAGES/bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
