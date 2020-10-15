@@ -8,8 +8,8 @@ import cv2
 import sys
 
 
-# from gpiozero import LED
-# led = LED(21)
+from gpiozero import LED
+led = LED(21)
 
 
 
@@ -1214,7 +1214,7 @@ def main():
 
                     # GPIO.output(17, GPIO.LOW)
 
-                    #led.off()
+                    led.off()
 
                     if (len(already_scanned_data)%int(f1)==0) and (len(already_scanned_data)>1):
                         data_xml = []
@@ -1309,7 +1309,7 @@ def main():
 
                         flag=True
 
-                        #led.off()
+                        led.off()
 
 
                         if (str(self.txtfld5.get()) not in scanned_serial) or (len(scanned_data)==len(already_scanned_data)):
@@ -1320,7 +1320,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1349,7 +1349,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1409,7 +1409,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
@@ -1436,7 +1436,7 @@ def main():
 
                         else:
 
-                            #led.on()
+                            led.on()
 
                             #GPIO.output(17, GPIO.HIGH)  # Turn on
 
