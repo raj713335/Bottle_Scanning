@@ -34,6 +34,8 @@ def Read():
     import serial, string
     import RPi.GPIO as IO
 
+
+
     Bottle = []
     ser = serial.Serial('/dev/ttyUSB0', 115200)
     ser.flushInput()
@@ -72,6 +74,11 @@ def Read():
                 time.sleep(1)
                 IO.output(23, False)
                 Bottle = [EXP, LOT,GTIN]
+                print(Bottle)
+
+
+    print(Bottle)
+
     return (Bottle)
 
 
@@ -413,7 +420,7 @@ def main():
 
 
 
-                window_user_login_2.after(1, scan)
+                window_user_login_2.after(10, scan)
 
 
             '''
@@ -1058,7 +1065,7 @@ def main():
                 self.lb0 = tk.Label(window, text="Scanning Page", font=("Helvetica", 25, 'bold'), bg='#EFEFEF')
                 self.lb0.place(x=200, y=50)
 
-                self.lb00 = tk.Label(window, text="Bottles/Crate", font=("Helvetica", 15, 'bold'), bg='#EFEFEF')
+                self.lb00 = tk.Label(window, text="Bottles/Case", font=("Helvetica", 15, 'bold'), bg='#EFEFEF')
                 self.lb00.place(x=305, y=110)
 
                 self.txtfld00 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')

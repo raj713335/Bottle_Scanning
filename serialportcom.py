@@ -46,4 +46,5 @@ def Read():
 				time.sleep(1)
 				IO.output(23,False)
 				Bottle= [GTIN,EXP,LOT]
+
 	return (Bottle)
