@@ -30,56 +30,63 @@ scanned_serial=[]
 
 
 def Read():
-    import time
-    import serial, string
-    import RPi.GPIO as IO
+
+    print("hello")
+
+    try:
+
+        import time
+        import serial, string
+        import RPi.GPIO as IO
 
 
 
-    Bottle = []
-    ser = serial.Serial('/dev/ttyUSB0', 115200)
-    ser.flushInput()
-    reading = ''
-    IO.setmode(IO.BOARD)
-    IO.setwarnings(False)
-    IO.setup(23, IO.OUT)
-    IO.output(23, False)
-    while True:
-        try:
-            r = ser.read()
-            reading = reading + r
-            if ')' in reading:
+        Bottle = []
+        ser = serial.Serial('/dev/ttyUSB0', 115200)
+        ser.flushInput()
+        reading = ''
+        IO.setmode(IO.BOARD)
+        IO.setwarnings(False)
+        IO.setup(23, IO.OUT)
+        IO.output(23, False)
+        while True:
+            try:
+                r = ser.read()
+                reading = reading + r
+                if ')' in reading:
+                    break
+            except:
+                print("KeyError")
                 break
-        except:
-            print("KeyError")
-            break
-    decode = (reading[0:len(reading)])
-    # print decode
-    if decode[0:3] == '(01':
-        GTIN = gtin = decode[3:17]
-        # print 'GTIN:',gtin
-        agdecode = decode[17:len(decode)]
-        if agdecode[0:2] == '21':
-            SN = agdecode[2:agdecode.index('\x1d')]
-            # print 'SN:',SN
-            asdecode = agdecode[len(SN) + 3:len(agdecode)]
+        decode = (reading[0:len(reading)])
+        # print decode
+        if decode[0:3] == '(01':
+            GTIN = gtin = decode[3:17]
+            # print 'GTIN:',gtin
+            agdecode = decode[17:len(decode)]
+            if agdecode[0:2] == '21':
+                SN = agdecode[2:agdecode.index('\x1d')]
+                # print 'SN:',SN
+                asdecode = agdecode[len(SN) + 3:len(agdecode)]
 
-            if asdecode[0:2] == '17':
-                EXP = asdecode[2:8]
-                # print 'EXP:',EXP
-                aedecode = asdecode[8:len(asdecode)]
-                LOT = aedecode[2:aedecode.index(')')]
-                # print 'LOT:',LOT
-                IO.output(23, True)
-                time.sleep(1)
-                IO.output(23, False)
-                Bottle = [EXP, LOT,GTIN]
-                print(Bottle)
+                if asdecode[0:2] == '17':
+                    EXP = asdecode[2:8]
+                    # print 'EXP:',EXP
+                    aedecode = asdecode[8:len(asdecode)]
+                    LOT = aedecode[2:aedecode.index(')')]
+                    # print 'LOT:',LOT
+                    IO.output(23, True)
+                    time.sleep(1)
+                    IO.output(23, False)
+                    Bottle = [EXP, LOT,GTIN]
+                    print(Bottle)
 
 
-    print(Bottle)
+        print(Bottle)
+        return (Bottle)
 
-    return (Bottle)
+    except:
+        return (["","",""])
 
 
 
@@ -254,61 +261,74 @@ def main():
 
                 self.windows=window
 
-                with open('DATA/Scanning/data.txt', 'r') as fh:
-                    all_lines = fh.readlines()
-                    for each in all_lines:
-                        string = str(each)
+                # with open('DATA/Scanning/data.txt', 'r') as fh:
+                #     all_lines = fh.readlines()
+                #     for each in all_lines:
+                #         string = str(each)
+                #
+                # if a1 == str(0):
+                #     date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
+                #     string = string.replace(date_x[0], "")
+                #     try:
+                #         date_x = date_x[0]
+                #     except:
+                #         date_x = ''
+                #     date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+                # else:
+                #     date_x = a1
+                #
+                # if c1 == str(0):
+                #     gstin = re.findall('01[0-9]{14}', string)
+                #     string = string.replace(gstin[0], '')
+                #     try:
+                #         gstin = gstin[0][2:]
+                #     except:
+                #         gstin = ''
+                # else:
+                #     gstin = c1
+                #
+                # if b1 == str(0):
+                #     lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
+                #     string = string.replace(lot[0], '')
+                #     try:
+                #         lot = str(lot[0]).replace('', "")
+                #         lot = lot.replace('10', '')
+                #     except:
+                #         lot = ''
+                # else:
+                #     lot = b1
+                #
+                # if d1 == str(0):
+                #     total = ""
+                # else:
+                #     total = d1
+                #
+                # if f1 == str(0):
+                #     total_bottles = ""
+                # else:
+                #     total_bottles = f1
+                #
+                # if e1 == str(0):
+                #     serial = re.findall(r'21[0-9]*', string)
+                #     try:
+                #         serial = serial[0][2:-1]
+                #     except:
+                #         serial = ''
+                # else:
+                #     serial = e1
 
-                if a1 == str(0):
-                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-                    string = string.replace(date_x[0], "")
-                    try:
-                        date_x = date_x[0]
-                    except:
-                        date_x = ''
-                    date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
-                else:
-                    date_x = a1
+                date_x=""
+                a1=date_x
+                gstin = ""
+                c1=gstin
+                serial=""
+                e1=serial
+                lot=""
+                b1=lot
 
-                if c1 == str(0):
-                    gstin = re.findall('01[0-9]{14}', string)
-                    string = string.replace(gstin[0], '')
-                    try:
-                        gstin = gstin[0][2:]
-                    except:
-                        gstin = ''
-                else:
-                    gstin = c1
+                total=""
+                total_bottles=""
 
-                if b1 == str(0):
-                    lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
-                    string = string.replace(lot[0], '')
-                    try:
-                        lot = str(lot[0]).replace('', "")
-                        lot = lot.replace('10', '')
-                    except:
-                        lot = ''
-                else:
-                    lot = b1
-
-                if d1 == str(0):
-                    total = ""
-                else:
-                    total = d1
-
-                if f1 == str(0):
-                    total_bottles = ""
-                else:
-                    total_bottles = f1
-
-                if e1 == str(0):
-                    serial = re.findall(r'21[0-9]*', string)
-                    try:
-                        serial = serial[0][2:-1]
-                    except:
-                        serial = ''
-                else:
-                    serial = e1
 
 
                 def turn_button(x=0):
