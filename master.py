@@ -1,17 +1,14 @@
 import re
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter import messagebox,Frame
-from tkcalendar import  DateEntry
+from tkinter import messagebox, Frame
+from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 import cv2
 import sys
 
-
 # from gpiozero import LED
 # led = LED(21)
-
-
 
 
 # import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
@@ -21,16 +18,11 @@ import sys
 # GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 
-
-
-
-already_scanned_data=[]
-scanned_serial=[]
-
+already_scanned_data = []
+scanned_serial = []
 
 
 def Read():
-
     print("hello")
 
     try:
@@ -41,7 +33,6 @@ def Read():
 
         Bottle = []
         z1serial = serial.Serial('/dev/ttyUSB0', 115200)
-        reading = ''
         while True:
             size = z1serial.inWaiting()
             if size:
@@ -80,22 +71,21 @@ def Read():
         return (Bottle)
 
     except:
-        EXP="210831"
+        EXP = "210831"
         EXP = '20' + EXP[0:2] + '-' + EXP[
                                       2:4] + '-' + EXP[
                                                    4:6]
-        return ([EXP,"FX000563","00307815988012"])
-
-
+        return ([EXP, "FX000563", "00307815988012"])
 
 
 class CreateToolTip(object):
     """
     create a tooltip for a given widget of delete button
     """
+
     def __init__(self, widget, text='widget info'):
-        self.waittime = 500     #miliseconds
-        self.wraplength = 180   #pixels
+        self.waittime = 500  # miliseconds
+        self.wraplength = 180  # pixels
         self.widget = widget
         self.text = text
         self.widget.bind("<Enter>", self.enter)
@@ -132,13 +122,13 @@ class CreateToolTip(object):
         self.tw.wm_overrideredirect(True)
         self.tw.wm_geometry("+%d+%d" % (x, y))
         label = tk.Label(self.tw, text=self.text, justify='left',
-                       background="#ffffff", relief='solid', borderwidth=1,
-                       wraplength = self.wraplength)
+                         background="#ffffff", relief='solid', borderwidth=1,
+                         wraplength=self.wraplength)
         label.pack(ipadx=1)
 
     def hidetip(self):
         tw = self.tw
-        self.tw= None
+        self.tw = None
         if tw:
             tw.destroy()
 
@@ -147,27 +137,24 @@ class CreateToolTip(object):
 The main fuction that will loop the program from start to end 
 '''
 
+
 def main():
-
-
     '''
     the function for login page
     '''
+
     def user_login_over_ride():
 
-
-
         class User_Login():
-
 
             """
             The login window that ask user for password and id , and validates then to move to the second page
             """
+
             def __init__(self, window):
 
                 self.UID = []
                 self.PWD = []
-
 
                 '''read username and password from text file stored in DATA/PRIVATE/passkey.txt'''
                 with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
@@ -178,8 +165,6 @@ def main():
                         y = str(y).replace("\n", "")
                         self.UID.append(x)
                         self.PWD.append(y)
-
-
 
                 self.lbl = tk.Label(window, text="User", font=("Helvetica", 20), bg='#EFEFEF')
                 self.lbl.place(x=60, y=90)
@@ -193,7 +178,6 @@ def main():
                 self.txtfld2 = ttk.Entry(window, text="Enter Password", show="*", font=("Helvetica", 20))
                 self.txtfld2.place(x=220, y=220)
 
-
                 self.btn = ttk.Button(window, text="LOGIN", width=20, command=self.validate)
                 self.btn.place(x=60, y=330, width=200, height=50)
 
@@ -203,10 +187,11 @@ def main():
             '''
             validating username and password and if validated move to next page
             '''
+
             def validate(self):
                 if (str(self.txtfld1.get()) in self.UID) and (str(self.txtfld2.get()) in self.PWD):
 
-                    user_name=str(self.txtfld1.get())
+                    user_name = str(self.txtfld1.get())
                     window_user_login.destroy()
 
                     user_login_2(user_name=user_name)
@@ -226,25 +211,24 @@ def main():
         # window_user_login.attributes('-alpha', 0.97)
 
         user_login_window = User_Login(window_user_login)
-        #window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+        # window_user_login.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
         window_user_login.title('Admin Login ' + '1')
         window_user_login.geometry("600x450")
+
         def exitx():
             exit(0)
+
         window_user_login.protocol('WM_DELETE_WINDOW', exitx)
         window_user_login.mainloop()
-
-
 
     '''
     The bulk data page after the login  validation is succesful that asked user to enter few data like total bottles and
             bottles per carate etc
     '''
-    def user_login_2(a1=str(""),b1=str(""),c1=str(""),d1=str(""),e1=str(""),a2=str(""),b2=str(""),c2=str(""),d2=str(""),e2=str(""),user_name=str(0),f1=str("")):
+
+    def user_login_2(a1=str(""), b1=str(""), c1=str(""), d1=str(""), e1=str(""), a2=str(""), b2=str(""), c2=str(""),
+                     d2=str(""), e2=str(""), user_name=str(0), f1=str("")):
         class User_2():
-
-
-
 
             """
             The second page after the login  validation is succesful that asked user to enter few data like total bottles and
@@ -253,21 +237,16 @@ def main():
 
             def __init__(self, window):
 
-                self.windows=window
+                self.windows = window
 
-
-                date_x=a1
-                lot=b1
+                date_x = a1
+                lot = b1
                 gstin = c1
 
-                total=d1
-                total_bottles=f1
-
-
-
+                total = d1
+                total_bottles = f1
 
                 def turn_button(x=0):
-
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(window, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
@@ -282,12 +261,11 @@ def main():
                 img.image = render
                 img.place(x=80, y=10)
 
-                self.lb0 = tk.Label(window, text="Bulk Details", font=("Helvetica", 30,'bold'), bg='#EFEFEF')
+                self.lb0 = tk.Label(window, text="Bulk Details", font=("Helvetica", 30, 'bold'), bg='#EFEFEF')
                 self.lb0.place(x=200, y=50)
 
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb1.place(x=60, y=140)
-
 
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
@@ -314,21 +292,17 @@ def main():
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb4.place(x=60, y=290)
 
-
                 self.txtfld4 = ttk.Entry(window,
                                          font=("Helvetica", 10))
                 self.txtfld4.place(x=270, y=290, width=260)
                 self.txtfld4.insert(0, total)
 
-
                 self.lb5 = tk.Label(window, text="Bottles/Case", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb5.place(x=60, y=340)
 
-                self.txtfld5 = ttk.Entry(window,font=("Helvetica", 10))
+                self.txtfld5 = ttk.Entry(window, font=("Helvetica", 10))
                 self.txtfld5.place(x=270, y=340, width=260)
                 self.txtfld5.insert(0, total_bottles)
-
-
 
                 self.btn_quit = ttk.Button(window, text="SCAN", width=20, command=self.scan)
                 self.btn_quit.place(x=60, y=380, width=160, height=40)
@@ -339,10 +313,8 @@ def main():
             def scan(self):
                 print("bar code scanning test area")
 
-                value=Read()
+                value = Read()
                 print(value)
-
-
 
                 try:
 
@@ -372,185 +344,141 @@ def main():
                 except:
                     pass
 
-
-
-
-
-
-
-
-
             '''
             function to validate username and password
             '''
-            def validate(self):
 
+            def validate(self):
 
                 if ((str(self.txtfld1.get()) != "")):
 
-                    a1=(str(self.txtfld1.get()))
+                    a1 = (str(self.txtfld1.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Date Field")
                     return (0)
 
-
-
-
                 if ((str(self.txtfld2.get()) != "")):
 
-                    b1=(str(self.txtfld2.get()))
+                    b1 = (str(self.txtfld2.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Bulk Lot Field")
                     return (0)
 
-
                 if ((str(self.txtfld3.get()) != "")):
 
-                    c1=(str(self.txtfld3.get()))
+                    c1 = (str(self.txtfld3.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing GSTIN Number Field")
                     return (0)
 
-
                 if ((len(str(self.txtfld3.get())) == 14)):
 
-                    c1=(str(self.txtfld3.get()))
+                    c1 = (str(self.txtfld3.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Wrong GSTIN Number Format")
                     return (0)
 
+                if ((str(self.txtfld5.get()) != "")):
 
-
-
-
-                if ((str(self.txtfld5.get()) != "") ):
-
-                    f1=(str(self.txtfld5.get()))
+                    f1 = (str(self.txtfld5.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Bottles/Case Field")
                     return (0)
 
+                if ((str(self.txtfld4.get()) != "")):
 
-                if ((str(self.txtfld4.get()) != "") ):
-
-
-                    e1=(str(self.txtfld5.get()))
+                    e1 = (str(self.txtfld5.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Total Bottles Field")
                     return (0)
 
-
                 if ((str(self.txtfld2.get()).isalnum())):
 
-                    b1=(str(self.txtfld2.get()))
+                    b1 = (str(self.txtfld2.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Bulk Lot must be aplhanumeric and should not contain any special characters")
+                    messagebox.showwarning("Warning",
+                                           "Bulk Lot must be aplhanumeric and should not contain any special characters")
                     return (0)
-
 
                 if ((str(self.txtfld3.get()).isalnum())):
 
-                    c1=(str(self.txtfld3.get()))
+                    c1 = (str(self.txtfld3.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "GTIN must be aplhanumeric and should not contain any special characters")
+                    messagebox.showwarning("Warning",
+                                           "GTIN must be aplhanumeric and should not contain any special characters")
                     return (0)
-
-
 
                 if ((str(self.txtfld5.get()).isalnum())):
 
-                    e1=(str(self.txtfld5.get()))
+                    e1 = (str(self.txtfld5.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Serial Number must be aplhanumeric and should not contain any special characters")
+                    messagebox.showwarning("Warning",
+                                           "Serial Number must be aplhanumeric and should not contain any special characters")
                     return (0)
-
 
                 if ((str(self.txtfld4.get()) != "0")):
 
-                    d1=(str(self.txtfld4.get()))
+                    d1 = (str(self.txtfld4.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Total Bottle value cannot be 0")
                     return (0)
 
-
-
-
-
-
                 try:
 
-                    temp=int((self.txtfld4.get()))
+                    temp = int((self.txtfld4.get()))
 
-                    d1=str(self.txtfld4.get())
+                    d1 = str(self.txtfld4.get())
 
 
                 except:
                     messagebox.showwarning("Warning", "Total Bottle field must be numeric")
                     return (0)
 
-
-
-
-
                 if ((str(self.txtfld5.get()) != "0")):
 
-                    f1=(str(self.txtfld5.get()))
+                    f1 = (str(self.txtfld5.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Bottles/Case value cannot be 0")
                     return (0)
 
-
-
-
-
-
                 try:
 
-                    temp=int((self.txtfld5.get()))
+                    temp = int((self.txtfld5.get()))
 
-                    f1=str(self.txtfld5.get())
+                    f1 = str(self.txtfld5.get())
 
 
                 except:
                     messagebox.showwarning("Warning", "Bottles/Case field must be numeric")
                     return (0)
 
-
-
-
                 window_user_login_2.destroy()
 
-
-
-
-
-                user_login_3(user_name=user_name,a1=a1, b1=b1, c1=c1,
+                user_login_3(user_name=user_name, a1=a1, b1=b1, c1=c1,
                              d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                             e2=e2,f1=f1)
-
-
+                             e2=e2, f1=f1)
 
             '''
             reset function to clear all fields
@@ -559,19 +487,16 @@ def main():
             def reset(self):
 
                 def turn_button(x=0):
-
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
                     self.txtfld1.place(x=270, y=140, width=260)
 
-
                 self.txtfld1.destroy()
-                self.txtfld1 = ttk.Combobox(self.windows,font=("Helvetica", 10), state='readonly')
+                self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
                 self.txtfld1.place(x=270, y=140, width=260)
                 self.txtfld1.set("")
                 self.txtfld1.bind("<Button-1>", turn_button)
-
 
                 self.txtfld2.delete(0, len(self.txtfld2.get()))
                 self.txtfld2.insert(0, "")
@@ -585,11 +510,6 @@ def main():
                 self.txtfld5.delete(0, len(self.txtfld5.get()))
                 self.txtfld5.insert(0, "")
 
-
-
-
-
-
         window_user_login_2 = tk.Tk()
         # window_user_login_2.config(background='#EFEFEF')
         # window_user_login_2.attributes('-alpha', 0.97)
@@ -598,29 +518,20 @@ def main():
         # window_user_login_2.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
         window_user_login_2.title('Get Bulk Data ' + '2')
         window_user_login_2.geometry("600x450")
+
         def exitx():
             exit(0)
+
         window_user_login_2.protocol('WM_DELETE_WINDOW', exitx)
         window_user_login_2.mainloop()
 
-
-
-
-
-
-
-
-
-
-
     '''
     The repacking data page after proper data entered in bulk data page and validating them if they are correctly entered
-           
+
     '''
-    def user_login_3(user_name=str(""),a1=str(""),b1=str(""),c1=str(""),d1=str(""),e1=str(""),a2=str(""),b2=str(""),c2=str(""),d2=str(""),e2=str(""),f1=str("")):
 
-
-
+    def user_login_3(user_name=str(""), a1=str(""), b1=str(""), c1=str(""), d1=str(""), e1=str(""), a2=str(""),
+                     b2=str(""), c2=str(""), d2=str(""), e2=str(""), f1=str("")):
 
         class User_3():
 
@@ -628,25 +539,25 @@ def main():
                 The repacking data page after proper data entered in bulk data page and validating them if they are correctly entered
 
                 '''
+
             def __init__(self, window):
 
-                self.windows=window
+                self.windows = window
 
-                if a2=="":
-                    date_x=a1
+                if a2 == "":
+                    date_x = ""
                 else:
-                    date_x=a2
+                    date_x = a2
 
-                if b2=="":
-                    lot=b1
+                if b2 == "":
+                    lot = ""
                 else:
-                    lot=b2
+                    lot = b2
 
-                if c2=="":
-                    gstin=c1
+                if c2 == "":
+                    gstin = ""
                 else:
-                    gstin=c2
-
+                    gstin = c2
 
                 def turn_button(x=0):
 
@@ -672,7 +583,6 @@ def main():
                 self.lb1 = tk.Label(window, text="EXP(YYYY-MM-DD)", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb1.place(x=60, y=160)
 
-
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10), state='readonly')
                 self.txtfld1.place(x=270, y=160, width=260)
@@ -697,7 +607,6 @@ def main():
 
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
 
-
                 # self.txtfld4 = ttk.Entry(window,
                 #                          font=("Helvetica", 10))
                 # self.txtfld4.insert(0, d1)
@@ -713,18 +622,14 @@ def main():
                 self.btn_quit = ttk.Button(window, text="SCAN", width=20, command=self.scan)
                 self.btn_quit.place(x=232, y=380, width=130, height=40)
 
-
-
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=400, y=380, width=130, height=40)
 
             def scan(self):
                 print("bar code scanning test area")
 
-                value=Read()
+                value = Read()
                 print(value)
-
-
 
                 try:
 
@@ -735,7 +640,7 @@ def main():
                         self.txtfld1.destroy()
                         self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
                                                  date_pattern='y-mm-dd', anchor='center')
-                        self.txtfld1.place(x=270, y=140, width=260)
+                        self.txtfld1.place(x=270, y=160, width=260)
 
                     self.txtfld1.destroy()
                     self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
@@ -755,6 +660,7 @@ def main():
                     pass
 
             '''back button to go to bulk data page'''
+
             def back(self):
                 a2 = (str(self.txtfld1.get()))
                 b2 = (str(self.txtfld2.get()))
@@ -762,110 +668,96 @@ def main():
                 # d1 = (str(self.txtfld4.get()))
                 # e2 = (str(self.txtfld5.get()))
 
-
                 window_user_login_3.destroy()
 
-
-
-                user_login_2(user_name=user_name,a1=a1,b1=b1,c1=c1,d1=d1,e1=e1,a2=a2,b2=b2,
-                             c2=c2,d2=d2,e2=e2,f1=f1)
-
+                user_login_2(user_name=user_name, a1=a1, b1=b1, c1=c1, d1=d1, e1=e1, a2=a2, b2=b2,
+                             c2=c2, d2=d2, e2=e2, f1=f1)
 
             '''validation function to check data are in correct format or not'''
+
             def validate(self):
 
                 if ((str(self.txtfld1.get()) != "")):
 
-                    a2=(str(self.txtfld1.get()))
+                    a2 = (str(self.txtfld1.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Date Field")
                     return (0)
 
-
-
-
                 if ((str(self.txtfld2.get()) != "")):
 
-                    b2=(str(self.txtfld2.get()))
+                    b2 = (str(self.txtfld2.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing Bulk Lot Field")
                     return (0)
 
-
                 if ((str(self.txtfld3.get()) != "")):
 
-                    c2=(str(self.txtfld3.get()))
+                    c2 = (str(self.txtfld3.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Missing GSTIN Number Field")
                     return (0)
 
-
                 if ((len(str(self.txtfld3.get())) == 14)):
 
-                    c2=(str(self.txtfld3.get()))
+                    c2 = (str(self.txtfld3.get()))
 
                 else:
 
                     messagebox.showwarning("Warning", "Wrong GSTIN Number Format")
                     return (0)
 
-
-
-
                 if ((str(self.txtfld2.get()).isalnum())):
 
-                    b2=(str(self.txtfld2.get()))
+                    b2 = (str(self.txtfld2.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "Bulk Lot must be aplhanumeric and should not contain any special characters")
+                    messagebox.showwarning("Warning",
+                                           "Bulk Lot must be aplhanumeric and should not contain any special characters")
                     return (0)
-
 
                 if ((str(self.txtfld3.get()).isalnum())):
 
-                    c2=(str(self.txtfld3.get()))
+                    c2 = (str(self.txtfld3.get()))
 
                 else:
 
-                    messagebox.showwarning("Warning", "GTIN must be aplhanumeric and should not contain any special characters")
+                    messagebox.showwarning("Warning",
+                                           "GTIN must be aplhanumeric and should not contain any special characters")
                     return (0)
 
                 MsgBox = tk.messagebox.askquestion('Warning',
                                                    'Are you sure you want to proceed to Scanning Page and Save all Data Entered?',
                                                    icon='warning')
                 if MsgBox == 'yes':
-
                     window_user_login_3.destroy()
 
-
-                    user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
+                    user_login_4(user_name=user_name, a1=a1, b1=b1, c1=c1,
                                  d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                                 e2=e2,f1=f1)
+                                 e2=e2, f1=f1)
 
             '''reset function to clear all the entered data'''
+
             def reset(self):
 
                 def turn_button(x=0):
-
                     self.txtfld1.destroy()
                     self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
                                              date_pattern='y-mm-dd', anchor='center')
                     self.txtfld1.place(x=270, y=160, width=260)
 
-
                 self.txtfld1.destroy()
-                self.txtfld1 = ttk.Combobox(self.windows,font=("Helvetica", 10), state='readonly')
+                self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
                 self.txtfld1.place(x=270, y=160, width=260)
                 self.txtfld1.set("")
                 self.txtfld1.bind("<Button-1>", turn_button)
-
 
                 self.txtfld2.delete(0, len(self.txtfld2.get()))
                 self.txtfld2.insert(0, "")
@@ -873,41 +765,31 @@ def main():
                 self.txtfld3.delete(0, len(self.txtfld3.get()))
                 self.txtfld3.insert(0, "")
 
-
-
-
         window_user_login_3 = tk.Tk()
         # window_user_login_3.config(background='#EFEFEF')
         # window_user_login_3.attributes('-alpha', 0.97)
 
         user_login_window = User_3(window_user_login_3)
-        #window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
+        # window_user_login_3.iconbitmap(default='DATA/IMAGES/icons/favicon.ico')
         window_user_login_3.title('Get Repacking Data ' + '3.0.0')
         window_user_login_3.geometry("600x450")
+
         def exitx():
             exit(0)
+
         window_user_login_3.protocol('WM_DELETE_WINDOW', exitx)
         window_user_login_3.mainloop()
 
-
-
-
-
     '''scanning page for scanning all the bottles'''
+
     def user_login_4(user_name=str(0), a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0),
                      c2=str(0), d2=str(0),
-                     e2=str(0), id=str(0), limit=str(0),scanned_data=str(0),f1=str(0)):
+                     e2=str(0), id=str(0), limit=str(0), scanned_data=str(0), f1=str(0)):
         class User_4():
 
             def __init__(self, window):
 
-
-
-
-
-
-
-                stringx=already_scanned_data
+                stringx = already_scanned_data
 
                 self.stringc = stringx
                 self.windows = window
@@ -935,12 +817,8 @@ def main():
                 self.txtfld02.set(str(0))
                 self.txtfld02.config(state='disabled')
 
-
-
-
                 self.txtfld00.set(len(already_scanned_data))
                 self.txtfld00.config(state='disabled')
-
 
                 self.txtfld01 = ttk.Combobox(window, font=("Helvetica", 20), justify='center')
                 self.txtfld01.place(x=525, y=50, width=70)
@@ -988,25 +866,17 @@ def main():
                 self.btn_scan = ttk.Button(window, text="SCAN & NEXT", width=20, command=self.scan)
                 self.btn_scan.place(x=10, y=400, width=180, height=40)
 
-                self.btn_next = ttk.Button(window, text="FINSIH", width=20,command=self.finish)
+                self.btn_next = ttk.Button(window, text="FINSIH", width=20, command=self.finish)
                 self.btn_next.place(x=400, y=400, width=180, height=40)
 
                 self.btn_quit = ttk.Button(window, text="DISPLAY", width=20, command=self.display)
                 self.btn_quit.place(x=205, y=400, width=180, height=40)
 
-
-
-
-
                 '''
                 function to scan data and store them in a variable and validate data to check if they are in correct format or not
                 '''
 
-
-
-
             def scan(self):
-
 
                 print("Already Scanned Data")
                 print(already_scanned_data)
@@ -1014,9 +884,6 @@ def main():
                 def task():
 
                     print("Starting Task Funnction")
-
-                    self.txtfld00.set(str(len(already_scanned_data)))
-                    self.txtfld02.set(str((len(already_scanned_data)) // int(f1)))
 
                     def validatex():
 
@@ -1153,21 +1020,21 @@ def main():
                              str(self.txtfld5.get())])
                         scanned_serial.append(str(self.txtfld5.get()))
 
+                        self.txtfld00.set(str(len(already_scanned_data)))
+                        self.txtfld02.set(str((len(already_scanned_data)) // int(f1)))
+
+
                     print("Starting Validating Funnction")
 
                     validatex()
 
-                if len(already_scanned_data)>0:
+                if len(already_scanned_data) > 0:
                     task()
-
-
 
                 print("bar code scanning test area")
 
-                value=Read()
+                value = Read()
                 print(value)
-
-
 
                 try:
 
@@ -1187,38 +1054,19 @@ def main():
                     self.txtfld1.bind("<Button-1>", turn_button)
                     self.txtfld1.config(state='disabled')
 
-
                     self.txtfld2.set(value[1])
-
 
                     self.txtfld3.set(value[2])
 
+                    # Needs to Be Edited
 
-                    #Needs to Be Edited
-
-                    # self.txtfld5.delete(0, len(self.txtfld3.get()))
-                    # self.txtfld5.insert(0, value[2])
+                    # self.txtfld5.set(value[3])
 
                 except:
                     pass
 
-
-                if len(already_scanned_data)==0:
+                if len(already_scanned_data) == 0:
                     task()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             def finish(self):
 
@@ -1307,9 +1155,7 @@ def main():
 
                     if glmb == 'yes':
 
-                        glm = tk.messagebox.askquestion('Warning',
-                                                        'Are you sure you save the data to xml file ?',
-                                                        icon='warning')
+                        glm = 'yes'
 
                         if glm == 'yes':
 
@@ -1465,17 +1311,21 @@ def main():
                                                         with open(save_path_file, "w") as f:
                                                             f.write(xml_str.decode())
 
-                                                    xml_creator()
-                                                    messagebox.showwarning("Info",
-                                                                           "XML file Created Succesfully")
-                                                    for i in range(len(already_scanned_data)):
-                                                        already_scanned_data.pop()
+                                                    var = tk.messagebox.askquestion('Warning',
+                                                                                    'Are you sure you save the data to xml file ?',
+                                                                                    icon='warning')
+                                                    if var == 'yes':
+                                                        xml_creator()
+                                                        messagebox.showwarning("Info",
+                                                                               "XML file Created Succesfully")
+                                                        for i in range(len(already_scanned_data)):
+                                                            already_scanned_data.pop()
 
-                                                    for i in range(len(scanned_serial)):
-                                                        scanned_serial.pop()
+                                                        for i in range(len(scanned_serial)):
+                                                            scanned_serial.pop()
 
-                                                    window_user_login_4.destroy()
-                                                    user_login_over_ride()
+                                                        window_user_login_4.destroy()
+                                                        user_login_over_ride()
 
 
 
@@ -1515,15 +1365,7 @@ def main():
                             root.geometry("600x150")
                             root.mainloop()
 
-
-
-
-
             def display(self):
-
-
-
-
 
                 datax = already_scanned_data
 
@@ -1557,8 +1399,6 @@ def main():
                 iter = 0
                 for valx in datax:
 
-
-
                     flag = False
 
                     try:
@@ -1590,7 +1430,6 @@ def main():
 
                         else:
 
-
                             tree.insert('', 'end',
                                         values=(
                                             str(iter), str(valx[0]), str(valx[1]), str(valx[2]),
@@ -1601,7 +1440,6 @@ def main():
                     # tree.tag_configure('evenx', background='#FFFF00')
                     except:
                         pass
-
 
                 def delete():
                     glm = tk.messagebox.askquestion('Warning',
@@ -1654,11 +1492,17 @@ def main():
                                 def validate(self):
                                     if (str(self.txtfld1.get()) in self.UID) and (
                                             str(self.txtfld2.get()) in self.PWD):
-
+                                        iter=0
                                         for selected_item in tree.selection():
                                             tree.delete(selected_item)
+                                            print('selected_item--->', selected_item)
+                                            print(int(str(selected_item)[-1])-1)
+                                            del already_scanned_data[int(str(selected_item)[-1])-1-iter]
+                                            iter+=1
+
 
                                         window_user_login.destroy()
+
 
 
 
@@ -1685,8 +1529,6 @@ def main():
                     else:
                         pass
 
-
-
                 def back():
 
                     MsgBox = tk.messagebox.askquestion('Warning',
@@ -1701,12 +1543,10 @@ def main():
                     else:
                         pass
 
-
-
-
-                self.lbx = tk.Label(self.windows, text="* To delete multiple rows press ctrl and select the rows you want to delete and press delete button",
+                self.lbx = tk.Label(self.windows,
+                                    text="* To delete multiple rows press ctrl and select the rows you want to delete and press delete button",
                                     font=("Helvetica", 10), bg='#EFEFEF')
-                self.lbx.place(x=10,y=374)
+                self.lbx.place(x=10, y=374)
 
                 self.btn_quit = ttk.Button(self.windows, text="DELETE", width=20, command=delete)
                 self.btn_quit.place(x=205, y=400, width=180, height=40)
@@ -1719,16 +1559,6 @@ def main():
                 self.back = ttk.Button(self.windows, text="BACK", width=20, command=back)
                 self.back.place(x=10, y=400, width=180, height=40)
 
-
-
-
-
-
-
-
-
-
-
         window_user_login_4 = tk.Tk()
         # window_user_login_4.config(background='#EFEFEF')
         # window_user_login_4.attributes('-alpha', 0.97)
@@ -1740,14 +1570,15 @@ def main():
             'Scanning Page ' + '4')
 
         window_user_login_4.geometry("600x450")
+
         def exitx():
             exit(0)
+
         window_user_login_4.protocol('WM_DELETE_WINDOW', exitx)
 
         window_user_login_4.mainloop()
 
     user_login_over_ride()
-
 
 
 if __name__ == '__main__':
