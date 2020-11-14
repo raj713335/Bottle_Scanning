@@ -952,7 +952,7 @@ def main():
                 self.txtfld1 = ttk.Combobox(window,
                                             font=("Helvetica", 10))
                 self.txtfld1.place(x=270, y=170, width=260)
-                self.txtfld1.set(a1)
+                self.txtfld1.set("")
                 self.txtfld1.config(state='disabled')
 
                 self.lb2 = tk.Label(window, text="Bulk Lot", font=("Helvetica", 10), bg='#EFEFEF')
@@ -961,7 +961,7 @@ def main():
                 self.txtfld2 = ttk.Combobox(window,
                                             font=("Helvetica", 10))
                 self.txtfld2.place(x=270, y=210, width=260)
-                self.txtfld2.set(b1)
+                self.txtfld2.set("")
                 self.txtfld2.config(state='disabled')
 
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
@@ -969,7 +969,7 @@ def main():
 
                 self.txtfld3 = ttk.Combobox(window, text="Enter UID", font=("Helvetica", 10))
                 self.txtfld3.place(x=270, y=250, width=260)
-                self.txtfld3.set(c1)
+                self.txtfld3.set("")
                 self.txtfld3.config(state='disabled')
 
                 self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
@@ -978,7 +978,7 @@ def main():
                 self.txtfld5 = ttk.Combobox(window,
                                             font=("Helvetica", 10))
                 self.txtfld5.place(x=270, y=290, width=260)
-                self.txtfld5.set(e1)
+                self.txtfld5.set("")
                 self.txtfld5.config(state='disabled')
 
                 self.btn_scan = ttk.Button(window, text="SCAN & NEXT", width=20, command=self.scan)
@@ -1002,6 +1002,162 @@ def main():
 
 
             def scan(self):
+
+
+                print("Already Scanned Data")
+                print(already_scanned_data)
+
+                def task():
+
+                    print("Starting Task Funnction")
+
+                    self.txtfld00.set(str(len(already_scanned_data)))
+                    self.txtfld02.set(str((len(already_scanned_data)) // int(f1)))
+
+                    def validatex():
+
+                        # led.off()
+
+                        if (str(self.txtfld5.get()) not in scanned_serial):
+
+                            e3 = (str(self.txtfld5.get()))
+                            self.txtfld5.config(state='disabled')
+
+
+                        else:
+
+                            # led.on()
+
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
+                                                 " is duplicated. Please remove the duplicate bottle and restart the scanning")
+
+                            self.txtfld5.config(state='enabled')
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        if ((str(self.txtfld1.get()) == str(a1))):
+
+                            a3 = (str(self.txtfld1.get()))
+                            self.txtfld1.config(state='disabled')
+
+
+                        else:
+
+                            # led.on()
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showerror("Error", "Date " + str(self.txtfld1.get()) +
+                                                 " in serial number " + str(self.txtfld5.get()) +
+                                                 " do not match with Bulk Date " + str(a1) +
+                                                 " , Please change Date .")
+
+                            self.txtfld1.config(state='enabled')
+
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        if ((str(self.txtfld2.get()) == str(b1))):
+
+                            b3 = (str(self.txtfld2.get()))
+                            self.txtfld2.config(state='disabled')
+
+
+
+
+                        else:
+
+                            # led.on()
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showerror("Error", "Bulk Lot " + str(self.txtfld2.get()) +
+                                                 " in serial number " + str(self.txtfld5.get()) +
+                                                 " do not match with Bulk Lot " + str(b1) +
+                                                 " , Please change Lot Number")
+
+                            self.txtfld2.config(state='enabled')
+
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        if ((str(self.txtfld3.get()) == str(c1))):
+
+                            c3 = (str(self.txtfld3.get()))
+                            self.txtfld3.config(state='disabled')
+
+                        else:
+
+                            # led.on()
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showerror("Error", "GTIN " + str(self.txtfld3.get()) +
+                                                 " in serial number " + str(self.txtfld5.get()) +
+                                                 " do not match with Bulk Data GTIN " + str(c1) +
+                                                 " , Please change GTIN Number")
+
+                            self.txtfld3.config(state='enabled')
+
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        if ((str(self.txtfld5.get()).isalnum())):
+
+                            e3 = (str(self.txtfld5.get()))
+                            self.txtfld5.config(state='disabled')
+
+                        else:
+
+                            # led.on()
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showwarning("Warning",
+                                                   "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
+                            self.txtfld5.config(state='enabled')
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        if ((str(self.txtfld5.get()) != "")):
+
+                            e3 = (str(self.txtfld5.get()))
+
+                        else:
+
+                            # led.on()
+                            # GPIO.output(17, GPIO.HIGH)  # Turn on
+
+                            messagebox.showwarning("Warning", "Missing Serial Number Field")
+                            self.txtfld5.config(state='enabled')
+
+                            # sleep(1)  # Sleep for 1 second
+                            # GPIO.output(17, GPIO.LOW)
+
+                            return (0)
+
+                        already_scanned_data.append(
+                            [str(self.txtfld1.get()), str(self.txtfld2.get()), str(self.txtfld3.get()),
+                             str(self.txtfld5.get())])
+                        scanned_serial.append(str(self.txtfld5.get()))
+
+                    print("Starting Validating Funnction")
+
+                    validatex()
+
+                if len(already_scanned_data)>0:
+                    task()
+
+
+
                 print("bar code scanning test area")
 
                 value=Read()
@@ -1027,11 +1183,11 @@ def main():
                     self.txtfld1.bind("<Button-1>", turn_button)
                     self.txtfld1.config(state='disabled')
 
-                    self.txtfld2.delete(0, len(self.txtfld2.get()))
-                    self.txtfld2.insert(0, value[1])
 
-                    self.txtfld3.delete(0, len(self.txtfld3.get()))
-                    self.txtfld3.insert(0, value[2])
+                    self.txtfld2.set(value[1])
+
+
+                    self.txtfld3.set(value[2])
 
 
                     #Needs to Be Edited
@@ -1039,168 +1195,18 @@ def main():
                     # self.txtfld5.delete(0, len(self.txtfld3.get()))
                     # self.txtfld5.insert(0, value[2])
 
-                    def task():
-
-                        print("Starting Task Funnction")
-
-                        self.txtfld00.set(str(len(already_scanned_data)))
-                        self.txtfld02.set(str((len(already_scanned_data)) // int(f1)))
-
-                        def validatex():
-
-
-
-                            # led.off()
-
-                            if (str(self.txtfld5.get()) not in scanned_serial):
-
-                                e3 = (str(self.txtfld5.get()))
-                                self.txtfld5.config(state='disabled')
-
-
-                            else:
-
-                                # led.on()
-
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showerror("Error", "Serial Number " + str(self.txtfld5.get()) +
-                                                     " is duplicated. Please remove the duplicate bottle and restart the scanning")
-
-                                self.txtfld5.config(state='enabled')
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-                            if ((str(self.txtfld1.get()) == str(a1))):
-
-                                a3 = (str(self.txtfld1.get()))
-                                self.txtfld1.config(state='disabled')
-
-
-                            else:
-
-                                # led.on()
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showerror("Error", "Date " + str(self.txtfld1.get()) +
-                                                     " in serial number " + str(self.txtfld5.get()) +
-                                                     " do not match with Bulk Date " + str(a1) +
-                                                     " , Please change Date .")
-
-                                self.txtfld1.config(state='enabled')
-
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-                            if ((str(self.txtfld2.get()) == str(b1))):
-
-                                b3 = (str(self.txtfld2.get()))
-                                self.txtfld2.config(state='disabled')
-
-
-
-
-                            else:
-
-                                # led.on()
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showerror("Error", "Bulk Lot " + str(self.txtfld2.get()) +
-                                                     " in serial number " + str(self.txtfld5.get()) +
-                                                     " do not match with Bulk Lot " + str(b1) +
-                                                     " , Please change Lot Number")
-
-                                self.txtfld2.config(state='enabled')
-
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-                            if ((str(self.txtfld3.get()) == str(c1))):
-
-                                c3 = (str(self.txtfld3.get()))
-                                self.txtfld3.config(state='disabled')
-
-                            else:
-
-                                # led.on()
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showerror("Error", "GTIN " + str(self.txtfld3.get()) +
-                                                     " in serial number " + str(self.txtfld5.get()) +
-                                                     " do not match with Bulk Data GTIN " + str(c1) +
-                                                     " , Please change GTIN Number")
-
-                                self.txtfld3.config(state='enabled')
-
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-                            if ((str(self.txtfld5.get()).isalnum())):
-
-                                e3 = (str(self.txtfld5.get()))
-                                self.txtfld5.config(state='disabled')
-
-                            else:
-
-                                # led.on()
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showwarning("Warning",
-                                                       "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
-                                self.txtfld5.config(state='enabled')
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-                            if ((str(self.txtfld5.get()) != "")):
-
-                                e3 = (str(self.txtfld5.get()))
-
-                            else:
-
-                                # led.on()
-                                # GPIO.output(17, GPIO.HIGH)  # Turn on
-
-                                messagebox.showwarning("Warning", "Missing Serial Number Field")
-                                self.txtfld5.config(state='enabled')
-
-                                # sleep(1)  # Sleep for 1 second
-                                # GPIO.output(17, GPIO.LOW)
-
-                                return (0)
-
-
-                            already_scanned_data.append([str(self.txtfld1.get()), str(self.txtfld2.get()), str(self.txtfld3.get()), str(self.txtfld5.get())])
-                            scanned_serial.append(str(self.txtfld5.get()))
-
-
-                        print("Starting Validating Funnction")
-
-                        validatex()
-
-
-
-
-
-
-                    task()
-
-                    print("Already Scanned Data")
-                    print(already_scanned_data)
-
-
-
                 except:
                     pass
+
+
+                if len(already_scanned_data)==0:
+                    task()
+
+
+
+
+
+
 
 
 
