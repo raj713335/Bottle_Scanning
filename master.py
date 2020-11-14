@@ -39,26 +39,21 @@ def Read():
         import serial, string
         import RPi.GPIO as IO
 
-
-
         Bottle = []
-        ser = serial.Serial('/dev/ttyUSB0', 115200)
-        ser.flushInput()
+        z1serial = serial.Serial('/dev/ttyUSB0', 115200)
         reading = ''
-        IO.setmode(IO.BOARD)
-        IO.setwarnings(False)
-        IO.setup(23, IO.OUT)
-        IO.output(23, False)
         while True:
-            try:
-                r = ser.read()
-                reading = reading + r
-                if ')' in reading:
+            size = z1serial.inWaiting()
+            if size:
+                data = z1serial.read(size)
+                data = data.decode()
+                print(data)
+                if '\r' in data:
                     break
-            except:
-                print("KeyError")
-                break
-        decode = (reading[0:len(reading)])
+            else:
+                print('no data')
+            time.sleep(1)
+        decode = data
         # print decode
         if decode[0:3] == '(01':
             GTIN = gtin = decode[3:17]
@@ -73,20 +68,14 @@ def Read():
                     EXP = asdecode[2:8]
                     # print 'EXP:',EXP
                     aedecode = asdecode[8:len(asdecode)]
-                    LOT = aedecode[2:aedecode.index(')')]
+                    LOT = aedecode[2:aedecode.index('\r')]
                     # print 'LOT:',LOT
-                    IO.output(23, True)
-                    time.sleep(1)
-                    IO.output(23, False)
-                    Bottle = [EXP, LOT,GTIN]
-                    print(Bottle)
+                    Bottle = [GTIN, EXP, LOT]
 
-
-        print(Bottle)
         return (Bottle)
 
     except:
-        return (["","",""])
+        return (["ZX","DF","SA"])
 
 
 
