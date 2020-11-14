@@ -837,15 +837,17 @@ def main():
                     messagebox.showwarning("Warning", "GTIN must be aplhanumeric and should not contain any special characters")
                     return (0)
 
+                MsgBox = tk.messagebox.askquestion('Warning',
+                                                   'Are you sure you want to proceed to Scanning Page and Save all Data Entered?',
+                                                   icon='warning')
+                if MsgBox == 'yes':
+
+                    window_user_login_3.destroy()
 
 
-
-                window_user_login_3.destroy()
-
-
-                user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
-                             d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
-                             e2=e2,f1=f1)
+                    user_login_4(user_name=user_name,a1=a1, b1=b1, c1=c1,
+                                 d1=d1, e1=e1, a2=a2, b2=b2, c2=c2, d2=d2,
+                                 e2=e2,f1=f1)
 
             '''reset function to clear all the entered data'''
             def reset(self):
