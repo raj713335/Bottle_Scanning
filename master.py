@@ -6,6 +6,7 @@ from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 import cv2
 import sys
+import time
 
 # from gpiozero import LED
 # led = LED(21)
@@ -20,6 +21,8 @@ import sys
 
 already_scanned_data = []
 scanned_serial = []
+
+global after_function
 
 
 def Read():
@@ -784,7 +787,10 @@ def main():
 
     def user_login_4(user_name=str(0), a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0),
                      c2=str(0), d2=str(0),
-                     e2=str(0), id=str(0), limit=str(0), scanned_data=str(0), f1=str(0)):
+                    e2=str(0), id=str(0), limit=str(0), scanned_data=str(0), f1=str(0)):
+
+
+
         class User_4():
 
             def __init__(self, window):
@@ -876,6 +882,8 @@ def main():
                 function to scan data and store them in a variable and validate data to check if they are in correct format or not
                 '''
 
+
+
             def scan(self):
 
                 print("Already Scanned Data")
@@ -886,6 +894,12 @@ def main():
                     print("Starting Task Funnction")
 
                     def validatex():
+
+
+                        self.txtfld1.config(state='disabled')
+                        self.txtfld2.config(state='disabled')
+                        self.txtfld3.config(state='disabled')
+                        self.txtfld5.config(state='disabled')
 
                         # led.off()
 
@@ -1023,6 +1037,13 @@ def main():
                         self.txtfld00.set(str(len(already_scanned_data)))
                         self.txtfld02.set(str((len(already_scanned_data)) // int(f1)))
 
+                        self.txtfld1.config(state='enabled')
+                        self.txtfld2.config(state='enabled')
+                        self.txtfld3.config(state='enabled')
+                        self.txtfld5.config(state='enabled')
+
+
+
 
                     print("Starting Validating Funnction")
 
@@ -1033,8 +1054,18 @@ def main():
 
                 print("bar code scanning test area")
 
+
                 value = Read()
                 print(value)
+
+                # if len(already_scanned_data)>0:
+                #     while already_scanned_data[-1]==[str(self.txtfld1.get()), str(self.txtfld2.get()), str(self.txtfld3.get()),
+                #              str(self.txtfld5.get())]:
+                #
+                #         time.sleep(2)
+                #         value = Read()
+
+
 
                 try:
 
@@ -1052,21 +1083,45 @@ def main():
                     self.txtfld1.place(x=270, y=170, width=260)
                     self.txtfld1.set(value[0])
                     self.txtfld1.bind("<Button-1>", turn_button)
-                    self.txtfld1.config(state='disabled')
+                    self.txtfld1.config(state='enabled')
+
 
                     self.txtfld2.set(value[1])
 
                     self.txtfld3.set(value[2])
 
+                    # self.txtfld1.config(state='enabled')
+                    # self.txtfld2.config(state='enabled')
+                    # self.txtfld3.config(state='enabled')
+                    # self.txtfld5.config(state='enabled')
+
                     # Needs to Be Edited
 
                     # self.txtfld5.set(value[3])
+
 
                 except:
                     pass
 
                 if len(already_scanned_data) == 0:
                     task()
+
+                def funcx():
+
+
+                    self.btn_scan.destroy()
+                    self.btn_scan = ttk.Button(self.windows, text="SCAN & NEXT", width=20, command=self.scan())
+                    self.btn_scan.place(x=10, y=400, width=180, height=40)
+
+                global after_function
+                after_function=window_user_login_4.after(5000, funcx)
+
+
+
+
+
+
+
 
             def finish(self):
 
@@ -1367,6 +1422,13 @@ def main():
 
             def display(self):
 
+                if after_function:
+                    window_user_login_4.after_cancel(after_function)
+
+
+
+
+
                 datax = already_scanned_data
 
                 def selectItem(a):
@@ -1539,6 +1601,16 @@ def main():
                         self.lbx.destroy()
                         self.btn_quit.destroy()
                         self.back.destroy()
+
+                        def funcx():
+
+                            self.btn_scan.destroy()
+                            self.btn_scan = ttk.Button(self.windows, text="SCAN & NEXT", width=20, command=self.scan())
+                            self.btn_scan.place(x=10, y=400, width=180, height=40)
+
+                        global after_function
+                        after_function = window_user_login_4.after(5000, funcx)
+
 
                     else:
                         pass
