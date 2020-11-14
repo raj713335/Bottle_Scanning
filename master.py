@@ -75,7 +75,7 @@ def Read():
         return (Bottle)
 
     except:
-        return (["ZX","DF","SA"])
+        return (["EXP","LOT","GTIN"])
 
 
 
@@ -361,7 +361,7 @@ def main():
                 self.lb3 = tk.Label(window, text="GTIN", font=("Helvetica", 10), bg='#EFEFEF')
                 self.lb3.place(x=60, y=240)
 
-                self.txtfld3 = ttk.Entry(window, text="Enter UID", font=("Helvetica", 10))
+                self.txtfld3 = ttk.Entry(window, text="GTIN", font=("Helvetica", 10))
                 self.txtfld3.place(x=270, y=240, width=260)
                 self.txtfld3.insert(0, gstin)
 
@@ -384,52 +384,64 @@ def main():
 
 
 
-                self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.reset)
+                self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.scan)
                 self.btn_quit.place(x=60, y=380, width=160, height=40)
 
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
                 self.btn_next.place(x=370, y=380, width=160, height=40)
 
-                def scan():
-                    print("bar code scanning test area")
+            def scan(self):
+                print("bar code scanning test area")
 
-                    value=Read()
-                    print(value)
+                value=Read()
+                print(value)
 
-                    try:
 
-                        print(value[0])
+                a1 = value[0]
 
-                        def turn_button(x=0):
+                c1 = value[2]
 
-                            self.txtfld1.destroy()
-                            self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
-                                                     date_pattern='y-mm-dd', anchor='center')
-                            self.txtfld1.place(x=270, y=140, width=260)
+
+
+                b1 = value[1]
+
+                total = ""
+                total_bottles = ""
+
+                try:
+
+                    print(value[0])
+
+                    def turn_button(x=0):
 
                         self.txtfld1.destroy()
-                        self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
+                        self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
+                                                 date_pattern='y-mm-dd', anchor='center')
                         self.txtfld1.place(x=270, y=140, width=260)
-                        self.txtfld1.set(value[0])
-                        self.txtfld1.bind("<Button-1>", turn_button)
 
-                        self.txtfld2.delete(0, len(self.txtfld2.get()))
-                        self.txtfld2.insert(0, value[1])
+                    self.txtfld1.destroy()
+                    self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
+                    self.txtfld1.place(x=270, y=140, width=260)
+                    self.txtfld1.set(value[0])
+                    self.txtfld1.bind("<Button-1>", turn_button)
 
-                        self.txtfld3.delete(0, len(self.txtfld3.get()))
-                        self.txtfld3.insert(0, value[2])
+                    self.txtfld2.delete(0, len(self.txtfld2.get()))
+                    self.txtfld2.insert(0, value[1])
 
-
-
-                    except:
-                        pass
-
-                    window_user_login_2.after(10, scan)
+                    self.txtfld3.delete(0, len(self.txtfld3.get()))
+                    self.txtfld3.insert(0, value[2])
 
 
 
+                except:
+                    pass
 
-                window_user_login_2.after(10, scan)
+
+
+
+
+
+
 
 
             '''
