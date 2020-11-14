@@ -54,7 +54,9 @@ def Read():
                 print('no data')
             time.sleep(1)
         decode = data
-        # print decode
+
+        print(decode)
+
         if decode[0:3] == '(01':
             GTIN = gtin = decode[3:17]
             # print 'GTIN:',gtin
