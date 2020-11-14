@@ -24,7 +24,8 @@ import sys
 
 
 
-
+already_scanned_data=[]
+scanned_serial=[]
 
 
 
@@ -900,10 +901,9 @@ def main():
 
 
 
-                scanned_data=[]
-                scanned_serial = []
 
-                stringx=scanned_data
+
+                stringx=already_scanned_data
 
                 self.stringc = stringx
                 self.windows = window
@@ -981,7 +981,7 @@ def main():
                 self.txtfld5.set(e1)
                 self.txtfld5.config(state='disabled')
 
-                self.btn_back = ttk.Button(window, text="SCAN", width=20, command=self.back)
+                self.btn_back = ttk.Button(window, text="SCAN", width=20, command=self.scan)
                 self.btn_back.place(x=10, y=400, width=180, height=40)
 
                 self.btn_next = ttk.Button(window, text="FINSIH", width=20,command=self.finish)
@@ -1018,11 +1018,11 @@ def main():
                         self.txtfld1.destroy()
                         self.txtfld1 = DateEntry(self.windows, font=("Helvetica", 10), state='readonly',
                                                  date_pattern='y-mm-dd', anchor='center')
-                        self.txtfld1.place(x=270, y=140, width=260)
+                        self.txtfld1.place(x=270, y=170, width=260)
 
                     self.txtfld1.destroy()
                     self.txtfld1 = ttk.Combobox(self.windows, font=("Helvetica", 10), state='readonly')
-                    self.txtfld1.place(x=270, y=160, width=260)
+                    self.txtfld1.place(x=270, y=170, width=260)
                     self.txtfld1.set(value[0])
                     self.txtfld1.bind("<Button-1>", turn_button)
 
@@ -1037,19 +1037,21 @@ def main():
 
                     def task():
 
+                        print("Starting Task Funnction")
+
                         self.txtfld00.set(str(len(scanned_data)))
                         self.txtfld02.set(str((len(scanned_data) + 1) // int(f1)))
 
                         def validatex():
 
-                            flag = True
+
 
                             # led.off()
 
                             if (str(self.txtfld5.get()) not in scanned_serial):
 
                                 e3 = (str(self.txtfld5.get()))
-                                self.txtfld5.config(state='disabled')
+                                self.txtfld5.config(state='enabled')
 
 
                             else:
@@ -1163,18 +1165,24 @@ def main():
 
                                 return (0)
 
-                            if flag == True:
-                                scanned_data.append([a3, b3, c3, e3])
-                                scanned_serial.append(e3)
 
-                                return (0)
+                            already_scanned_data.append([a3, b3, c3, e3])
+                            scanned_serial.append(e3)
+
+
+                        print("Starting Validating Funnction")
 
                         validatex()
 
-                        return (0)
+
+
+
 
 
                     task()
+
+                    print("Already Scanned Data")
+                    print(already_scanned_data)
 
 
 
