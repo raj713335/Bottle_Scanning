@@ -70,12 +70,19 @@ def Read():
                     aedecode = asdecode[8:len(asdecode)]
                     LOT = aedecode[2:aedecode.index('\r')]
                     # print 'LOT:',LOT
+                    EXP = '20' + EXP[0:2] + '-' + EXP[
+                                                  2:4] + '-' + EXP[
+                                                               4:6]
                     Bottle = [GTIN, EXP, LOT]
 
         return (Bottle)
 
     except:
-        return (["EXP","LOT","GTIN"])
+        EXP="210831"
+        EXP = '20' + EXP[0:2] + '-' + EXP[
+                                      2:4] + '-' + EXP[
+                                                   4:6]
+        return ([EXP,"FX000563","00307815988012"])
 
 
 
@@ -235,7 +242,7 @@ def main():
     The bulk data page after the login  validation is succesful that asked user to enter few data like total bottles and
             bottles per carate etc
     '''
-    def user_login_2(a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),user_name=str(0),f1=str(0)):
+    def user_login_2(a1=str(""),b1=str(""),c1=str(""),d1=str(""),e1=str(""),a2=str(""),b2=str(""),c2=str(""),d2=str(""),e2=str(""),user_name=str(0),f1=str("")):
         class User_2():
 
 
@@ -250,73 +257,14 @@ def main():
 
                 self.windows=window
 
-                # with open('DATA/Scanning/data.txt', 'r') as fh:
-                #     all_lines = fh.readlines()
-                #     for each in all_lines:
-                #         string = str(each)
-                #
-                # if a1 == str(0):
-                #     date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-                #     string = string.replace(date_x[0], "")
-                #     try:
-                #         date_x = date_x[0]
-                #     except:
-                #         date_x = ''
-                #     date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
-                # else:
-                #     date_x = a1
-                #
-                # if c1 == str(0):
-                #     gstin = re.findall('01[0-9]{14}', string)
-                #     string = string.replace(gstin[0], '')
-                #     try:
-                #         gstin = gstin[0][2:]
-                #     except:
-                #         gstin = ''
-                # else:
-                #     gstin = c1
-                #
-                # if b1 == str(0):
-                #     lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
-                #     string = string.replace(lot[0], '')
-                #     try:
-                #         lot = str(lot[0]).replace('', "")
-                #         lot = lot.replace('10', '')
-                #     except:
-                #         lot = ''
-                # else:
-                #     lot = b1
-                #
-                # if d1 == str(0):
-                #     total = ""
-                # else:
-                #     total = d1
-                #
-                # if f1 == str(0):
-                #     total_bottles = ""
-                # else:
-                #     total_bottles = f1
-                #
-                # if e1 == str(0):
-                #     serial = re.findall(r'21[0-9]*', string)
-                #     try:
-                #         serial = serial[0][2:-1]
-                #     except:
-                #         serial = ''
-                # else:
-                #     serial = e1
 
-                date_x=""
-                a1=date_x
-                gstin = ""
-                c1=gstin
-                serial=""
-                e1=serial
-                lot=""
-                b1=lot
+                date_x=a1
+                lot=b1
+                gstin = c1
 
-                total=""
-                total_bottles=""
+                total=d1
+                total_bottles=f1
+
 
 
 
@@ -384,7 +332,7 @@ def main():
 
 
 
-                self.btn_quit = ttk.Button(window, text="RESET", width=20, command=self.scan)
+                self.btn_quit = ttk.Button(window, text="SCAN", width=20, command=self.scan)
                 self.btn_quit.place(x=60, y=380, width=160, height=40)
 
                 self.btn_next = ttk.Button(window, text="NEXT", width=20, command=self.validate)
@@ -397,16 +345,6 @@ def main():
                 print(value)
 
 
-                a1 = value[0]
-
-                c1 = value[2]
-
-
-
-                b1 = value[1]
-
-                total = ""
-                total_bottles = ""
 
                 try:
 
@@ -619,6 +557,7 @@ def main():
             '''
             reset function to clear all fields
             '''
+
             def reset(self):
 
                 def turn_button(x=0):
@@ -680,7 +619,7 @@ def main():
     The repacking data page after proper data entered in bulk data page and validating them if they are correctly entered
            
     '''
-    def user_login_3(user_name=str(0),a1=str(0),b1=str(0),c1=str(0),d1=str(0),e1=str(0),a2=str(0),b2=str(0),c2=str(0),d2=str(0),e2=str(0),f1=str(0)):
+    def user_login_3(user_name=str(""),a1=str(""),b1=str(""),c1=str(""),d1=str(""),e1=str(""),a2=str(""),b2=str(""),c2=str(""),d2=str(""),e2=str(""),f1=str("")):
 
 
 
@@ -695,56 +634,20 @@ def main():
 
                 self.windows=window
 
-                with open('DATA/Scanning/data.txt', 'r') as fh:
-                    all_lines = fh.readlines()
-                    for each in all_lines:
-                        string = str(each)
-
-                if a2 == str(0):
-                    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-                    string = string.replace(date_x[0], "")
-                    try:
-                        date_x = date_x[0]
-                    except:
-                        date_x = ''
-                    date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+                if a2=="":
+                    date_x=a1
                 else:
-                    date_x = a2
+                    date_x=a2
 
-                if c2 == str(0):
-                    gstin = re.findall('01[0-9]{14}', string)
-                    string = string.replace(gstin[0], '')
-                    try:
-                        gstin = gstin[0][2:]
-                    except:
-                        gstin = ''
+                if b2=="":
+                    lot=b1
                 else:
-                    gstin = c2
+                    lot=b2
 
-                if b2 == str(0):
-                    lot = re.findall('10[A-Za-z]{2}[0-9]*', string)
-                    string = string.replace(lot[0], '')
-                    try:
-                        lot = str(lot[0]).replace('', "")
-                        lot = lot.replace('10', '')
-                    except:
-                        lot = ''
+                if c2=="":
+                    gstin=c1
                 else:
-                    lot = b2
-
-                if d2 == str(0):
-                    total = ""
-                else:
-                    total = d2
-
-                if e2 == str(0):
-                    serial = re.findall(r'21[0-9]*', string)
-                    try:
-                        serial = serial[0][2:-1]
-                    except:
-                        serial = ''
-                else:
-                    serial = e2
+                    gstin=c2
 
 
                 def turn_button(x=0):
@@ -797,14 +700,14 @@ def main():
                 self.lb4 = tk.Label(window, text="Total Bottles", font=("Helvetica", 10), bg='#EFEFEF')
 
 
-                self.txtfld4 = ttk.Entry(window,
-                                         font=("Helvetica", 10))
-                self.txtfld4.insert(0, d1)
+                # self.txtfld4 = ttk.Entry(window,
+                #                          font=("Helvetica", 10))
+                # self.txtfld4.insert(0, d1)
 
-                self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
-                self.txtfld5 = ttk.Entry(window,
-                                         font=("Helvetica", 10))
-                self.txtfld5.insert(0, serial)
+                # self.lb5 = tk.Label(window, text="Serial Number", font=("Helvetica", 10), bg='#EFEFEF')
+                # self.txtfld5 = ttk.Entry(window,
+                #                          font=("Helvetica", 10))
+                # self.txtfld5.insert(0, serial)
 
                 self.btn_back = ttk.Button(window, text="BACK", width=20, command=self.back)
                 self.btn_back.place(x=60, y=380, width=130, height=40)
@@ -820,8 +723,8 @@ def main():
                 a2 = (str(self.txtfld1.get()))
                 b2 = (str(self.txtfld2.get()))
                 c2 = (str(self.txtfld3.get()))
-                d2 = (str(self.txtfld4.get()))
-                e2 = (str(self.txtfld5.get()))
+                # d1 = (str(self.txtfld4.get()))
+                # e2 = (str(self.txtfld5.get()))
 
 
                 window_user_login_3.destroy()
