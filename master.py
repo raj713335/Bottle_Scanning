@@ -1005,7 +1005,7 @@ def main():
                             # GPIO.output(17, GPIO.HIGH)  # Turn on
 
                             messagebox.showwarning("Warning",
-                                                   "Batch Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
+                                                   "Serial Number Number must be aplhanumeric and should not contain any special characters. Please change Batch Number")
                             self.txtfld5.config(state='enabled')
                             # sleep(1)  # Sleep for 1 second
                             # GPIO.output(17, GPIO.LOW)
@@ -1124,6 +1124,41 @@ def main():
 
 
             def finish(self):
+
+                def back():
+
+                    MsgBox = tk.messagebox.askquestion('Warning',
+                                                       'Start Scanning Again ?',
+                                                       icon='warning')
+                    if MsgBox == 'yes':
+                        tree.destroy()
+                        self.lbx.destroy()
+                        self.btn_quit.destroy()
+                        self.back.destroy()
+
+                        def funcx():
+
+                            self.btn_scan.destroy()
+                            self.btn_scan = ttk.Button(self.windows, text="SCAN & NEXT", width=20, command=self.scan())
+                            self.btn_scan.place(x=10, y=400, width=180, height=40)
+
+                        global after_function
+                        after_function = window_user_login_4.after(5000, funcx)
+
+
+                    else:
+                        pass
+
+                self.back = ttk.Button(self.windows, text="SCAN AGAIN", width=20, command=back)
+                self.back.place(x=10, y=400, width=180, height=40)
+
+
+
+
+                if after_function:
+                    window_user_login_4.after_cancel(after_function)
+
+
 
                 def selectItem(a):
                     curItem = tree.focus()
@@ -1560,6 +1595,7 @@ def main():
                                             print('selected_item--->', selected_item)
                                             print(int(str(selected_item)[-1])-1)
                                             del already_scanned_data[int(str(selected_item)[-1])-1-iter]
+                                            del scanned_serial[int(str(selected_item)[-1])-1-iter]
                                             iter+=1
 
 
