@@ -27,7 +27,7 @@ for string in list:
 
     print(string)
 
-    serial = re.findall(r'^21([A-Za-z]|[0-9])*$', string)
+    serial = re.findall(r'21([a-zA-Z]|[0-9])*', string)
     print(serial)
     serial = serial[0][2:-1]
 
