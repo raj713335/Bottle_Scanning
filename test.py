@@ -6,7 +6,7 @@ list=['010036787714601021TK3C1RXC874HNY21722093010S001192','01003680250663032
 
 for string in list:
 
-    #string=string.replace("","")
+    string=string.replace("","")
 
     date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
     date_x=date_x[0]
@@ -20,17 +20,23 @@ for string in list:
     gstin = gstin[0][2:]
 
 
-    lot = re.findall('10[A-Za-z0-9]*', string)
+    lot = re.findall('10[A-Za-z0-9]*[^(21)]', string)
     string = string.replace(lot[0], '')
 
 
     lot = str(lot[0]).replace('', "")
     lot = lot.replace('10', '')
 
+    string=string.replace(lot,"")
 
-    serial = re.findall(r'21[a-zA-Z0-9]*', string)
-    print(serial)
-    serial=serial[0]
+
+    serial = re.findall(r'21[a-zA-Z0-9]*[^(10)]', string)
+
+    if len(serial)==0:
+        serial = re.findall(r'21[a-zA-Z0-9]*', string)
+
+
+    serial=serial[0][2:]
 
 
     print([date_x,gstin,lot,serial])
