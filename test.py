@@ -52,18 +52,20 @@ for string in list:
 
 
     after_serial = []
+    #print(after_gstin)
     for j in range(len(after_lot)):
         serial = re.findall(r'21[a-zA-Z0-9]*', after_lot[j])
 
 
         if len(serial) > 0:
-            serial=serial[0]
+            serial=serial[0][2:]
+            bottle.append(serial)
             temp = after_lot[j].split(serial[0])
             after_serial.extend(temp)
         else:
             after_serial.append(after_lot[j])
 
-    print(after_serial)
+
 
 
 
