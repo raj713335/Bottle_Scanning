@@ -17,6 +17,7 @@ for string in list:
 
 
     string=string.split(date_x)
+    print(string)
     date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
     bottle.append(date_x)
 
@@ -40,7 +41,7 @@ for string in list:
 
     after_lot = []
     for j in range(len(after_gstin)):
-        lot = re.findall('10[A-Za-z0-9-]**', after_gstin[j])
+        lot = re.findall('10[A-Za-z0-9-]*', after_gstin[j])
 
 
         if len(lot)>0:
@@ -56,6 +57,8 @@ for string in list:
     #print(after_gstin)
 
     print(after_lot)
+    after_lot="".join(after_lot)
+    print(after_lot)
 
     serial = re.findall(r'21[a-zA-Z0-9]*', max(after_lot))
 
@@ -65,3 +68,4 @@ for string in list:
         bottle.append(serial)
 
 
+    print(bottle)
