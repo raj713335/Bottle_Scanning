@@ -36,10 +36,11 @@ for string in list:
         else:
             after_gstin.append(string[i])
 
+    #print(after_gstin)
 
     after_lot = []
     for j in range(len(after_gstin)):
-        lot = re.findall('10[A-Za-z0-9]*', after_gstin[j])
+        lot = re.findall('10[A-Za-z0-9-]**', after_gstin[j])
 
 
         if len(lot)>0:
@@ -53,25 +54,14 @@ for string in list:
 
     after_serial = []
     #print(after_gstin)
-    for j in range(len(after_lot)):
-        serial = re.findall(r'21[a-zA-Z0-9]*', after_lot[j])
+
+    print(after_lot)
+
+    serial = re.findall(r'21[a-zA-Z0-9]*', max(after_lot))
 
 
-        if len(serial) > 0:
-            serial=serial[0][2:]
-            bottle.append(serial)
-            temp = after_lot[j].split(serial[0])
-            after_serial.extend(temp)
-        else:
-            after_serial.append(after_lot[j])
+    if len(serial) > 0:
+        serial=serial[0][2:]
+        bottle.append(serial)
 
 
-
-
-
-
-
-
-
-
-    print(bottle)
