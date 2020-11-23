@@ -8,9 +8,7 @@ list=['010036787714601021TK3C1RXC874HNY21722093010S001192','01003680250663032
 
 for string in list:
 
-    lot = ""
-    serial = ""
-    gtin = ""
+    bottle=[]
 
     string=string.replace("","")
 
@@ -20,6 +18,7 @@ for string in list:
 
     string=string.split(date_x)
     date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+    bottle.append(date_x)
 
 
     after_gstin=[]
@@ -30,7 +29,8 @@ for string in list:
 
 
         if len(gstin)>0:
-            gstin = gstin[0]
+            gstin = gstin[0][2:]
+            bottle.append(gstin)
             temp=string[i].split(gstin[0])
             after_gstin.extend(temp)
         else:
@@ -44,6 +44,7 @@ for string in list:
 
         if len(lot)>0:
             lot=lot[0][2:]
+            bottle.append(lot)
             temp = after_gstin[j].split(lot[0])
             after_lot.extend(temp)
         else:
@@ -62,10 +63,13 @@ for string in list:
         else:
             after_serial.append(after_lot[j])
 
+    print(after_serial)
 
 
 
 
 
 
-    print([date_x,gstin,lot,serial])
+
+
+    print(bottle)
