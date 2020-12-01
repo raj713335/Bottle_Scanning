@@ -28,57 +28,57 @@ global after_function
 def Read():
     print("hello")
 
-    import time
-    import serial
+    try:
 
-    Bottle = []
-    z1serial = serial.Serial('/dev/ttyUSB0', 115200)
-    temp = 0
-    while True:
-        size = z1serial.inWaiting()
-        if size:
-            data = z1serial.read(size)
-            data = data.decode()
-            print(data)
-            if '\r' in data:
-                break
-        else:
-            print('no data')
-            if temp > 40:
-                return 0
+        import time
+        import serial, string
+        import RPi.GPIO as IO
+
+        Bottle = []
+        z1serial = serial.Serial('/dev/ttyUSB0', 115200)
+        while True:
+            size = z1serial.inWaiting()
+            if size:
+                data = z1serial.read(size)
+                data = data.decode()
+                print(data)
+                if '\r' in data:
+                    break
             else:
-                temp += 1
-        time.sleep(1)
-    decode = data
+                print('no data')
+            time.sleep(1)
+        decode = data
 
-    print(decode)
-    string = decode.replace('(', '')
-    print('decode--->', string)
+        print(decode)
 
-    date_x = re.findall('17[2]{1}[0-9]{1}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}', string)
-    date_x = date_x[0]
+        if decode[0:3] == '(01':
+            GTIN = gtin = decode[3:17]
+            # print 'GTIN:',gtin
+            agdecode = decode[17:len(decode)]
+            if agdecode[0:2] == '21':
+                SN = agdecode[2:agdecode.index('\x1d')]
+                # print 'SN:',SN
+                asdecode = agdecode[len(SN) + 3:len(agdecode)]
 
-    string = string.replace(date_x, "")
-    date_x = '20' + date_x[2:4] + '-' + date_x[4:6] + '-' + date_x[6:8]
+                if asdecode[0:2] == '17':
+                    EXP = asdecode[2:8]
+                    # print 'EXP:',EXP
+                    aedecode = asdecode[8:len(asdecode)]
+                    LOT = aedecode[2:aedecode.index('\r')]
+                    # print 'LOT:',LOT
+                    EXP = '20' + EXP[0:2] + '-' + EXP[
+                                                  2:4] + '-' + EXP[
+                                                               4:6]
+                    Bottle = [GTIN, EXP, LOT]
 
-    gstin = re.findall('01[0-9]{14}', string)
+        return (Bottle)
 
-    string = string.replace(gstin[0], '')
-    gstin = gstin[0][2:]
-
-    serial = re.findall(r'21.+?', string)
-    print(serial)
-    serial = serial[0][2:]
-    serial = serial.strip('')
-    string = string.replace(serial, '')
-
-    lot = re.findall('10.+', string)
-    string = string.replace(lot[0], '')
-    lot = str(lot[0]).replace('', "").replace('\r', "")
-    lot = lot.replace('10', '')
-    Bottle = [date_x, lot, gstin, serial]
-
-    return (Bottle)
+    except:
+        EXP = "210831"
+        EXP = '20' + EXP[0:2] + '-' + EXP[
+                                      2:4] + '-' + EXP[
+                                                   4:6]
+        return ([EXP, "FX000563", "00307815988012"])
 
 
 class CreateToolTip(object):
@@ -160,7 +160,7 @@ def main():
                 self.PWD = []
 
                 '''read username and password from text file stored in DATA/PRIVATE/passkey.txt'''
-                with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                with open('../../PRIVATE/passkey.txt', 'r') as fh:
                     all_lines = fh.readlines()
                     for each in all_lines:
                         x, y = list(map(str, each.split(",")))
@@ -255,7 +255,7 @@ def main():
                                              date_pattern='y-mm-dd', anchor='center')
                     self.txtfld1.place(x=270, y=140, width=260)
 
-                load = cv2.imread('DATA/IMAGES/bottle.png', 1)
+                load = cv2.imread('../bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
                 load = Image.fromarray(cv2imagex1)
                 load = load.resize((int(100), int(110)), Image.ANTIALIAS)
@@ -571,7 +571,7 @@ def main():
                                              anchor='center')
                     self.txtfld1.place(x=270, y=160, width=260)
 
-                load = cv2.imread('DATA/IMAGES/bottle.png', 1)
+                load = cv2.imread('../bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
                 load = Image.fromarray(cv2imagex1)
                 load = load.resize((int(100), int(110)), Image.ANTIALIAS)
@@ -632,7 +632,6 @@ def main():
                 print("bar code scanning test area")
 
                 value = Read()
-                
                 print(value)
 
                 try:
@@ -788,7 +787,9 @@ def main():
 
     def user_login_4(user_name=str(0), a1=str(0), b1=str(0), c1=str(0), d1=str(0), e1=str(0), a2=str(0), b2=str(0),
                      c2=str(0), d2=str(0),
-                     e2=str(0), id=str(0), limit=str(0), scanned_data=str(0), f1=str(0)):
+                    e2=str(0), id=str(0), limit=str(0), scanned_data=str(0), f1=str(0)):
+
+
 
         class User_4():
 
@@ -799,7 +800,7 @@ def main():
                 self.stringc = stringx
                 self.windows = window
 
-                load = cv2.imread('DATA/IMAGES/bottle.png', 1)
+                load = cv2.imread('../bottle.png', 1)
                 cv2imagex1 = cv2.cvtColor(load, cv2.COLOR_BGR2RGBA)
                 load = Image.fromarray(cv2imagex1)
                 load = load.resize((int(100), int(110)), Image.ANTIALIAS)
@@ -881,6 +882,8 @@ def main():
                 function to scan data and store them in a variable and validate data to check if they are in correct format or not
                 '''
 
+
+
             def scan(self):
 
                 print("Already Scanned Data")
@@ -891,6 +894,7 @@ def main():
                     print("Starting Task Funnction")
 
                     def validatex():
+
 
                         self.txtfld1.config(state='disabled')
                         self.txtfld2.config(state='disabled')
@@ -1038,24 +1042,30 @@ def main():
                         self.txtfld3.config(state='enabled')
                         self.txtfld5.config(state='enabled')
 
+
+
+
                     print("Starting Validating Funnction")
 
                     validatex()
 
+                if len(already_scanned_data) > 0:
+                    task()
+
                 print("bar code scanning test area")
+
 
                 value = Read()
                 print(value)
-                
-                if len(already_scanned_data) > 0 and value != 0:
-                    task()
-                
+
                 # if len(already_scanned_data)>0:
                 #     while already_scanned_data[-1]==[str(self.txtfld1.get()), str(self.txtfld2.get()), str(self.txtfld3.get()),
                 #              str(self.txtfld5.get())]:
                 #
                 #         time.sleep(2)
                 #         value = Read()
+
+
 
                 try:
 
@@ -1075,6 +1085,7 @@ def main():
                     self.txtfld1.bind("<Button-1>", turn_button)
                     self.txtfld1.config(state='enabled')
 
+
                     self.txtfld2.set(value[1])
 
                     self.txtfld3.set(value[2])
@@ -1086,7 +1097,7 @@ def main():
 
                     # Needs to Be Edited
 
-                    self.txtfld5.set(value[3])
+                    # self.txtfld5.set(value[3])
 
 
                 except:
@@ -1097,12 +1108,20 @@ def main():
 
                 def funcx():
 
+
                     self.btn_scan.destroy()
                     self.btn_scan = ttk.Button(self.windows, text="SCAN & NEXT", width=20, command=self.scan())
                     self.btn_scan.place(x=10, y=400, width=180, height=40)
 
                 global after_function
-                after_function = window_user_login_4.after(5000, funcx)
+                after_function=window_user_login_4.after(5000, funcx)
+
+
+
+
+
+
+
 
             def finish(self):
 
@@ -1133,8 +1152,13 @@ def main():
                 self.back = ttk.Button(self.windows, text="SCAN AGAIN", width=20, command=back)
                 self.back.place(x=10, y=400, width=180, height=40)
 
+
+
+
                 if after_function:
                     window_user_login_4.after_cancel(after_function)
+
+
 
                 def selectItem(a):
                     curItem = tree.focus()
@@ -1251,7 +1275,7 @@ def main():
                                                 self.UID = []
                                                 self.PWD = []
 
-                                                with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                                with open('../../PRIVATE/passkey.txt', 'r') as fh:
                                                     all_lines = fh.readlines()
                                                     for each in all_lines:
                                                         x, y = list(map(str, each.split(",")))
@@ -1436,6 +1460,10 @@ def main():
                 if after_function:
                     window_user_login_4.after_cancel(after_function)
 
+
+
+
+
                 datax = already_scanned_data
 
                 def selectItem(a):
@@ -1524,7 +1552,7 @@ def main():
                                     self.UID = []
                                     self.PWD = []
 
-                                    with open('DATA/PRIVATE/passkey.txt', 'r') as fh:
+                                    with open('../../PRIVATE/passkey.txt', 'r') as fh:
                                         all_lines = fh.readlines()
                                         for each in all_lines:
                                             x, y = list(map(str, each.split(",")))
@@ -1561,14 +1589,15 @@ def main():
                                 def validate(self):
                                     if (str(self.txtfld1.get()) in self.UID) and (
                                             str(self.txtfld2.get()) in self.PWD):
-                                        iter = 0
+                                        iter=0
                                         for selected_item in tree.selection():
                                             tree.delete(selected_item)
                                             print('selected_item--->', selected_item)
-                                            print(int(str(selected_item)[-1]) - 1)
-                                            del already_scanned_data[int(str(selected_item)[-1]) - 1 - iter]
-                                            del scanned_serial[int(str(selected_item)[-1]) - 1 - iter]
-                                            iter += 1
+                                            print(int(str(selected_item)[-1])-1)
+                                            del already_scanned_data[int(str(selected_item)[-1])-1-iter]
+                                            del scanned_serial[int(str(selected_item)[-1])-1-iter]
+                                            iter+=1
+
 
                                         window_user_login.destroy()
 
@@ -1666,6 +1695,3 @@ if __name__ == '__main__':
     '''
     main()
 
-'''
-0100360505009503218965081722113010PV5665
-'''
